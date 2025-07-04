@@ -10,6 +10,10 @@ COPY packages/scratch-gui/package*.json ./packages/scratch-gui/
 COPY packages/scratch-vm/package*.json ./packages/scratch-vm/
 COPY packages/scratch-render/package*.json ./packages/scratch-render/
 COPY packages/scratch-svg-renderer/package*.json ./packages/scratch-svg-renderer/
+
+# Copy scripts directory that contains prepare.mjs needed for npm install
+COPY packages/scratch-gui/scripts ./packages/scratch-gui/scripts/
+
 RUN npm install
 
 # Copy the rest of the source code
