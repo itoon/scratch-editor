@@ -454,8 +454,8 @@ class MenuBar extends React.Component {
                                     [styles.clickable]: typeof this.props.onClickLogo !== 'undefined'
                                 })}
                                 draggable={false}
-                                src={getScratchLogo(this.props.platform)}
-                                onClick={this.props.onClickLogo}
+                                src="https://codeventure.app/logo.svg"
+                                style={{backgroundColor: 'white', padding: '4px 8px'}}
                             />
                         </div>
                         {(this.props.canChangeColorMode || this.props.canChangeLanguage || this.props.canChangeTheme) &&
@@ -857,7 +857,7 @@ class MenuBar extends React.Component {
                         <React.Fragment>
                             {this.props.showComingSoon ? (
                                 <React.Fragment>
-                                    <MenuBarItemTooltip id="mystuff">
+                                    {/* <MenuBarItemTooltip id="mystuff">
                                         <div
                                             className={classNames(
                                                 styles.menuBarItem,
@@ -870,7 +870,7 @@ class MenuBar extends React.Component {
                                                 src={mystuffIcon}
                                             />
                                         </div>
-                                    </MenuBarItemTooltip>
+                                    </MenuBarItemTooltip> */}
                                     <MenuBarItemTooltip
                                         id="account-nav"
                                         place={this.props.isRtl ? 'right' : 'left'}
@@ -884,15 +884,16 @@ class MenuBar extends React.Component {
                                         >
                                             <img
                                                 className={styles.profileIcon}
-                                                src={profileIcon}
+                                                // src={profileIcon}
+                                                src="https://codeventure.app/student-avatar/art-toy/01-default.svg"
                                             />
                                             <span>
-                                                {'scratch-cat'}
+                                                {'CodeVenture-Beta'}
                                             </span>
-                                            <img
+                                            {/* <img
                                                 className={styles.dropdownCaretIcon}
                                                 src={dropdownCaret}
-                                            />
+                                            /> */}
                                         </div>
                                     </MenuBarItemTooltip>
                                 </React.Fragment>
