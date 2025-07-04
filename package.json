@@ -36,5 +36,8 @@
     "husky": "8.0.3",
     "npm": "10.9.3",
     "ts-node": "10.9.2"
+  },
+  "dependencies": {
+    "cosmiconfig": "^9.0.0"
   }
 }
