@@ -19,7 +19,16 @@ RUN npm install
 # Copy the rest of the source code
 COPY . .
 
-# Build the GUI (adjust if your build command is different)
+# Build the dependencies before building the GUI
+WORKDIR /app/packages/scratch-vm
+RUN npm run build
+
+WORKDIR /app/packages/scratch-render
+RUN npm run build
+
+WORKDIR /app/packages/scratch-svg-renderer
+RUN npm run build
+
 WORKDIR /app/packages/scratch-gui
 RUN npm run build
 
