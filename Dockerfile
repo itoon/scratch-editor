@@ -19,18 +19,20 @@ RUN npm install
 # Copy the rest of the source code
 COPY . .
 
-# Build the dependencies before building the GUI
-WORKDIR /app/packages/scratch-vm
+# Build the dependencies in the correct order before building the GUI
+WORKDIR /app/packages/scratch-svg-renderer
 RUN npm run build
 
 WORKDIR /app/packages/scratch-render
 RUN npm run build
 
-WORKDIR /app/packages/scratch-svg-renderer
+WORKDIR /app/packages/scratch-vm
 RUN npm run build
 
 WORKDIR /app/packages/scratch-gui
 RUN npm run build
+RUN npm link
+RUN npm link scratch-gui
 
 # --- Production image ---
 FROM node:18-slim
