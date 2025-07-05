@@ -74,6 +74,49 @@ export const CATEGORIES = {
 
 export default {
 
+    'intro-move-sayhello-2': {
+        name: 'CodeVenture Intro',
+        tags: ['help', 'stuck', 'how', 'can', 'say'],
+        category: CATEGORIES.gettingStarted,
+        img: libraryIntro,
+        steps: [{
+            video: 'intro-move-sayhello'
+        }, {
+            title: (
+                <FormattedMessage
+                    defaultMessage="Add a move block"
+                    description="Step name for 'Add a move block' step"
+                    id="gui.howtos.intro-move.step_stepMove"
+                />
+            ),
+            image: 'introMove'
+        }, {
+            title: (
+                <FormattedMessage
+                    defaultMessage="Add a say block"
+                    description="Step name for 'Add A Say Block' step"
+                    id="gui.howtos.add-a-move-block.step_stepSay"
+                />
+            ),
+            image: 'introSay'
+        }, {
+            title: (
+                <FormattedMessage
+                    defaultMessage="Click the green flag to start"
+                    description="Step name for 'Add A Green Flag' step"
+                    id="gui.howtos.add-a-move-block.step_stepGreenFlag"
+                />
+            ),
+            image: 'introGreenFlag'
+        }, {
+            deckIds: [
+                'add-a-backdrop',
+                'add-sprite'
+            ]
+        }
+        ],
+        urlId: 'getStarted'
+    },
     'intro-move-sayhello': {
         name: (
             <FormattedMessage
