@@ -1,11 +1,75 @@
 [
     {
-        "name": "Abby",
-        "tags": [
-            "people",
-            "person",
-            "drawing"
+        "isStage": false,
+        "name": "Codi",
+        "variables": {},
+        "lists": {},
+        "broadcasts": {},
+        "blocks": {},
+        "comments": {},
+        "currentCostume": 0,
+        "costumes": [
+            {
+                "name": "Codi-1",
+                "bitmapResolution": 2,
+                "dataFormat": "png",
+                "assetId": "d872b4650815653e5fde87576aaf0183",
+                "md5ext": "d872b4650815653e5fde87576aaf0183.png",
+                "rotationCenterX": 256,
+                "rotationCenterY": 257
+            },
+            {
+                "name": "Codi-2",
+                "bitmapResolution": 2,
+                "dataFormat": "png",
+                "assetId": "9c25a102a2d8c7dc0c0760f2744afff5",
+                "md5ext": "9c25a102a2d8c7dc0c0760f2744afff5.png",
+                "rotationCenterX": 256,
+                "rotationCenterY": 256
+            },
+            {
+                "name": "Codi-3",
+                "bitmapResolution": 2,
+                "dataFormat": "png",
+                "assetId": "3b3ee5e1383b669b62fe93532889a05d",
+                "md5ext": "3b3ee5e1383b669b62fe93532889a05d.png",
+                "rotationCenterX": 256,
+                "rotationCenterY": 257
+            },
+            {
+                "name": "Codi-4",
+                "bitmapResolution": 2,
+                "dataFormat": "png",
+                "assetId": "25b4694abbf0e2b9a8ab5728b3c0220d",
+                "md5ext": "25b4694abbf0e2b9a8ab5728b3c0220d.png",
+                "rotationCenterX": 256,
+                "rotationCenterY": 256
+            }
         ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "volume": 100,
+        "layerOrder": 3,
+        "visible": true,
+        "x": 0,
+        "y": 0,
+        "size": 40,
+        "direction": 90,
+        "draggable": false,
+        "rotationStyle": "all around"
+    },
+    {
+        "name": "Abby",
+        "tags": ["people", "person", "drawing"],
         "isStage": false,
         "costumes": [
             {
@@ -81,10 +145,7 @@
     },
     {
         "name": "Amon",
-        "tags": [
-            "people",
-            "dance"
-        ],
+        "tags": ["people", "dance"],
         "isStage": false,
         "costumes": [
             {
@@ -220,10 +281,7 @@
     },
     {
         "name": "Anina Dance",
-        "tags": [
-            "people",
-            "dance"
-        ],
+        "tags": ["people", "dance"],
         "isStage": false,
         "costumes": [
             {
@@ -429,12 +487,7 @@
     },
     {
         "name": "Apple",
-        "tags": [
-            "food",
-            "red",
-            "crunchy",
-            "fruit"
-        ],
+        "tags": ["food", "red", "crunchy", "fruit"],
         "isStage": false,
         "costumes": [
             {
@@ -472,12 +525,7 @@
     },
     {
         "name": "Arrow1",
-        "tags": [
-            "icons",
-            "symbols",
-            "game",
-            "right"
-        ],
+        "tags": ["icons", "symbols", "game", "right"],
         "isStage": false,
         "costumes": [
             {
@@ -553,9 +601,7 @@
     },
     {
         "name": "Avery",
-        "tags": [
-            "people"
-        ],
+        "tags": ["people"],
         "isStage": false,
         "costumes": [
             {
@@ -599,10 +645,7 @@
     },
     {
         "name": "Avery Walking",
-        "tags": [
-            "people",
-            "walking"
-        ],
+        "tags": ["people", "walking"],
         "isStage": false,
         "costumes": [
             {
@@ -801,10 +844,7 @@
     },
     {
         "name": "Ballerina",
-        "tags": [
-            "people",
-            "dance"
-        ],
+        "tags": ["people", "dance"],
         "isStage": false,
         "costumes": [
             {
@@ -952,13 +992,7 @@
     },
     {
         "name": "Bananas",
-        "tags": [
-            "food",
-            "yellow",
-            "mushy",
-            "potassium",
-            "fruit"
-        ],
+        "tags": ["food", "yellow", "mushy", "potassium", "fruit"],
         "isStage": false,
         "costumes": [
             {
@@ -1010,12 +1044,7 @@
     },
     {
         "name": "Baseball",
-        "tags": [
-            "baseball",
-            "sports",
-            "ball",
-            "alex eben meyer"
-        ],
+        "tags": ["baseball", "sports", "ball", "alex eben meyer"],
         "isStage": false,
         "costumes": [
             {
@@ -1050,11 +1079,7 @@
     },
     {
         "name": "Basketball",
-        "tags": [
-            "sports",
-            "basketball",
-            "alex eben meyer"
-        ],
+        "tags": ["sports", "basketball", "alex eben meyer"],
         "isStage": false,
         "costumes": [
             {
@@ -1195,12 +1220,7 @@
     },
     {
         "name": "Batter",
-        "tags": [
-            "baseball",
-            "sports",
-            "people",
-            "alex eben meyer"
-        ],
+        "tags": ["baseball", "sports", "people", "alex eben meyer"],
         "isStage": false,
         "costumes": [
             {
@@ -1280,12 +1300,7 @@
     },
     {
         "name": "Beachball",
-        "tags": [
-            "round",
-            "sports",
-            "bounce",
-            "inflatable"
-        ],
+        "tags": ["round", "sports", "bounce", "inflatable"],
         "isStage": false,
         "costumes": [
             {
@@ -1332,11 +1347,7 @@
     },
     {
         "name": "Bear",
-        "tags": [
-            "animals",
-            "ipzy",
-            "walking"
-        ],
+        "tags": ["animals", "ipzy", "walking"],
         "isStage": false,
         "costumes": [
             {
@@ -1384,11 +1395,7 @@
     },
     {
         "name": "Bear-walking",
-        "tags": [
-            "animals",
-            "ipzy",
-            "walking"
-        ],
+        "tags": ["animals", "ipzy", "walking"],
         "isStage": false,
         "costumes": [
             {
@@ -1520,12 +1527,7 @@
     },
     {
         "name": "Beetle",
-        "tags": [
-            "animals",
-            "insect",
-            "bug",
-            "antennae"
-        ],
+        "tags": ["animals", "insect", "bug", "antennae"],
         "isStage": false,
         "costumes": [
             {
@@ -1560,12 +1562,7 @@
     },
     {
         "name": "Bell",
-        "tags": [
-            "music",
-            "holiday",
-            "ring",
-            "things"
-        ],
+        "tags": ["music", "holiday", "ring", "things"],
         "isStage": false,
         "costumes": [
             {
@@ -1615,13 +1612,7 @@
     },
     {
         "name": "Ben",
-        "tags": [
-            "sports",
-            "soccer",
-            "football",
-            "people",
-            "alex eben meyer"
-        ],
+        "tags": ["sports", "soccer", "football", "people", "alex eben meyer"],
         "isStage": false,
         "costumes": [
             {
@@ -2734,10 +2725,7 @@
     },
     {
         "name": "Bowl",
-        "tags": [
-            "thing",
-            "food"
-        ],
+        "tags": ["thing", "food"],
         "isStage": false,
         "costumes": [
             {
@@ -2770,11 +2758,7 @@
     },
     {
         "name": "Bowtie",
-        "tags": [
-            "fashion",
-            "clothing",
-            "bowtie"
-        ],
+        "tags": ["fashion", "clothing", "bowtie"],
         "isStage": false,
         "costumes": [
             {
@@ -2806,10 +2790,7 @@
     },
     {
         "name": "Bread",
-        "tags": [
-            "food",
-            "ipzy"
-        ],
+        "tags": ["food", "ipzy"],
         "isStage": false,
         "costumes": [
             {
@@ -2842,12 +2823,7 @@
     },
     {
         "name": "Broom",
-        "tags": [
-            "fantasy",
-            "ipzy",
-            "flying",
-            "things"
-        ],
+        "tags": ["fantasy", "ipzy", "flying", "things"],
         "isStage": false,
         "costumes": [
             {
@@ -2882,12 +2858,7 @@
     },
     {
         "name": "Buildings",
-        "tags": [
-            "things",
-            "city",
-            "flying",
-            "architecture"
-        ],
+        "tags": ["things", "city", "flying", "architecture"],
         "isStage": false,
         "costumes": [
             {
@@ -3057,13 +3028,7 @@
     },
     {
         "name": "Butterfly 1",
-        "tags": [
-            "animals",
-            "insect",
-            "bug",
-            "wetland",
-            "owen davey"
-        ],
+        "tags": ["animals", "insect", "bug", "wetland", "owen davey"],
         "isStage": false,
         "costumes": [
             {
@@ -3193,12 +3158,7 @@
     },
     {
         "name": "Button1",
-        "tags": [
-            "icons",
-            "round",
-            "green",
-            "games"
-        ],
+        "tags": ["icons", "round", "green", "games"],
         "isStage": false,
         "costumes": [
             {
@@ -3233,11 +3193,7 @@
     },
     {
         "name": "Button2",
-        "tags": [
-            "icons",
-            "blue",
-            "games"
-        ],
+        "tags": ["icons", "blue", "games"],
         "isStage": false,
         "costumes": [
             {
@@ -3285,12 +3241,7 @@
     },
     {
         "name": "Button3",
-        "tags": [
-            "icons",
-            "gray",
-            "blue",
-            "games"
-        ],
+        "tags": ["icons", "gray", "blue", "games"],
         "isStage": false,
         "costumes": [
             {
@@ -3338,10 +3289,7 @@
     },
     {
         "name": "Button4",
-        "tags": [
-            "icons",
-            "checkmark"
-        ],
+        "tags": ["icons", "checkmark"],
         "isStage": false,
         "costumes": [
             {
@@ -3387,13 +3335,7 @@
     },
     {
         "name": "Button5",
-        "tags": [
-            "icons",
-            "symbols",
-            "x",
-            "red",
-            "black"
-        ],
+        "tags": ["icons", "symbols", "x", "red", "black"],
         "isStage": false,
         "costumes": [
             {
@@ -3509,9 +3451,7 @@
     },
     {
         "name": "Calvrett",
-        "tags": [
-            "people"
-        ],
+        "tags": ["people"],
         "isStage": false,
         "costumes": [
             {
@@ -3559,12 +3499,7 @@
     },
     {
         "name": "Casey",
-        "tags": [
-            "sports",
-            "basketball",
-            "people",
-            "alex eben meyer"
-        ],
+        "tags": ["sports", "basketball", "people", "alex eben meyer"],
         "isStage": false,
         "costumes": [
             {
@@ -3647,10 +3582,7 @@
     },
     {
         "name": "Cassy Dance",
-        "tags": [
-            "people",
-            "dance"
-        ],
+        "tags": ["people", "dance"],
         "isStage": false,
         "costumes": [
             {
@@ -3793,13 +3725,7 @@
     },
     {
         "name": "Cat 2",
-        "tags": [
-            "cat",
-            "kitty",
-            "kitten",
-            "animals",
-            "mammal"
-        ],
+        "tags": ["cat", "kitty", "kitten", "animals", "mammal"],
         "isStage": false,
         "costumes": [
             {
@@ -3837,12 +3763,7 @@
     },
     {
         "name": "Cat Flying",
-        "tags": [
-            "animals",
-            "cat",
-            "kitty",
-            "kitten"
-        ],
+        "tags": ["animals", "cat", "kitty", "kitten"],
         "isStage": false,
         "costumes": [
             {
@@ -3892,12 +3813,7 @@
     },
     {
         "name": "Catcher",
-        "tags": [
-            "baseball",
-            "sports",
-            "people",
-            "alex eben meyer"
-        ],
+        "tags": ["baseball", "sports", "people", "alex eben meyer"],
         "isStage": false,
         "costumes": [
             {
@@ -3977,12 +3893,7 @@
     },
     {
         "name": "Centaur",
-        "tags": [
-            "fantasy",
-            "people",
-            "ipzy",
-            "emotions"
-        ],
+        "tags": ["fantasy", "people", "ipzy", "emotions"],
         "isStage": false,
         "costumes": [
             {
@@ -4074,10 +3985,7 @@
     },
     {
         "name": "Champ99",
-        "tags": [
-            "people",
-            "dance"
-        ],
+        "tags": ["people", "dance"],
         "isStage": false,
         "costumes": [
             {
@@ -4697,9 +4605,7 @@
     },
     {
         "name": "Cheesy Puffs",
-        "tags": [
-            "food"
-        ],
+        "tags": ["food"],
         "isStage": false,
         "costumes": [
             {
@@ -4731,12 +4637,7 @@
     },
     {
         "name": "Chick",
-        "tags": [
-            "animals",
-            "chicken",
-            "farm",
-            "owen davey"
-        ],
+        "tags": ["animals", "chicken", "farm", "owen davey"],
         "isStage": false,
         "costumes": [
             {
@@ -4804,12 +4705,7 @@
     },
     {
         "name": "City Bus",
-        "tags": [
-            "city",
-            "bus",
-            "vehicle",
-            "car"
-        ],
+        "tags": ["city", "bus", "vehicle", "car"],
         "isStage": false,
         "costumes": [
             {
@@ -4874,11 +4770,7 @@
     },
     {
         "name": "Cloud",
-        "tags": [
-            "thing",
-            "weather",
-            "whether"
-        ],
+        "tags": ["thing", "weather", "whether"],
         "isStage": false,
         "costumes": [
             {
@@ -4912,12 +4804,7 @@
     },
     {
         "name": "Clouds",
-        "tags": [
-            "flying",
-            "weather",
-            "things",
-            "sky"
-        ],
+        "tags": ["flying", "weather", "things", "sky"],
         "isStage": false,
         "costumes": [
             {
@@ -4997,10 +4884,7 @@
     },
     {
         "name": "Convertible",
-        "tags": [
-            "car",
-            "transportation"
-        ],
+        "tags": ["car", "transportation"],
         "isStage": false,
         "costumes": [
             {
@@ -5033,11 +4917,7 @@
     },
     {
         "name": "Convertible 2",
-        "tags": [
-            "transportation",
-            "car",
-            "things"
-        ],
+        "tags": ["transportation", "car", "things"],
         "isStage": false,
         "costumes": [
             {
@@ -5144,11 +5024,7 @@
     },
     {
         "name": "Crystal",
-        "tags": [
-            "fantasy",
-            "ipzy",
-            "things"
-        ],
+        "tags": ["fantasy", "ipzy", "things"],
         "isStage": false,
         "costumes": [
             {
@@ -5212,10 +5088,7 @@
     },
     {
         "name": "D-Money Dance",
-        "tags": [
-            "people",
-            "dance"
-        ],
+        "tags": ["people", "dance"],
         "isStage": false,
         "costumes": [
             {
@@ -5395,9 +5268,7 @@
     },
     {
         "name": "Dan",
-        "tags": [
-            "people"
-        ],
+        "tags": ["people"],
         "isStage": false,
         "costumes": [
             {
@@ -5445,9 +5316,7 @@
     },
     {
         "name": "Dani",
-        "tags": [
-            "people"
-        ],
+        "tags": ["people"],
         "isStage": false,
         "costumes": [
             {
@@ -5503,9 +5372,7 @@
     },
     {
         "name": "Dee",
-        "tags": [
-            "people"
-        ],
+        "tags": ["people"],
         "isStage": false,
         "costumes": [
             {
@@ -5585,9 +5452,7 @@
     },
     {
         "name": "Devin",
-        "tags": [
-            "people"
-        ],
+        "tags": ["people"],
         "isStage": false,
         "costumes": [
             {
@@ -5655,11 +5520,7 @@
     },
     {
         "name": "Dinosaur1",
-        "tags": [
-            "animals",
-            "dinosaur",
-            "alex eben meyer"
-        ],
+        "tags": ["animals", "dinosaur", "alex eben meyer"],
         "isStage": false,
         "costumes": [
             {
@@ -5739,12 +5600,7 @@
     },
     {
         "name": "Dinosaur2",
-        "tags": [
-            "animals",
-            "dinosaur",
-            "triceratops",
-            "alex eben meyer"
-        ],
+        "tags": ["animals", "dinosaur", "triceratops", "alex eben meyer"],
         "isStage": false,
         "costumes": [
             {
@@ -6024,11 +5880,7 @@
     },
     {
         "name": "Dinosaur5",
-        "tags": [
-            "animals",
-            "dinosaur",
-            "leigh mcg"
-        ],
+        "tags": ["animals", "dinosaur", "leigh mcg"],
         "isStage": false,
         "costumes": [
             {
@@ -6145,14 +5997,7 @@
     },
     {
         "name": "Diver1",
-        "tags": [
-            "people",
-            "underwater",
-            "ocean",
-            "sea",
-            "summer",
-            "swimming"
-        ],
+        "tags": ["people", "underwater", "ocean", "sea", "summer", "swimming"],
         "isStage": false,
         "costumes": [
             {
@@ -6189,14 +6034,7 @@
     },
     {
         "name": "Diver2",
-        "tags": [
-            "people",
-            "underwater",
-            "ocean",
-            "sea",
-            "summer",
-            "swimming"
-        ],
+        "tags": ["people", "underwater", "ocean", "sea", "summer", "swimming"],
         "isStage": false,
         "costumes": [
             {
@@ -6233,12 +6071,7 @@
     },
     {
         "name": "Dog1",
-        "tags": [
-            "animals",
-            "puppy",
-            "puppies",
-            "mammals"
-        ],
+        "tags": ["animals", "puppy", "puppies", "mammals"],
         "isStage": false,
         "costumes": [
             {
@@ -6290,12 +6123,7 @@
     },
     {
         "name": "Dog2",
-        "tags": [
-            "animals",
-            "puppy",
-            "puppies",
-            "mammals"
-        ],
+        "tags": ["animals", "puppy", "puppies", "mammals"],
         "isStage": false,
         "costumes": [
             {
@@ -6494,12 +6322,7 @@
     },
     {
         "name": "Dorian",
-        "tags": [
-            "sports",
-            "basketball",
-            "people",
-            "alex eben meyer"
-        ],
+        "tags": ["sports", "basketball", "people", "alex eben meyer"],
         "isStage": false,
         "costumes": [
             {
@@ -6582,12 +6405,7 @@
     },
     {
         "name": "Dot",
-        "tags": [
-            "space",
-            "dog",
-            "animals",
-            "wren mcdonald"
-        ],
+        "tags": ["space", "dog", "animals", "wren mcdonald"],
         "isStage": false,
         "costumes": [
             {
@@ -6667,11 +6485,7 @@
     },
     {
         "name": "Dove",
-        "tags": [
-            "animals",
-            "bird",
-            "flying"
-        ],
+        "tags": ["animals", "bird", "flying"],
         "isStage": false,
         "costumes": [
             {
@@ -6719,12 +6533,7 @@
     },
     {
         "name": "Dragon",
-        "tags": [
-            "fantasy",
-            "animals",
-            "ipzy",
-            "flying"
-        ],
+        "tags": ["fantasy", "animals", "ipzy", "flying"],
         "isStage": false,
         "costumes": [
             {
@@ -6850,13 +6659,7 @@
     },
     {
         "name": "Dragonfly",
-        "tags": [
-            "animals",
-            "insect",
-            "dragonfly",
-            "wetland",
-            "owen davey"
-        ],
+        "tags": ["animals", "insect", "dragonfly", "wetland", "owen davey"],
         "isStage": false,
         "costumes": [
             {
@@ -6908,11 +6711,7 @@
     },
     {
         "name": "Dress",
-        "tags": [
-            "fashion",
-            "dress",
-            "clothing"
-        ],
+        "tags": ["fashion", "dress", "clothing"],
         "isStage": false,
         "costumes": [
             {
@@ -6968,10 +6767,7 @@
     },
     {
         "name": "Drum",
-        "tags": [
-            "music",
-            "andrew rae"
-        ],
+        "tags": ["music", "andrew rae"],
         "isStage": false,
         "costumes": [
             {
@@ -7026,10 +6822,7 @@
     },
     {
         "name": "Drum Kit",
-        "tags": [
-            "music",
-            "andrew rae"
-        ],
+        "tags": ["music", "andrew rae"],
         "isStage": false,
         "costumes": [
             {
@@ -7111,10 +6904,7 @@
     },
     {
         "name": "Drum-cymbal",
-        "tags": [
-            "music",
-            "andrew rae"
-        ],
+        "tags": ["music", "andrew rae"],
         "isStage": false,
         "costumes": [
             {
@@ -7187,10 +6977,7 @@
     },
     {
         "name": "Drum-highhat",
-        "tags": [
-            "music",
-            "andrew rae"
-        ],
+        "tags": ["music", "andrew rae"],
         "isStage": false,
         "costumes": [
             {
@@ -7236,10 +7023,7 @@
     },
     {
         "name": "Drum-snare",
-        "tags": [
-            "music",
-            "andrew rae"
-        ],
+        "tags": ["music", "andrew rae"],
         "isStage": false,
         "costumes": [
             {
@@ -7303,13 +7087,7 @@
     },
     {
         "name": "Drums Conga",
-        "tags": [
-            "drums",
-            "drum",
-            "music",
-            "instrument",
-            "percussion"
-        ],
+        "tags": ["drums", "drum", "music", "instrument", "percussion"],
         "isStage": false,
         "costumes": [
             {
@@ -7400,13 +7178,7 @@
     },
     {
         "name": "Drums Tabla",
-        "tags": [
-            "drums",
-            "drum",
-            "music",
-            "instrument",
-            "percussion"
-        ],
+        "tags": ["drums", "drum", "music", "instrument", "percussion"],
         "isStage": false,
         "costumes": [
             {
@@ -7497,13 +7269,7 @@
     },
     {
         "name": "Duck",
-        "tags": [
-            "animals",
-            "chrisg",
-            "quack",
-            "birds",
-            "birb"
-        ],
+        "tags": ["animals", "chrisg", "quack", "birds", "birb"],
         "isStage": false,
         "costumes": [
             {
@@ -7541,12 +7307,7 @@
     },
     {
         "name": "Earth",
-        "tags": [
-            "space",
-            "planet",
-            "earth",
-            "globe"
-        ],
+        "tags": ["space", "planet", "earth", "globe"],
         "isStage": false,
         "costumes": [
             {
@@ -7581,11 +7342,7 @@
     },
     {
         "name": "Easel",
-        "tags": [
-            "bedroom",
-            "art",
-            "easel"
-        ],
+        "tags": ["bedroom", "art", "easel"],
         "isStage": false,
         "costumes": [
             {
@@ -7647,11 +7404,7 @@
     },
     {
         "name": "Egg",
-        "tags": [
-            "food",
-            "breakfast",
-            "alex eben meyer"
-        ],
+        "tags": ["food", "breakfast", "alex eben meyer"],
         "isStage": false,
         "costumes": [
             {
@@ -7755,11 +7508,7 @@
     },
     {
         "name": "Elephant",
-        "tags": [
-            "animals",
-            "mammals",
-            "pachydermata"
-        ],
+        "tags": ["animals", "mammals", "pachydermata"],
         "isStage": false,
         "costumes": [
             {
@@ -7807,12 +7556,7 @@
     },
     {
         "name": "Elf",
-        "tags": [
-            "fantasy",
-            "people",
-            "ipzy",
-            "emotions"
-        ],
+        "tags": ["fantasy", "people", "ipzy", "emotions"],
         "isStage": false,
         "costumes": [
             {
@@ -7910,12 +7654,7 @@
     },
     {
         "name": "Fairy",
-        "tags": [
-            "fantasy",
-            "people",
-            "ipzy",
-            "emotions"
-        ],
+        "tags": ["fantasy", "people", "ipzy", "emotions"],
         "isStage": false,
         "costumes": [
             {
@@ -8013,13 +7752,7 @@
     },
     {
         "name": "Fish",
-        "tags": [
-            "animals",
-            "ocean",
-            "sea",
-            "underwater",
-            "daria skrybchencko"
-        ],
+        "tags": ["animals", "ocean", "sea", "underwater", "daria skrybchencko"],
         "isStage": false,
         "costumes": [
             {
@@ -8116,12 +7849,7 @@
     },
     {
         "name": "Fishbowl",
-        "tags": [
-            "fishbowl",
-            "fish",
-            "animals",
-            "pet"
-        ],
+        "tags": ["fishbowl", "fish", "animals", "pet"],
         "isStage": false,
         "costumes": [
             {
@@ -8173,13 +7901,7 @@
     },
     {
         "name": "Food Truck",
-        "tags": [
-            "city",
-            "truck",
-            "vehicle",
-            "food",
-            "car"
-        ],
+        "tags": ["city", "truck", "vehicle", "food", "car"],
         "isStage": false,
         "costumes": [
             {
@@ -8274,10 +7996,7 @@
     },
     {
         "name": "Football",
-        "tags": [
-            "people",
-            "sports"
-        ],
+        "tags": ["people", "sports"],
         "isStage": false,
         "costumes": [
             {
@@ -8323,9 +8042,7 @@
     },
     {
         "name": "Fortune Cookie",
-        "tags": [
-            "food"
-        ],
+        "tags": ["food"],
         "isStage": false,
         "costumes": [
             {
@@ -8357,11 +8074,7 @@
     },
     {
         "name": "Fox",
-        "tags": [
-            "animals",
-            "mammal",
-            "robert hunter"
-        ],
+        "tags": ["animals", "mammal", "robert hunter"],
         "isStage": false,
         "costumes": [
             {
@@ -8523,14 +8236,7 @@
     },
     {
         "name": "Frog",
-        "tags": [
-            "animals",
-            "amphibian",
-            "nature",
-            "hopping",
-            "green",
-            "wart"
-        ],
+        "tags": ["animals", "amphibian", "nature", "hopping", "green", "wart"],
         "isStage": false,
         "costumes": [
             {
@@ -8567,13 +8273,7 @@
     },
     {
         "name": "Frog 2 ",
-        "tags": [
-            "animals",
-            "insect",
-            "bug",
-            "wetland",
-            "owen davey"
-        ],
+        "tags": ["animals", "insect", "bug", "wetland", "owen davey"],
         "isStage": false,
         "costumes": [
             {
@@ -8638,9 +8338,7 @@
     },
     {
         "name": "Fruit Platter",
-        "tags": [
-            "food"
-        ],
+        "tags": ["food"],
         "isStage": false,
         "costumes": [
             {
@@ -8672,10 +8370,7 @@
     },
     {
         "name": "Fruit Salad",
-        "tags": [
-            "food",
-            "fruit"
-        ],
+        "tags": ["food", "fruit"],
         "isStage": false,
         "costumes": [
             {
@@ -8806,10 +8501,7 @@
     },
     {
         "name": "Gift",
-        "tags": [
-            "thing",
-            "holiday"
-        ],
+        "tags": ["thing", "holiday"],
         "isStage": false,
         "costumes": [
             {
@@ -8855,10 +8547,7 @@
     },
     {
         "name": "Giga",
-        "tags": [
-            "fantasy",
-            "drawing"
-        ],
+        "tags": ["fantasy", "drawing"],
         "isStage": false,
         "costumes": [
             {
@@ -8934,10 +8623,7 @@
     },
     {
         "name": "Giga Walking",
-        "tags": [
-            "fantasy",
-            "walking"
-        ],
+        "tags": ["fantasy", "walking"],
         "isStage": false,
         "costumes": [
             {
@@ -8996,11 +8682,7 @@
     },
     {
         "name": "Giraffe",
-        "tags": [
-            "animals",
-            "savanna",
-            "robert hunter"
-        ],
+        "tags": ["animals", "savanna", "robert hunter"],
         "isStage": false,
         "costumes": [
             {
@@ -9062,11 +8744,7 @@
     },
     {
         "name": "Glass Water",
-        "tags": [
-            "food",
-            "things",
-            "underwater"
-        ],
+        "tags": ["food", "things", "underwater"],
         "isStage": false,
         "costumes": [
             {
@@ -9117,11 +8795,7 @@
     },
     {
         "name": "Glasses",
-        "tags": [
-            "fashion",
-            "glasses",
-            "clothing"
-        ],
+        "tags": ["fashion", "glasses", "clothing"],
         "isStage": false,
         "costumes": [
             {
@@ -10489,12 +10163,7 @@
     },
     {
         "name": "Goalie",
-        "tags": [
-            "sports",
-            "soccer",
-            "football",
-            "alex eben meyer"
-        ],
+        "tags": ["sports", "soccer", "football", "alex eben meyer"],
         "isStage": false,
         "costumes": [
             {
@@ -10593,11 +10262,7 @@
     },
     {
         "name": "Goblin",
-        "tags": [
-            "fantasy",
-            "ipzy",
-            "emotions"
-        ],
+        "tags": ["fantasy", "ipzy", "emotions"],
         "isStage": false,
         "costumes": [
             {
@@ -10673,12 +10338,7 @@
     },
     {
         "name": "Gobo",
-        "tags": [
-            "fantasy",
-            "drawing",
-            "jenkins",
-            "ganglia"
-        ],
+        "tags": ["fantasy", "drawing", "jenkins", "ganglia"],
         "isStage": false,
         "costumes": [
             {
@@ -10743,13 +10403,7 @@
     },
     {
         "name": "Grasshopper",
-        "tags": [
-            "animals",
-            "insect",
-            "bug",
-            "wetland",
-            "owen davey"
-        ],
+        "tags": ["animals", "insect", "bug", "wetland", "owen davey"],
         "isStage": false,
         "costumes": [
             {
@@ -10865,9 +10519,7 @@
     },
     {
         "name": "Green Flag",
-        "tags": [
-            "thing"
-        ],
+        "tags": ["thing"],
         "isStage": false,
         "costumes": [
             {
@@ -10899,12 +10551,7 @@
     },
     {
         "name": "Griffin",
-        "tags": [
-            "fantasy",
-            "animals",
-            "ipzy",
-            "flying"
-        ],
+        "tags": ["fantasy", "animals", "ipzy", "flying"],
         "isStage": false,
         "costumes": [
             {
@@ -10987,10 +10634,7 @@
     },
     {
         "name": "Guitar",
-        "tags": [
-            "music",
-            "andrew rae"
-        ],
+        "tags": ["music", "andrew rae"],
         "isStage": false,
         "costumes": [
             {
@@ -11127,10 +10771,7 @@
     },
     {
         "name": "Guitar-electric1",
-        "tags": [
-            "music",
-            "andrew rae"
-        ],
+        "tags": ["music", "andrew rae"],
         "isStage": false,
         "costumes": [
             {
@@ -11271,10 +10912,7 @@
     },
     {
         "name": "Guitar-electric2",
-        "tags": [
-            "music",
-            "andrew rae"
-        ],
+        "tags": ["music", "andrew rae"],
         "isStage": false,
         "costumes": [
             {
@@ -11415,10 +11053,7 @@
     },
     {
         "name": "Hannah",
-        "tags": [
-            "people",
-            "sports"
-        ],
+        "tags": ["people", "sports"],
         "isStage": false,
         "costumes": [
             {
@@ -11570,11 +11205,7 @@
     },
     {
         "name": "Harper",
-        "tags": [
-            "people",
-            "fashion",
-            "clothing"
-        ],
+        "tags": ["people", "fashion", "clothing"],
         "isStage": false,
         "costumes": [
             {
@@ -11633,11 +11264,7 @@
     },
     {
         "name": "Hat1 ",
-        "tags": [
-            "fashion",
-            "hat",
-            "clothing"
-        ],
+        "tags": ["fashion", "hat", "clothing"],
         "isStage": false,
         "costumes": [
             {
@@ -11709,12 +11336,7 @@
     },
     {
         "name": "Hatchling",
-        "tags": [
-            "animals",
-            "chicken",
-            "farm",
-            "owen davey"
-        ],
+        "tags": ["animals", "chicken", "farm", "owen davey"],
         "isStage": false,
         "costumes": [
             {
@@ -11782,13 +11404,7 @@
     },
     {
         "name": "Heart",
-        "tags": [
-            "holiday",
-            "red",
-            "shape",
-            "love",
-            "emotions"
-        ],
+        "tags": ["holiday", "red", "shape", "love", "emotions"],
         "isStage": false,
         "costumes": [
             {
@@ -11840,10 +11456,7 @@
     },
     {
         "name": "Heart Candy",
-        "tags": [
-            "food",
-            "sweethearts"
-        ],
+        "tags": ["food", "sweethearts"],
         "isStage": false,
         "costumes": [
             {
@@ -11915,9 +11528,7 @@
     },
     {
         "name": "Heart Face",
-        "tags": [
-            "emotions"
-        ],
+        "tags": ["emotions"],
         "isStage": false,
         "costumes": [
             {
@@ -11949,12 +11560,7 @@
     },
     {
         "name": "Hedgehog",
-        "tags": [
-            "animals",
-            "daria skrybchencko",
-            "mammals",
-            "spikey"
-        ],
+        "tags": ["animals", "daria skrybchencko", "mammals", "spikey"],
         "isStage": false,
         "costumes": [
             {
@@ -12049,12 +11655,7 @@
     },
     {
         "name": "Hen",
-        "tags": [
-            "animals",
-            "chicken",
-            "farm",
-            "owen davey"
-        ],
+        "tags": ["animals", "chicken", "farm", "owen davey"],
         "isStage": false,
         "costumes": [
             {
@@ -12200,10 +11801,7 @@
     },
     {
         "name": "Home Button",
-        "tags": [
-            "ui",
-            "thing"
-        ],
+        "tags": ["ui", "thing"],
         "isStage": false,
         "costumes": [
             {
@@ -12236,14 +11834,7 @@
     },
     {
         "name": "Horse",
-        "tags": [
-            "animals",
-            "hoof",
-            "hooves",
-            "mammal",
-            "racing",
-            "saddle"
-        ],
+        "tags": ["animals", "hoof", "hooves", "mammal", "racing", "saddle"],
         "isStage": false,
         "costumes": [
             {
@@ -12309,9 +11900,7 @@
     },
     {
         "name": "Jaime",
-        "tags": [
-            "people"
-        ],
+        "tags": ["people"],
         "isStage": false,
         "costumes": [
             {
@@ -12415,12 +12004,7 @@
     },
     {
         "name": "Jamal",
-        "tags": [
-            "sports",
-            "basketball",
-            "people",
-            "alex eben meyer"
-        ],
+        "tags": ["sports", "basketball", "people", "alex eben meyer"],
         "isStage": false,
         "costumes": [
             {
@@ -12512,11 +12096,7 @@
     },
     {
         "name": "Jar",
-        "tags": [
-            "food",
-            "ipzy",
-            "things"
-        ],
+        "tags": ["food", "ipzy", "things"],
         "isStage": false,
         "costumes": [
             {
@@ -12665,13 +12245,7 @@
     },
     {
         "name": "Jordyn",
-        "tags": [
-            "sports",
-            "soccer",
-            "football",
-            "people",
-            "alex eben meyer"
-        ],
+        "tags": ["sports", "soccer", "football", "people", "alex eben meyer"],
         "isStage": false,
         "costumes": [
             {
@@ -12770,10 +12344,7 @@
     },
     {
         "name": "Jouvi Dance",
-        "tags": [
-            "people",
-            "dance"
-        ],
+        "tags": ["people", "dance"],
         "isStage": false,
         "costumes": [
             {
@@ -12966,9 +12537,7 @@
     },
     {
         "name": "Kai",
-        "tags": [
-            "people"
-        ],
+        "tags": ["people"],
         "isStage": false,
         "costumes": [
             {
@@ -13012,10 +12581,7 @@
     },
     {
         "name": "Key",
-        "tags": [
-            "thing",
-            "fantasy"
-        ],
+        "tags": ["thing", "fantasy"],
         "isStage": false,
         "costumes": [
             {
@@ -13048,10 +12614,7 @@
     },
     {
         "name": "Keyboard",
-        "tags": [
-            "music",
-            "andrew rae"
-        ],
+        "tags": ["music", "andrew rae"],
         "isStage": false,
         "costumes": [
             {
@@ -13286,11 +12849,7 @@
     },
     {
         "name": "Kiran",
-        "tags": [
-            "space",
-            "people",
-            "wren mcdonald"
-        ],
+        "tags": ["space", "people", "wren mcdonald"],
         "isStage": false,
         "costumes": [
             {
@@ -13394,11 +12953,7 @@
     },
     {
         "name": "Knight",
-        "tags": [
-            "people",
-            "castle",
-            "armor"
-        ],
+        "tags": ["people", "castle", "armor"],
         "isStage": false,
         "costumes": [
             {
@@ -13427,17 +12982,21 @@
                 "sampleCount": 1032
             }
         ],
+<<<<<<< HEAD
+=======
+        "blocks": {}
+    },
+    {
+        "name": "LB Dance",
+        "tags": ["people", "dance"],
+        "isStage": false,
+>>>>>>> a72062975f (feat: project-data.ts using codi sprite when loading new project)
         "variables": {},
         "blocks": {}
     },
     {
         "name": "Ladybug1",
-        "tags": [
-            "animals",
-            "insect",
-            "bug",
-            "antennae"
-        ],
+        "tags": ["animals", "insect", "bug", "antennae"],
         "isStage": false,
         "costumes": [
             {
@@ -13472,13 +13031,7 @@
     },
     {
         "name": "Ladybug2",
-        "tags": [
-            "animals",
-            "insect",
-            "arthropod",
-            "antennae",
-            "aphids"
-        ],
+        "tags": ["animals", "insect", "arthropod", "antennae", "aphids"],
         "isStage": false,
         "costumes": [
             {
@@ -13530,10 +13083,7 @@
     },
     {
         "name": "Laptop",
-        "tags": [
-            "things",
-            "computers"
-        ],
+        "tags": ["things", "computers"],
         "isStage": false,
         "costumes": [
             {
@@ -13762,13 +13312,7 @@
     },
     {
         "name": "Lightning",
-        "tags": [
-            "weather",
-            "whether",
-            "fantasy",
-            "storm",
-            "thunder"
-        ],
+        "tags": ["weather", "whether", "fantasy", "storm", "thunder"],
         "isStage": false,
         "costumes": [
             {
@@ -13804,11 +13348,7 @@
     },
     {
         "name": "Line",
-        "tags": [
-            "lava",
-            "shape",
-            "red"
-        ],
+        "tags": ["lava", "shape", "red"],
         "isStage": false,
         "costumes": [
             {
@@ -13842,13 +13382,7 @@
     },
     {
         "name": "Lion",
-        "tags": [
-            "cat",
-            "animals",
-            "africa",
-            "savanna",
-            "robert hunter"
-        ],
+        "tags": ["cat", "animals", "africa", "savanna", "robert hunter"],
         "isStage": false,
         "costumes": [
             {
@@ -13928,11 +13462,7 @@
     },
     {
         "name": "Llama",
-        "tags": [
-            "animals",
-            "mammal",
-            "robert hunter"
-        ],
+        "tags": ["animals", "mammal", "robert hunter"],
         "isStage": false,
         "costumes": [
             {
@@ -14083,11 +13613,7 @@
     },
     {
         "name": "Magic Wand",
-        "tags": [
-            "fantasy",
-            "things",
-            "zap"
-        ],
+        "tags": ["fantasy", "things", "zap"],
         "isStage": false,
         "costumes": [
             {
@@ -14121,9 +13647,7 @@
     },
     {
         "name": "Marian",
-        "tags": [
-            "people"
-        ],
+        "tags": ["people"],
         "isStage": false,
         "costumes": [
             {
@@ -14206,12 +13730,7 @@
     },
     {
         "name": "Max",
-        "tags": [
-            "sports",
-            "basketball",
-            "people",
-            "alex eben meyer"
-        ],
+        "tags": ["sports", "basketball", "people", "alex eben meyer"],
         "isStage": false,
         "costumes": [
             {
@@ -14294,12 +13813,7 @@
     },
     {
         "name": "Mermaid",
-        "tags": [
-            "fantasy",
-            "people",
-            "underwater",
-            "ipzy"
-        ],
+        "tags": ["fantasy", "people", "underwater", "ipzy"],
         "isStage": false,
         "costumes": [
             {
@@ -14383,10 +13897,7 @@
     },
     {
         "name": "Microphone",
-        "tags": [
-            "music",
-            "andrew rae"
-        ],
+        "tags": ["music", "andrew rae"],
         "isStage": false,
         "costumes": [
             {
@@ -14504,11 +14015,7 @@
     },
     {
         "name": "Milk",
-        "tags": [
-            "food",
-            "drink",
-            "alex eben meyer"
-        ],
+        "tags": ["food", "drink", "alex eben meyer"],
         "isStage": false,
         "costumes": [
             {
@@ -14603,11 +14110,7 @@
     },
     {
         "name": "Monet",
-        "tags": [
-            "space",
-            "people",
-            "wren mcdonald"
-        ],
+        "tags": ["space", "people", "wren mcdonald"],
         "isStage": false,
         "costumes": [
             {
@@ -14697,12 +14200,7 @@
     },
     {
         "name": "Monkey",
-        "tags": [
-            "animals",
-            "mammals",
-            "primate",
-            "prehensile tail"
-        ],
+        "tags": ["animals", "mammals", "primate", "prehensile tail"],
         "isStage": false,
         "costumes": [
             {
@@ -14782,12 +14280,7 @@
     },
     {
         "name": "Motorcycle",
-        "tags": [
-            "city",
-            "vehicle",
-            "bike",
-            "motorcycle"
-        ],
+        "tags": ["city", "vehicle", "bike", "motorcycle"],
         "isStage": false,
         "costumes": [
             {
@@ -14882,11 +14375,7 @@
     },
     {
         "name": "Mouse1",
-        "tags": [
-            "animals",
-            "mammals",
-            "rodents"
-        ],
+        "tags": ["animals", "mammals", "rodents"],
         "isStage": false,
         "costumes": [
             {
@@ -14934,9 +14423,7 @@
     },
     {
         "name": "Muffin",
-        "tags": [
-            "food"
-        ],
+        "tags": ["food"],
         "isStage": false,
         "costumes": [
             {
@@ -14984,10 +14471,7 @@
     },
     {
         "name": "Nano",
-        "tags": [
-            "fantasy",
-            "drawing"
-        ],
+        "tags": ["fantasy", "drawing"],
         "isStage": false,
         "costumes": [
             {
@@ -15062,10 +14546,7 @@
     },
     {
         "name": "Neigh Pony",
-        "tags": [
-            "animals",
-            "fantasy"
-        ],
+        "tags": ["animals", "fantasy"],
         "isStage": false,
         "costumes": [
             {
@@ -15187,13 +14668,7 @@
     },
     {
         "name": "Octopus",
-        "tags": [
-            "animals",
-            "ocean",
-            "sea",
-            "underwater",
-            "daria skrybchencko"
-        ],
+        "tags": ["animals", "ocean", "sea", "underwater", "daria skrybchencko"],
         "isStage": false,
         "costumes": [
             {
@@ -15307,10 +14782,7 @@
     },
     {
         "name": "Orange",
-        "tags": [
-            "food",
-            "fruit"
-        ],
+        "tags": ["food", "fruit"],
         "isStage": false,
         "costumes": [
             {
@@ -15343,11 +14815,7 @@
     },
     {
         "name": "Orange2",
-        "tags": [
-            "food",
-            "fruit",
-            "eaten"
-        ],
+        "tags": ["food", "fruit", "eaten"],
         "isStage": false,
         "costumes": [
             {
@@ -15395,12 +14863,7 @@
     },
     {
         "name": "Outfielder",
-        "tags": [
-            "baseball",
-            "sports",
-            "people",
-            "alex eben meyer"
-        ],
+        "tags": ["baseball", "sports", "people", "alex eben meyer"],
         "isStage": false,
         "costumes": [
             {
@@ -15480,11 +14943,7 @@
     },
     {
         "name": "Owl",
-        "tags": [
-            "animals",
-            "bird",
-            "robert hunter"
-        ],
+        "tags": ["animals", "bird", "robert hunter"],
         "isStage": false,
         "costumes": [
             {
@@ -15546,9 +15005,7 @@
     },
     {
         "name": "Paddle",
-        "tags": [
-            "thing"
-        ],
+        "tags": ["thing"],
         "isStage": false,
         "costumes": [
             {
@@ -15582,12 +15039,7 @@
     },
     {
         "name": "Panther",
-        "tags": [
-            "animals",
-            "tiger",
-            "leopard",
-            "robert hunter"
-        ],
+        "tags": ["animals", "tiger", "leopard", "robert hunter"],
         "isStage": false,
         "costumes": [
             {
@@ -15652,11 +15104,7 @@
     },
     {
         "name": "Pants",
-        "tags": [
-            "fashion",
-            "pants",
-            "clothing"
-        ],
+        "tags": ["fashion", "pants", "clothing"],
         "isStage": false,
         "costumes": [
             {
@@ -15764,10 +15212,7 @@
     },
     {
         "name": "Party Hats",
-        "tags": [
-            "fashion",
-            "holiday"
-        ],
+        "tags": ["fashion", "holiday"],
         "isStage": false,
         "costumes": [
             {
@@ -15826,10 +15271,7 @@
     },
     {
         "name": "Pencil",
-        "tags": [
-            "thing",
-            "yellow"
-        ],
+        "tags": ["thing", "yellow"],
         "isStage": false,
         "costumes": [
             {
@@ -15968,12 +15410,7 @@
     },
     {
         "name": "Penguin 2",
-        "tags": [
-            "animals",
-            "bird",
-            "winter",
-            "antarctica"
-        ],
+        "tags": ["animals", "bird", "winter", "antarctica"],
         "isStage": false,
         "costumes": [
             {
@@ -16056,10 +15493,7 @@
     },
     {
         "name": "Pico",
-        "tags": [
-            "fantasy",
-            "drawing"
-        ],
+        "tags": ["fantasy", "drawing"],
         "isStage": false,
         "costumes": [
             {
@@ -16134,10 +15568,7 @@
     },
     {
         "name": "Pico Walking",
-        "tags": [
-            "fantasy",
-            "walking"
-        ],
+        "tags": ["fantasy", "walking"],
         "isStage": false,
         "costumes": [
             {
@@ -16209,12 +15640,7 @@
     },
     {
         "name": "Pitcher",
-        "tags": [
-            "baseball",
-            "sports",
-            "people",
-            "alex eben meyer"
-        ],
+        "tags": ["baseball", "sports", "people", "alex eben meyer"],
         "isStage": false,
         "costumes": [
             {
@@ -16294,9 +15720,7 @@
     },
     {
         "name": "Planet2",
-        "tags": [
-            "space"
-        ],
+        "tags": ["space"],
         "isStage": false,
         "costumes": [
             {
@@ -16419,11 +15843,7 @@
     },
     {
         "name": "Potion",
-        "tags": [
-            "fantasy",
-            "ipzy",
-            "things"
-        ],
+        "tags": ["fantasy", "ipzy", "things"],
         "isStage": false,
         "costumes": [
             {
@@ -16488,11 +15908,7 @@
     },
     {
         "name": "Prince",
-        "tags": [
-            "people",
-            "☥",
-            "fantasy"
-        ],
+        "tags": ["people", "☥", "fantasy"],
         "isStage": false,
         "costumes": [
             {
@@ -16526,13 +15942,7 @@
     },
     {
         "name": "Princess",
-        "tags": [
-            "fantasy",
-            "people",
-            "ipzy",
-            "castle",
-            "emotions"
-        ],
+        "tags": ["fantasy", "people", "ipzy", "castle", "emotions"],
         "isStage": false,
         "costumes": [
             {
@@ -16635,13 +16045,7 @@
     },
     {
         "name": "Pufferfish",
-        "tags": [
-            "animals",
-            "ocean",
-            "sea",
-            "underwater",
-            "daria skrybchencko"
-        ],
+        "tags": ["animals", "ocean", "sea", "underwater", "daria skrybchencko"],
         "isStage": false,
         "costumes": [
             {
@@ -16725,11 +16129,7 @@
     },
     {
         "name": "Puppy",
-        "tags": [
-            "animals",
-            "dog",
-            "puppy"
-        ],
+        "tags": ["animals", "dog", "puppy"],
         "isStage": false,
         "costumes": [
             {
@@ -16919,12 +16319,7 @@
     },
     {
         "name": "Radio",
-        "tags": [
-            "radio",
-            "music",
-            "beatbox",
-            "bedrorom"
-        ],
+        "tags": ["radio", "music", "beatbox", "bedrorom"],
         "isStage": false,
         "costumes": [
             {
@@ -16999,12 +16394,7 @@
     },
     {
         "name": "Rainbow",
-        "tags": [
-            "things",
-            "flying",
-            "drawing",
-            "color"
-        ],
+        "tags": ["things", "flying", "drawing", "color"],
         "isStage": false,
         "costumes": [
             {
@@ -17039,12 +16429,7 @@
     },
     {
         "name": "Referee",
-        "tags": [
-            "sports",
-            "soccer",
-            "football",
-            "alex eben meyer"
-        ],
+        "tags": ["sports", "soccer", "football", "alex eben meyer"],
         "isStage": false,
         "costumes": [
             {
@@ -17126,11 +16511,7 @@
     },
     {
         "name": "Reindeer",
-        "tags": [
-            "animals",
-            "mammals",
-            "holiday"
-        ],
+        "tags": ["animals", "mammals", "holiday"],
         "isStage": false,
         "costumes": [
             {
@@ -17164,9 +16545,7 @@
     },
     {
         "name": "Retro Robot",
-        "tags": [
-            "robot"
-        ],
+        "tags": ["robot"],
         "isStage": false,
         "costumes": [
             {
@@ -17234,11 +16613,7 @@
     },
     {
         "name": "Ripley",
-        "tags": [
-            "space",
-            "people",
-            "wren mcdonald"
-        ],
+        "tags": ["space", "people", "wren mcdonald"],
         "isStage": false,
         "costumes": [
             {
@@ -17342,11 +16717,7 @@
     },
     {
         "name": "Robot",
-        "tags": [
-            "space",
-            "robot",
-            "wren mcdonald"
-        ],
+        "tags": ["space", "robot", "wren mcdonald"],
         "isStage": false,
         "costumes": [
             {
@@ -17444,11 +16815,7 @@
     },
     {
         "name": "Rocketship",
-        "tags": [
-            "space",
-            "spaceship",
-            "wren mcdonald"
-        ],
+        "tags": ["space", "spaceship", "wren mcdonald"],
         "isStage": false,
         "costumes": [
             {
@@ -17556,10 +16923,7 @@
     },
     {
         "name": "Rocks",
-        "tags": [
-            "things",
-            "potassium"
-        ],
+        "tags": ["things", "potassium"],
         "isStage": false,
         "costumes": [
             {
@@ -17592,12 +16956,7 @@
     },
     {
         "name": "Rooster",
-        "tags": [
-            "animals",
-            "chicken",
-            "farm",
-            "owen davey"
-        ],
+        "tags": ["animals", "chicken", "farm", "owen davey"],
         "isStage": false,
         "costumes": [
             {
@@ -17671,9 +17030,7 @@
     },
     {
         "name": "Ruby",
-        "tags": [
-            "people"
-        ],
+        "tags": ["people"],
         "isStage": false,
         "costumes": [
             {
@@ -17717,10 +17074,7 @@
     },
     {
         "name": "Sailboat",
-        "tags": [
-            "boat",
-            "transportation"
-        ],
+        "tags": ["boat", "transportation"],
         "isStage": false,
         "costumes": [
             {
@@ -17753,9 +17107,7 @@
     },
     {
         "name": "Sam",
-        "tags": [
-            "people"
-        ],
+        "tags": ["people"],
         "isStage": false,
         "costumes": [
             {
@@ -17873,10 +17225,7 @@
     },
     {
         "name": "Saxophone",
-        "tags": [
-            "music",
-            "andrew rae"
-        ],
+        "tags": ["music", "andrew rae"],
         "isStage": false,
         "costumes": [
             {
@@ -18017,10 +17366,7 @@
     },
     {
         "name": "Scarf",
-        "tags": [
-            "fashion",
-            "red"
-        ],
+        "tags": ["fashion", "red"],
         "isStage": false,
         "costumes": [
             {
@@ -18084,12 +17430,7 @@
     },
     {
         "name": "Shark",
-        "tags": [
-            "animals",
-            "underwater",
-            "ipzy",
-            "fish"
-        ],
+        "tags": ["animals", "underwater", "ipzy", "fish"],
         "isStage": false,
         "costumes": [
             {
@@ -18251,10 +17592,7 @@
     },
     {
         "name": "Shirt",
-        "tags": [
-            "fashion",
-            "shirt"
-        ],
+        "tags": ["fashion", "shirt"],
         "isStage": false,
         "costumes": [
             {
@@ -18287,12 +17625,7 @@
     },
     {
         "name": "Shoes",
-        "tags": [
-            "fashion",
-            "shoes",
-            "sneakers",
-            "clothing"
-        ],
+        "tags": ["fashion", "shoes", "sneakers", "clothing"],
         "isStage": false,
         "costumes": [
             {
@@ -18364,12 +17697,7 @@
     },
     {
         "name": "Shorts",
-        "tags": [
-            "fashion",
-            "pants",
-            "shorts",
-            "clothing"
-        ],
+        "tags": ["fashion", "pants", "shorts", "clothing"],
         "isStage": false,
         "costumes": [
             {
@@ -18434,10 +17762,7 @@
     },
     {
         "name": "Singer1",
-        "tags": [
-            "people",
-            "music"
-        ],
+        "tags": ["people", "music"],
         "isStage": false,
         "costumes": [
             {
@@ -18565,11 +17890,7 @@
     },
     {
         "name": "Snake",
-        "tags": [
-            "animals",
-            "reptile",
-            "robert hunter"
-        ],
+        "tags": ["animals", "reptile", "robert hunter"],
         "isStage": false,
         "costumes": [
             {
@@ -18631,9 +17952,7 @@
     },
     {
         "name": "Snowflake",
-        "tags": [
-            "winter"
-        ],
+        "tags": ["winter"],
         "isStage": false,
         "costumes": [
             {
@@ -18665,11 +17984,7 @@
     },
     {
         "name": "Snowman",
-        "tags": [
-            "fantasy",
-            "drawing",
-            "winter"
-        ],
+        "tags": ["fantasy", "drawing", "winter"],
         "isStage": false,
         "costumes": [
             {
@@ -18703,12 +18018,7 @@
     },
     {
         "name": "Soccer Ball",
-        "tags": [
-            "sports",
-            "soccer",
-            "football",
-            "alex eben meyer"
-        ],
+        "tags": ["sports", "soccer", "football", "alex eben meyer"],
         "isStage": false,
         "costumes": [
             {
@@ -18746,13 +18056,7 @@
     },
     {
         "name": "Speaker",
-        "tags": [
-            "music",
-            "things",
-            "bass",
-            "treble",
-            "concert"
-        ],
+        "tags": ["music", "things", "bass", "treble", "concert"],
         "isStage": false,
         "costumes": [
             {
@@ -18870,9 +18174,7 @@
     },
     {
         "name": "Squirrel",
-        "tags": [
-            "animals"
-        ],
+        "tags": ["animals"],
         "isStage": false,
         "costumes": [
             {
@@ -18908,10 +18210,7 @@
     },
     {
         "name": "Star",
-        "tags": [
-            "shapes",
-            "space"
-        ],
+        "tags": ["shapes", "space"],
         "isStage": false,
         "costumes": [
             {
@@ -18948,13 +18247,7 @@
     },
     {
         "name": "Starfish",
-        "tags": [
-            "animals",
-            "echinodermata",
-            "underwater",
-            "sea",
-            "ocean"
-        ],
+        "tags": ["animals", "echinodermata", "underwater", "sea", "ocean"],
         "isStage": false,
         "costumes": [
             {
@@ -19010,10 +18303,7 @@
     },
     {
         "name": "Stop",
-        "tags": [
-            "shapes",
-            "things"
-        ],
+        "tags": ["shapes", "things"],
         "isStage": false,
         "costumes": [
             {
@@ -20658,11 +19948,7 @@
     },
     {
         "name": "Strawberry",
-        "tags": [
-            "food",
-            "fruit",
-            "alex eben meyer"
-        ],
+        "tags": ["food", "fruit", "alex eben meyer"],
         "isStage": false,
         "costumes": [
             {
@@ -20755,14 +20041,7 @@
     },
     {
         "name": "Sun",
-        "tags": [
-            "space",
-            "star",
-            "hydrogen",
-            "helium",
-            "fusion",
-            "nuclear"
-        ],
+        "tags": ["space", "star", "hydrogen", "helium", "fusion", "nuclear"],
         "isStage": false,
         "costumes": [
             {
@@ -20799,10 +20078,7 @@
     },
     {
         "name": "Sunglasses1",
-        "tags": [
-            "fashion",
-            "cool"
-        ],
+        "tags": ["fashion", "cool"],
         "isStage": false,
         "costumes": [
             {
@@ -20848,10 +20124,7 @@
     },
     {
         "name": "Taco",
-        "tags": [
-            "food",
-            "designerd"
-        ],
+        "tags": ["food", "designerd"],
         "isStage": false,
         "costumes": [
             {
@@ -20900,10 +20173,7 @@
     },
     {
         "name": "Takeout",
-        "tags": [
-            "food",
-            "alex eben meyer"
-        ],
+        "tags": ["food", "alex eben meyer"],
         "isStage": false,
         "costumes": [
             {
@@ -21204,10 +20474,7 @@
     },
     {
         "name": "Ten80 Dance",
-        "tags": [
-            "people",
-            "dance"
-        ],
+        "tags": ["people", "dance"],
         "isStage": false,
         "costumes": [
             {
@@ -21400,10 +20667,7 @@
     },
     {
         "name": "Tennis Ball",
-        "tags": [
-            "ball",
-            "sports"
-        ],
+        "tags": ["ball", "sports"],
         "isStage": false,
         "costumes": [
             {
@@ -21436,10 +20700,7 @@
     },
     {
         "name": "Tera",
-        "tags": [
-            "fantasy",
-            "drawing"
-        ],
+        "tags": ["fantasy", "drawing"],
         "isStage": false,
         "costumes": [
             {
@@ -21514,11 +20775,7 @@
     },
     {
         "name": "Toucan",
-        "tags": [
-            "animals",
-            "bird",
-            "robert hunter"
-        ],
+        "tags": ["animals", "bird", "robert hunter"],
         "isStage": false,
         "costumes": [
             {
@@ -21580,9 +20837,7 @@
     },
     {
         "name": "Trampoline",
-        "tags": [
-            "sports"
-        ],
+        "tags": ["sports"],
         "isStage": false,
         "costumes": [
             {
@@ -21614,11 +20869,7 @@
     },
     {
         "name": "Tree1",
-        "tags": [
-            "plants",
-            "wood",
-            "forest"
-        ],
+        "tags": ["plants", "wood", "forest"],
         "isStage": false,
         "costumes": [
             {
@@ -21652,11 +20903,7 @@
     },
     {
         "name": "Trees",
-        "tags": [
-            "plants",
-            "wood",
-            "forest"
-        ],
+        "tags": ["plants", "wood", "forest"],
         "isStage": false,
         "costumes": [
             {
@@ -21812,12 +21059,7 @@
     },
     {
         "name": "Truck",
-        "tags": [
-            "truck",
-            "city",
-            "vehicle",
-            "car"
-        ],
+        "tags": ["truck", "city", "vehicle", "car"],
         "isStage": false,
         "costumes": [
             {
@@ -21886,10 +21128,7 @@
     },
     {
         "name": "Trumpet",
-        "tags": [
-            "music",
-            "andrew rae"
-        ],
+        "tags": ["music", "andrew rae"],
         "isStage": false,
         "costumes": [
             {
@@ -22030,11 +21269,7 @@
     },
     {
         "name": "Unicorn",
-        "tags": [
-            "fantasy",
-            "animals",
-            "ipzy"
-        ],
+        "tags": ["fantasy", "animals", "ipzy"],
         "isStage": false,
         "costumes": [
             {
@@ -22071,13 +21306,7 @@
     },
     {
         "name": "Unicorn 2",
-        "tags": [
-            "fantasy",
-            "animals",
-            "horse",
-            "horn",
-            "rainbow"
-        ],
+        "tags": ["fantasy", "animals", "horse", "horn", "rainbow"],
         "isStage": false,
         "costumes": [
             {
@@ -22116,12 +21345,7 @@
     },
     {
         "name": "Unicorn Running",
-        "tags": [
-            "fantasy",
-            "animals",
-            "ipzy",
-            "walking"
-        ],
+        "tags": ["fantasy", "animals", "ipzy", "walking"],
         "isStage": false,
         "costumes": [
             {
@@ -22234,11 +21458,7 @@
     },
     {
         "name": "Wand",
-        "tags": [
-            "fantasy",
-            "ipzy",
-            "things"
-        ],
+        "tags": ["fantasy", "ipzy", "things"],
         "isStage": false,
         "costumes": [
             {
@@ -22275,9 +21495,7 @@
     },
     {
         "name": "Wanda",
-        "tags": [
-            "people"
-        ],
+        "tags": ["people"],
         "isStage": false,
         "costumes": [
             {
@@ -22309,14 +21527,7 @@
     },
     {
         "name": "Watermelon",
-        "tags": [
-            "food",
-            "fruit",
-            "summer",
-            "seeds",
-            "seedless",
-            "plants"
-        ],
+        "tags": ["food", "fruit", "summer", "seeds", "seedless", "plants"],
         "isStage": false,
         "costumes": [
             {
@@ -22389,12 +21600,16 @@
     },
     {
         "name": "Winter Hat",
+<<<<<<< HEAD
         "tags": [
             "fashion",
             "clothing",
             "winter",
             "hat"
         ],
+=======
+        "tags": ["fashion", " clothing", "winter", "hat"],
+>>>>>>> a72062975f (feat: project-data.ts using codi sprite when loading new project)
         "isStage": false,
         "costumes": [
             {
@@ -22428,14 +21643,7 @@
     },
     {
         "name": "Witch",
-        "tags": [
-            "fantasy",
-            "people",
-            "ipzy",
-            "castle",
-            "emotions",
-            "magic"
-        ],
+        "tags": ["fantasy", "people", "ipzy", "castle", "emotions", "magic"],
         "isStage": false,
         "costumes": [
             {
@@ -22526,14 +21734,7 @@
     },
     {
         "name": "Wizard",
-        "tags": [
-            "fantasy",
-            "people",
-            "ipzy",
-            "castle",
-            "emotions",
-            "magic"
-        ],
+        "tags": ["fantasy", "people", "ipzy", "castle", "emotions", "magic"],
         "isStage": false,
         "costumes": [
             {
@@ -22607,14 +21808,7 @@
     },
     {
         "name": "Wizard Girl",
-        "tags": [
-            "people",
-            "female",
-            "girl",
-            "wizard",
-            "magic",
-            "fantasy"
-        ],
+        "tags": ["people", "female", "girl", "wizard", "magic", "fantasy"],
         "isStage": false,
         "costumes": [
             {
@@ -22654,11 +21848,7 @@
     },
     {
         "name": "Wizard Hat",
-        "tags": [
-            "fashion",
-            "fantasy",
-            "winter"
-        ],
+        "tags": ["fashion", "fantasy", "winter"],
         "isStage": false,
         "costumes": [
             {
@@ -22773,12 +21963,7 @@
     },
     {
         "name": "Zebra",
-        "tags": [
-            "animals",
-            "zebra",
-            "savanna",
-            "robert hunter"
-        ],
+        "tags": ["animals", "zebra", "savanna", "robert hunter"],
         "isStage": false,
         "costumes": [
             {
@@ -22823,6 +22008,2988 @@
                 "sampleCount": 153344
             }
         ],
+<<<<<<< HEAD
+=======
+        "blocks": {}
+    },
+    {
+        "name": "Block-A",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "ef3b01f6fc1ffa1270fbbf057f7ded42",
+                "name": "Block-a",
+                "bitmapResolution": 1,
+                "md5ext": "ef3b01f6fc1ffa1270fbbf057f7ded42.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 28,
+                "rotationCenterY": 38
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83c36d806dc92327b9e7049a565c6bff",
+                "name": "meow",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 37376,
+                "md5ext": "83c36d806dc92327b9e7049a565c6bff.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Block-B",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "1dc05fbaa37a6b41ffff459d0a776989",
+                "name": "Block-b",
+                "bitmapResolution": 1,
+                "md5ext": "1dc05fbaa37a6b41ffff459d0a776989.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 29,
+                "rotationCenterY": 42
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83c36d806dc92327b9e7049a565c6bff",
+                "name": "meow",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 37376,
+                "md5ext": "83c36d806dc92327b9e7049a565c6bff.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Block-C",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "43090c4b423c977041542ce12017fda0",
+                "name": "Block-c",
+                "bitmapResolution": 1,
+                "md5ext": "43090c4b423c977041542ce12017fda0.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 35,
+                "rotationCenterY": 43
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83c36d806dc92327b9e7049a565c6bff",
+                "name": "meow",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 37376,
+                "md5ext": "83c36d806dc92327b9e7049a565c6bff.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Block-D",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "1fb3db31500d6f7da662e825157920fa",
+                "name": "Block-d",
+                "bitmapResolution": 1,
+                "md5ext": "1fb3db31500d6f7da662e825157920fa.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 31,
+                "rotationCenterY": 41
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83c36d806dc92327b9e7049a565c6bff",
+                "name": "meow",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 37376,
+                "md5ext": "83c36d806dc92327b9e7049a565c6bff.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Block-E",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "240aacc04444cef3b2ef8cfaf0dae479",
+                "name": "Block-e",
+                "bitmapResolution": 1,
+                "md5ext": "240aacc04444cef3b2ef8cfaf0dae479.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 25,
+                "rotationCenterY": 39
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83c36d806dc92327b9e7049a565c6bff",
+                "name": "meow",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 37376,
+                "md5ext": "83c36d806dc92327b9e7049a565c6bff.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Block-F",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "d88d750ce848d7dbeeca3f02249350e2",
+                "name": "Block-f",
+                "bitmapResolution": 1,
+                "md5ext": "d88d750ce848d7dbeeca3f02249350e2.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 23,
+                "rotationCenterY": 40
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83c36d806dc92327b9e7049a565c6bff",
+                "name": "meow",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 37376,
+                "md5ext": "83c36d806dc92327b9e7049a565c6bff.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Block-G",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "989c76ae7f8c2e42ebeacdda961061ca",
+                "name": "Block-g",
+                "bitmapResolution": 1,
+                "md5ext": "989c76ae7f8c2e42ebeacdda961061ca.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 28,
+                "rotationCenterY": 39
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83c36d806dc92327b9e7049a565c6bff",
+                "name": "meow",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 37376,
+                "md5ext": "83c36d806dc92327b9e7049a565c6bff.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Block-H",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "93426b2f313d1bdedff368d94fc989d6",
+                "name": "Block-h",
+                "bitmapResolution": 1,
+                "md5ext": "93426b2f313d1bdedff368d94fc989d6.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 27,
+                "rotationCenterY": 38
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83c36d806dc92327b9e7049a565c6bff",
+                "name": "meow",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 37376,
+                "md5ext": "83c36d806dc92327b9e7049a565c6bff.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Block-I",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "f911b18605f59c75adf4d83e07811fd8",
+                "name": "Block-i",
+                "bitmapResolution": 1,
+                "md5ext": "f911b18605f59c75adf4d83e07811fd8.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 19,
+                "rotationCenterY": 39
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83c36d806dc92327b9e7049a565c6bff",
+                "name": "meow",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 37376,
+                "md5ext": "83c36d806dc92327b9e7049a565c6bff.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Block-J",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "8580c990ac918577550165447f870542",
+                "name": "Block-j",
+                "bitmapResolution": 1,
+                "md5ext": "8580c990ac918577550165447f870542.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 25,
+                "rotationCenterY": 41
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83c36d806dc92327b9e7049a565c6bff",
+                "name": "meow",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 37376,
+                "md5ext": "83c36d806dc92327b9e7049a565c6bff.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Block-K",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "d93a9fd4bfb5bc1e9790945fa756b748",
+                "name": "Block-k",
+                "bitmapResolution": 1,
+                "md5ext": "d93a9fd4bfb5bc1e9790945fa756b748.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 24,
+                "rotationCenterY": 40
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83c36d806dc92327b9e7049a565c6bff",
+                "name": "meow",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 37376,
+                "md5ext": "83c36d806dc92327b9e7049a565c6bff.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Block-L",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "579c90cbaf847e9adf4faf37f340b32d",
+                "name": "Block-l",
+                "bitmapResolution": 1,
+                "md5ext": "579c90cbaf847e9adf4faf37f340b32d.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 26,
+                "rotationCenterY": 40
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83c36d806dc92327b9e7049a565c6bff",
+                "name": "meow",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 37376,
+                "md5ext": "83c36d806dc92327b9e7049a565c6bff.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Block-M",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "6c5cf1fd0673f441b04e15e799685831",
+                "name": "Block-m",
+                "bitmapResolution": 1,
+                "md5ext": "6c5cf1fd0673f441b04e15e799685831.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 35,
+                "rotationCenterY": 37
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83c36d806dc92327b9e7049a565c6bff",
+                "name": "meow",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 37376,
+                "md5ext": "83c36d806dc92327b9e7049a565c6bff.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Block-N",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "9eba5dd44d65e1d421c40686fecde906",
+                "name": "Block-n",
+                "bitmapResolution": 1,
+                "md5ext": "9eba5dd44d65e1d421c40686fecde906.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 28,
+                "rotationCenterY": 37
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83c36d806dc92327b9e7049a565c6bff",
+                "name": "meow",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 37376,
+                "md5ext": "83c36d806dc92327b9e7049a565c6bff.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Block-O",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "8bbbde09c13a06015e554ab36fa178c0",
+                "name": "Block-o",
+                "bitmapResolution": 1,
+                "md5ext": "8bbbde09c13a06015e554ab36fa178c0.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 32,
+                "rotationCenterY": 40
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83c36d806dc92327b9e7049a565c6bff",
+                "name": "meow",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 37376,
+                "md5ext": "83c36d806dc92327b9e7049a565c6bff.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Block-P",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "0f920b99ac49421cf28e55c8d863bdc5",
+                "name": "Block-p",
+                "bitmapResolution": 1,
+                "md5ext": "0f920b99ac49421cf28e55c8d863bdc5.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 18,
+                "rotationCenterY": 33
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83c36d806dc92327b9e7049a565c6bff",
+                "name": "meow",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 37376,
+                "md5ext": "83c36d806dc92327b9e7049a565c6bff.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Block-Q",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "67f8e80eabaec4883eb9c67c9527004a",
+                "name": "Block-q",
+                "bitmapResolution": 1,
+                "md5ext": "67f8e80eabaec4883eb9c67c9527004a.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 26,
+                "rotationCenterY": 33
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83c36d806dc92327b9e7049a565c6bff",
+                "name": "meow",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 37376,
+                "md5ext": "83c36d806dc92327b9e7049a565c6bff.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Block-R",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "9d0432c5575451e251990d89845f8d00",
+                "name": "Block-r",
+                "bitmapResolution": 1,
+                "md5ext": "9d0432c5575451e251990d89845f8d00.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 22,
+                "rotationCenterY": 33
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83c36d806dc92327b9e7049a565c6bff",
+                "name": "meow",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 37376,
+                "md5ext": "83c36d806dc92327b9e7049a565c6bff.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Block-S",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "83c7486b08e78d099b4e776aaa2783fe",
+                "name": "Block-s",
+                "bitmapResolution": 1,
+                "md5ext": "83c7486b08e78d099b4e776aaa2783fe.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 13,
+                "rotationCenterY": 30
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83c36d806dc92327b9e7049a565c6bff",
+                "name": "meow",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 37376,
+                "md5ext": "83c36d806dc92327b9e7049a565c6bff.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Block-T",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "6c1b26611ec0483f601a648f59305aff",
+                "name": "Block-t",
+                "bitmapResolution": 1,
+                "md5ext": "6c1b26611ec0483f601a648f59305aff.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 25,
+                "rotationCenterY": 33
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83c36d806dc92327b9e7049a565c6bff",
+                "name": "meow",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 37376,
+                "md5ext": "83c36d806dc92327b9e7049a565c6bff.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Block-U",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "d02f77994789f528f0aaa7f211690151",
+                "name": "Block-u",
+                "bitmapResolution": 1,
+                "md5ext": "d02f77994789f528f0aaa7f211690151.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 28,
+                "rotationCenterY": 41
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83c36d806dc92327b9e7049a565c6bff",
+                "name": "meow",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 37376,
+                "md5ext": "83c36d806dc92327b9e7049a565c6bff.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Block-V",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "0654cfcb6234406837336e90be7e419c",
+                "name": "Block-v",
+                "bitmapResolution": 1,
+                "md5ext": "0654cfcb6234406837336e90be7e419c.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 35,
+                "rotationCenterY": 41
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83c36d806dc92327b9e7049a565c6bff",
+                "name": "meow",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 37376,
+                "md5ext": "83c36d806dc92327b9e7049a565c6bff.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Block-W",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "2b3145ae89c32793c4fcea9a6bcc6075",
+                "name": "Block-w",
+                "bitmapResolution": 1,
+                "md5ext": "2b3145ae89c32793c4fcea9a6bcc6075.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 47,
+                "rotationCenterY": 39
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83c36d806dc92327b9e7049a565c6bff",
+                "name": "meow",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 37376,
+                "md5ext": "83c36d806dc92327b9e7049a565c6bff.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Block-X",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "a73f354dc045bbbc5a491d9367192a80",
+                "name": "Block-x",
+                "bitmapResolution": 1,
+                "md5ext": "a73f354dc045bbbc5a491d9367192a80.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 25,
+                "rotationCenterY": 32
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83c36d806dc92327b9e7049a565c6bff",
+                "name": "meow",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 37376,
+                "md5ext": "83c36d806dc92327b9e7049a565c6bff.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Block-Y",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "e13e79f106d32a3176dbcf5c1b35827d",
+                "name": "Block-y",
+                "bitmapResolution": 1,
+                "md5ext": "e13e79f106d32a3176dbcf5c1b35827d.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 26,
+                "rotationCenterY": 33
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83c36d806dc92327b9e7049a565c6bff",
+                "name": "meow",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 37376,
+                "md5ext": "83c36d806dc92327b9e7049a565c6bff.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Block-Z",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "c57d371b291d43675f46601518098572",
+                "name": "Block-z",
+                "bitmapResolution": 1,
+                "md5ext": "c57d371b291d43675f46601518098572.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 24,
+                "rotationCenterY": 38
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83c36d806dc92327b9e7049a565c6bff",
+                "name": "meow",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 37376,
+                "md5ext": "83c36d806dc92327b9e7049a565c6bff.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Glow-0",
+        "tags": ["numbers", "digits"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "64b59074f24d0e2405a509a45c0dadba",
+                "name": "Glow-0",
+                "bitmapResolution": 1,
+                "md5ext": "64b59074f24d0e2405a509a45c0dadba.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 29,
+                "rotationCenterY": 39
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Glow-1",
+        "tags": ["numbers", "digits"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "9f75c26aa6c56168a3e5a4f598de2c94",
+                "name": "Glow-1",
+                "bitmapResolution": 1,
+                "md5ext": "9f75c26aa6c56168a3e5a4f598de2c94.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 24,
+                "rotationCenterY": 39
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Glow-2",
+        "tags": ["numbers", "digits"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "e8d8bf59db37b5012dd643a16a636042",
+                "name": "Glow-2",
+                "bitmapResolution": 1,
+                "md5ext": "e8d8bf59db37b5012dd643a16a636042.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 28,
+                "rotationCenterY": 41
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Glow-3",
+        "tags": ["numbers", "digits"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "57f7afe3b9888cca56803b73a62e4227",
+                "name": "Glow-3",
+                "bitmapResolution": 1,
+                "md5ext": "57f7afe3b9888cca56803b73a62e4227.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 33,
+                "rotationCenterY": 42
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Glow-4",
+        "tags": ["numbers", "digits"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "b8209e1980475b30ff11e60d7633446d",
+                "name": "Glow-4",
+                "bitmapResolution": 1,
+                "md5ext": "b8209e1980475b30ff11e60d7633446d.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 31,
+                "rotationCenterY": 38
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Glow-5",
+        "tags": ["numbers", "digits"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "aacb5b3cec637f192f080138b4ccd8d2",
+                "name": "Glow-5",
+                "bitmapResolution": 1,
+                "md5ext": "aacb5b3cec637f192f080138b4ccd8d2.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 30,
+                "rotationCenterY": 38
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Glow-6",
+        "tags": ["numbers", "digits"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "84d9f26050c709e6b98706c22d2efb3d",
+                "name": "Glow-6",
+                "bitmapResolution": 1,
+                "md5ext": "84d9f26050c709e6b98706c22d2efb3d.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 30,
+                "rotationCenterY": 37
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Glow-7",
+        "tags": ["numbers", "digits"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "6194b9a251a905d0001a969990961724",
+                "name": "Glow-7",
+                "bitmapResolution": 1,
+                "md5ext": "6194b9a251a905d0001a969990961724.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 31,
+                "rotationCenterY": 42
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Glow-8",
+        "tags": ["numbers", "digits"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "55e95fb9c60fbebb7d20bba99c7e9609",
+                "name": "Glow-8",
+                "bitmapResolution": 1,
+                "md5ext": "55e95fb9c60fbebb7d20bba99c7e9609.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 31,
+                "rotationCenterY": 37
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Glow-9",
+        "tags": ["numbers", "digits"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "0f53ee6a988bda07cba561d38bfbc36f",
+                "name": "Glow-9",
+                "bitmapResolution": 1,
+                "md5ext": "0f53ee6a988bda07cba561d38bfbc36f.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 28,
+                "rotationCenterY": 36
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Glow-A",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "fd470938cce54248aaf240b16e845456",
+                "name": "Glow-A",
+                "bitmapResolution": 1,
+                "md5ext": "fd470938cce54248aaf240b16e845456.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 36,
+                "rotationCenterY": 37
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Glow-B",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "a699fa024889b681d8b8b6c5c86acb6d",
+                "name": "Glow-B",
+                "bitmapResolution": 1,
+                "md5ext": "a699fa024889b681d8b8b6c5c86acb6d.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 32,
+                "rotationCenterY": 35
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Glow-C",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "51b8a7dd7a8cddc5bc30e35824cc557a",
+                "name": "Glow-C",
+                "bitmapResolution": 1,
+                "md5ext": "51b8a7dd7a8cddc5bc30e35824cc557a.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 27,
+                "rotationCenterY": 35
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Glow-D",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "a3a66e37de8d7ebe0505594e036ef6d1",
+                "name": "Glow-D",
+                "bitmapResolution": 1,
+                "md5ext": "a3a66e37de8d7ebe0505594e036ef6d1.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 33,
+                "rotationCenterY": 35
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Glow-E",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "80382a5db3fa556276068165c547b432",
+                "name": "Glow-E",
+                "bitmapResolution": 1,
+                "md5ext": "80382a5db3fa556276068165c547b432.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 34,
+                "rotationCenterY": 38
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Glow-F",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "67239f7d47f7b92bc38e2d8b275d54ab",
+                "name": "Glow-F",
+                "bitmapResolution": 1,
+                "md5ext": "67239f7d47f7b92bc38e2d8b275d54ab.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 35,
+                "rotationCenterY": 41
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Glow-G",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "56839bc48957869d980c6f9b6f5a2a91",
+                "name": "Glow-G",
+                "bitmapResolution": 1,
+                "md5ext": "56839bc48957869d980c6f9b6f5a2a91.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 32,
+                "rotationCenterY": 39
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Glow-H",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "d6016c6494153cd5735ee4b6a1b05277",
+                "name": "Glow-H",
+                "bitmapResolution": 1,
+                "md5ext": "d6016c6494153cd5735ee4b6a1b05277.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 35,
+                "rotationCenterY": 46
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Glow-I",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "9077988af075c80cc403b1d6e5891528",
+                "name": "Glow-I",
+                "bitmapResolution": 1,
+                "md5ext": "9077988af075c80cc403b1d6e5891528.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 21,
+                "rotationCenterY": 38
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Glow-J",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "6c359eff57abf5bb6db55894d08757c3",
+                "name": "Glow-J",
+                "bitmapResolution": 1,
+                "md5ext": "6c359eff57abf5bb6db55894d08757c3.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 29,
+                "rotationCenterY": 39
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Glow-K",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "e932898d1e6fe3950a266fccaba0c3e6",
+                "name": "Glow-K",
+                "bitmapResolution": 1,
+                "md5ext": "e932898d1e6fe3950a266fccaba0c3e6.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 38,
+                "rotationCenterY": 36
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Glow-L",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "dcee9202cf20e0395971f1ee73c45d37",
+                "name": "Glow-L",
+                "bitmapResolution": 1,
+                "md5ext": "dcee9202cf20e0395971f1ee73c45d37.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 33,
+                "rotationCenterY": 35
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Glow-M",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "26f81aa5990bf2371acaa8d76fe1e87f",
+                "name": "Glow-M",
+                "bitmapResolution": 1,
+                "md5ext": "26f81aa5990bf2371acaa8d76fe1e87f.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 42,
+                "rotationCenterY": 39
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Glow-N",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "d55a04ada14958eccc4aef446a4dad57",
+                "name": "Glow-N",
+                "bitmapResolution": 1,
+                "md5ext": "d55a04ada14958eccc4aef446a4dad57.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 37,
+                "rotationCenterY": 39
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Glow-O",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "64b59074f24d0e2405a509a45c0dadba",
+                "name": "Glow-O",
+                "bitmapResolution": 1,
+                "md5ext": "64b59074f24d0e2405a509a45c0dadba.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 29,
+                "rotationCenterY": 39
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Glow-P",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "c6edc2603ad4db3aa0b29f80e3e38cff",
+                "name": "Glow-P",
+                "bitmapResolution": 1,
+                "md5ext": "c6edc2603ad4db3aa0b29f80e3e38cff.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 32,
+                "rotationCenterY": 39
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Glow-Q",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "e4ae18bf8b92ae375ce818d754588c76",
+                "name": "Glow-Q",
+                "bitmapResolution": 1,
+                "md5ext": "e4ae18bf8b92ae375ce818d754588c76.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 33,
+                "rotationCenterY": 43
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Glow-R",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "bb11b49e19c68452331e78d51081ab42",
+                "name": "Glow-R",
+                "bitmapResolution": 1,
+                "md5ext": "bb11b49e19c68452331e78d51081ab42.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 35,
+                "rotationCenterY": 38
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Glow-S",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "6fd994b41bcf776fbf1f1521a879f1af",
+                "name": "Glow-S",
+                "bitmapResolution": 1,
+                "md5ext": "6fd994b41bcf776fbf1f1521a879f1af.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 27,
+                "rotationCenterY": 40
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Glow-T",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "d687543649a676a14f408b5890d45f05",
+                "name": "Glow-T",
+                "bitmapResolution": 1,
+                "md5ext": "d687543649a676a14f408b5890d45f05.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 35,
+                "rotationCenterY": 38
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Glow-U",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "cb8ef2244400a57ba08e918cb4fe8bba",
+                "name": "Glow-U",
+                "bitmapResolution": 1,
+                "md5ext": "cb8ef2244400a57ba08e918cb4fe8bba.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 37,
+                "rotationCenterY": 37
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Glow-V",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "c6edc1ac2c5979f389598537cfb28096",
+                "name": "Glow-V",
+                "bitmapResolution": 1,
+                "md5ext": "c6edc1ac2c5979f389598537cfb28096.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 35,
+                "rotationCenterY": 42
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Glow-W",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "2e0c2bb46c4ca3cf97779f749b1556f6",
+                "name": "Glow-W",
+                "bitmapResolution": 1,
+                "md5ext": "2e0c2bb46c4ca3cf97779f749b1556f6.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 45,
+                "rotationCenterY": 41
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Glow-X",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "0b98a63dcc55251072a95a6c6bf7f6f2",
+                "name": "Glow-X",
+                "bitmapResolution": 1,
+                "md5ext": "0b98a63dcc55251072a95a6c6bf7f6f2.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 40,
+                "rotationCenterY": 39
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Glow-Y",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "532494c9b5e6709f9982c00a48ce6870",
+                "name": "Glow-Y",
+                "bitmapResolution": 1,
+                "md5ext": "532494c9b5e6709f9982c00a48ce6870.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 38,
+                "rotationCenterY": 41
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Glow-Z",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "2d94d83dcc9ee3a107e5ea7ef0dddeb0",
+                "name": "Glow-Z",
+                "bitmapResolution": 1,
+                "md5ext": "2d94d83dcc9ee3a107e5ea7ef0dddeb0.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 30,
+                "rotationCenterY": 39
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Story-A",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "4b1beecd9a8892df0918242b2b5fbd4c",
+                "name": "story-A-1",
+                "bitmapResolution": 1,
+                "md5ext": "4b1beecd9a8892df0918242b2b5fbd4c.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 23,
+                "rotationCenterY": 26
+            },
+            {
+                "assetId": "7a6fdf5e26fc690879f8e215bfdec4d5",
+                "name": "story-A-2",
+                "bitmapResolution": 1,
+                "md5ext": "7a6fdf5e26fc690879f8e215bfdec4d5.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 23,
+                "rotationCenterY": 26
+            },
+            {
+                "assetId": "3c46f5192d2c29f957381e0100c6085d",
+                "name": "story-A-3",
+                "bitmapResolution": 1,
+                "md5ext": "3c46f5192d2c29f957381e0100c6085d.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 22,
+                "rotationCenterY": 24
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Story-B",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "a09376e1eacf17be3c9fbd268674b9f7",
+                "name": "story-B-1",
+                "bitmapResolution": 1,
+                "md5ext": "a09376e1eacf17be3c9fbd268674b9f7.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 20,
+                "rotationCenterY": 25
+            },
+            {
+                "assetId": "5f8301434ce176ab328f5b658ee1ec05",
+                "name": "story-B-2",
+                "bitmapResolution": 1,
+                "md5ext": "5f8301434ce176ab328f5b658ee1ec05.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 19,
+                "rotationCenterY": 25
+            },
+            {
+                "assetId": "22817ed2e4253787c78d7b696bbefdc1",
+                "name": "story-B-3",
+                "bitmapResolution": 1,
+                "md5ext": "22817ed2e4253787c78d7b696bbefdc1.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 18,
+                "rotationCenterY": 23
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Story-C",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "5e61610cbba50ba86f18830f61bbaecb",
+                "name": "story-C-1",
+                "bitmapResolution": 1,
+                "md5ext": "5e61610cbba50ba86f18830f61bbaecb.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 22,
+                "rotationCenterY": 26
+            },
+            {
+                "assetId": "f6ff602902affbae2f89b389f08df432",
+                "name": "story-C-2",
+                "bitmapResolution": 1,
+                "md5ext": "f6ff602902affbae2f89b389f08df432.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 22,
+                "rotationCenterY": 26
+            },
+            {
+                "assetId": "6bd5cb8bc3e4df5e055f4c56dd630855",
+                "name": "story-C-3",
+                "bitmapResolution": 1,
+                "md5ext": "6bd5cb8bc3e4df5e055f4c56dd630855.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 20,
+                "rotationCenterY": 24
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Story-D",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "130cc4b9ad8dd8936d22c51c05ac6860",
+                "name": "story-D-1",
+                "bitmapResolution": 1,
+                "md5ext": "130cc4b9ad8dd8936d22c51c05ac6860.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 25,
+                "rotationCenterY": 26
+            },
+            {
+                "assetId": "b28d76f648ad24932a18cb40c8d76bc5",
+                "name": "story-D-2",
+                "bitmapResolution": 1,
+                "md5ext": "b28d76f648ad24932a18cb40c8d76bc5.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 25,
+                "rotationCenterY": 26
+            },
+            {
+                "assetId": "dd713e3bf42d7a4fd8d2f12094db1c63",
+                "name": "story-D-3",
+                "bitmapResolution": 1,
+                "md5ext": "dd713e3bf42d7a4fd8d2f12094db1c63.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 22,
+                "rotationCenterY": 23
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Story-E",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "3005df22798da45f1daf1de7421bb91d",
+                "name": "story-E-1",
+                "bitmapResolution": 1,
+                "md5ext": "3005df22798da45f1daf1de7421bb91d.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 20,
+                "rotationCenterY": 25
+            },
+            {
+                "assetId": "add5c5a8eec67eb010b5cbd44dea5c8d",
+                "name": "story-E-2",
+                "bitmapResolution": 1,
+                "md5ext": "add5c5a8eec67eb010b5cbd44dea5c8d.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 20,
+                "rotationCenterY": 25
+            },
+            {
+                "assetId": "4e903ac41a7e16a52efff8477f2398c7",
+                "name": "story-E-3",
+                "bitmapResolution": 1,
+                "md5ext": "4e903ac41a7e16a52efff8477f2398c7.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 18,
+                "rotationCenterY": 23
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Story-F",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "83565581ecc9f7d4010efd8683a99393",
+                "name": "story-F-1",
+                "bitmapResolution": 1,
+                "md5ext": "83565581ecc9f7d4010efd8683a99393.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 18,
+                "rotationCenterY": 26
+            },
+            {
+                "assetId": "4a3ae31dd3dd3b96239a0307cfdaa1b6",
+                "name": "story-F-2",
+                "bitmapResolution": 1,
+                "md5ext": "4a3ae31dd3dd3b96239a0307cfdaa1b6.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 18,
+                "rotationCenterY": 25
+            },
+            {
+                "assetId": "d4ec9a1827429f4e2f3dc239dcc15b95",
+                "name": "story-F-3",
+                "bitmapResolution": 1,
+                "md5ext": "d4ec9a1827429f4e2f3dc239dcc15b95.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 16,
+                "rotationCenterY": 23
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Story-G",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "85144902cc61fe98dca513b74276d7d8",
+                "name": "story-G-1",
+                "bitmapResolution": 1,
+                "md5ext": "85144902cc61fe98dca513b74276d7d8.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 23,
+                "rotationCenterY": 25
+            },
+            {
+                "assetId": "648cfdd48a7f748e6198194669ba1909",
+                "name": "story-G-2",
+                "bitmapResolution": 1,
+                "md5ext": "648cfdd48a7f748e6198194669ba1909.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 23,
+                "rotationCenterY": 25
+            },
+            {
+                "assetId": "8fb61932544adbe8c95b067ad1351758",
+                "name": "story-G-3",
+                "bitmapResolution": 1,
+                "md5ext": "8fb61932544adbe8c95b067ad1351758.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 21,
+                "rotationCenterY": 24
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Story-H",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "eec286b1cfea3f219a5b486931abedd2",
+                "name": "story-H-1",
+                "bitmapResolution": 1,
+                "md5ext": "eec286b1cfea3f219a5b486931abedd2.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 24,
+                "rotationCenterY": 25
+            },
+            {
+                "assetId": "70520daa9f82a2347c8a8fa9e7fe1a6e",
+                "name": "story-H-2",
+                "bitmapResolution": 1,
+                "md5ext": "70520daa9f82a2347c8a8fa9e7fe1a6e.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 24,
+                "rotationCenterY": 25
+            },
+            {
+                "assetId": "99aae97a2b49904db7eeb813fa968582",
+                "name": "story-H-3",
+                "bitmapResolution": 1,
+                "md5ext": "99aae97a2b49904db7eeb813fa968582.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 22,
+                "rotationCenterY": 24
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Story-I",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "2c156e20da1ad4e8e397a89ad8fb1c26",
+                "name": "story-I-1",
+                "bitmapResolution": 1,
+                "md5ext": "2c156e20da1ad4e8e397a89ad8fb1c26.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 9,
+                "rotationCenterY": 26
+            },
+            {
+                "assetId": "1bceea90292a51a7177abf581f28bf2c",
+                "name": "story-I-2",
+                "bitmapResolution": 1,
+                "md5ext": "1bceea90292a51a7177abf581f28bf2c.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 9,
+                "rotationCenterY": 26
+            },
+            {
+                "assetId": "9cad752323aa81dfa8d8cf009057b108",
+                "name": "story-I-3",
+                "bitmapResolution": 1,
+                "md5ext": "9cad752323aa81dfa8d8cf009057b108.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 7,
+                "rotationCenterY": 23
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Story-J",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "2838de5d131785c985eb0eab25ec63af",
+                "name": "story-J-1",
+                "bitmapResolution": 1,
+                "md5ext": "2838de5d131785c985eb0eab25ec63af.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 14,
+                "rotationCenterY": 25
+            },
+            {
+                "assetId": "7d7d6f257a6bf3668a0befa4199f16a0",
+                "name": "story-J-2",
+                "bitmapResolution": 1,
+                "md5ext": "7d7d6f257a6bf3668a0befa4199f16a0.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 14,
+                "rotationCenterY": 25
+            },
+            {
+                "assetId": "d5b58ddd6f6b4fdcfdfd86d102853935",
+                "name": "story-J-3",
+                "bitmapResolution": 1,
+                "md5ext": "d5b58ddd6f6b4fdcfdfd86d102853935.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 12,
+                "rotationCenterY": 24
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Story-K",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "0cb908dbc38635cc595e6060afc1b682",
+                "name": "story-K-1",
+                "bitmapResolution": 1,
+                "md5ext": "0cb908dbc38635cc595e6060afc1b682.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 24,
+                "rotationCenterY": 26
+            },
+            {
+                "assetId": "ecf86afea23fd95e27d4e63659adbfa6",
+                "name": "story-K-2",
+                "bitmapResolution": 1,
+                "md5ext": "ecf86afea23fd95e27d4e63659adbfa6.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 24,
+                "rotationCenterY": 26
+            },
+            {
+                "assetId": "17ef8f63a2a8f47258bd62cf642fd8d6",
+                "name": "story-K-3",
+                "bitmapResolution": 1,
+                "md5ext": "17ef8f63a2a8f47258bd62cf642fd8d6.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 21,
+                "rotationCenterY": 24
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Story-L",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "935c7cf21c35523c0a232013a6399a49",
+                "name": "story-L-1",
+                "bitmapResolution": 1,
+                "md5ext": "935c7cf21c35523c0a232013a6399a49.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 19,
+                "rotationCenterY": 26
+            },
+            {
+                "assetId": "0fc3ac08468935694255ef8a461d4d26",
+                "name": "story-L-2",
+                "bitmapResolution": 1,
+                "md5ext": "0fc3ac08468935694255ef8a461d4d26.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 19,
+                "rotationCenterY": 26
+            },
+            {
+                "assetId": "ec4d85a60c32c7637de31dbf503266a0",
+                "name": "story-L-3",
+                "bitmapResolution": 1,
+                "md5ext": "ec4d85a60c32c7637de31dbf503266a0.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 17,
+                "rotationCenterY": 23
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Story-M",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "9bf9e677da34528433d3c1acb945e2df",
+                "name": "story-M-1",
+                "bitmapResolution": 1,
+                "md5ext": "9bf9e677da34528433d3c1acb945e2df.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 30,
+                "rotationCenterY": 25
+            },
+            {
+                "assetId": "42e5468fa164e001925d5a49d372f4b1",
+                "name": "story-M-2",
+                "bitmapResolution": 1,
+                "md5ext": "42e5468fa164e001925d5a49d372f4b1.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 30,
+                "rotationCenterY": 25
+            },
+            {
+                "assetId": "643896fcad0a1bf6eb9f3f590094687c",
+                "name": "story-M-3",
+                "bitmapResolution": 1,
+                "md5ext": "643896fcad0a1bf6eb9f3f590094687c.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 27,
+                "rotationCenterY": 24
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Story-N",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "c2f77473dd16d1a3713218b05390a688",
+                "name": "story-N-1",
+                "bitmapResolution": 1,
+                "md5ext": "c2f77473dd16d1a3713218b05390a688.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 26,
+                "rotationCenterY": 25
+            },
+            {
+                "assetId": "80c8f32282b697097933837905a6f257",
+                "name": "story-N-2",
+                "bitmapResolution": 1,
+                "md5ext": "80c8f32282b697097933837905a6f257.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 26,
+                "rotationCenterY": 25
+            },
+            {
+                "assetId": "40ffad793f4042a5fe7b3aaa6bc175ae",
+                "name": "story-N-3",
+                "bitmapResolution": 1,
+                "md5ext": "40ffad793f4042a5fe7b3aaa6bc175ae.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 24,
+                "rotationCenterY": 23
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Story-O",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "40bf3880b678beeda8cf708a51a4402d",
+                "name": "story-O-1",
+                "bitmapResolution": 1,
+                "md5ext": "40bf3880b678beeda8cf708a51a4402d.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 25,
+                "rotationCenterY": 25
+            },
+            {
+                "assetId": "0bdd31ea2b3b78d0c39022795a49c69a",
+                "name": "story-O-2",
+                "bitmapResolution": 1,
+                "md5ext": "0bdd31ea2b3b78d0c39022795a49c69a.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 24,
+                "rotationCenterY": 25
+            },
+            {
+                "assetId": "43a89fc1442627ca48b1dc631c517942",
+                "name": "story-O-3",
+                "bitmapResolution": 1,
+                "md5ext": "43a89fc1442627ca48b1dc631c517942.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 22,
+                "rotationCenterY": 24
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Story-P",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "1a41f74cd76d7202d8b22ffc7729e03f",
+                "name": "story-P-1",
+                "bitmapResolution": 1,
+                "md5ext": "1a41f74cd76d7202d8b22ffc7729e03f.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 20,
+                "rotationCenterY": 25
+            },
+            {
+                "assetId": "377eac55366670a03c469705c6689f09",
+                "name": "story-P-2",
+                "bitmapResolution": 1,
+                "md5ext": "377eac55366670a03c469705c6689f09.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 20,
+                "rotationCenterY": 25
+            },
+            {
+                "assetId": "9cf707e83af27c47e74adb77496ffca5",
+                "name": "story-P-3",
+                "bitmapResolution": 1,
+                "md5ext": "9cf707e83af27c47e74adb77496ffca5.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 17,
+                "rotationCenterY": 24
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Story-Q",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "84a6dc992bce018a1eac9be0173ad917",
+                "name": "story-Q-1",
+                "bitmapResolution": 1,
+                "md5ext": "84a6dc992bce018a1eac9be0173ad917.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 25,
+                "rotationCenterY": 30
+            },
+            {
+                "assetId": "efc27a91c30d6a511be4245e36684192",
+                "name": "story-Q-2",
+                "bitmapResolution": 1,
+                "md5ext": "efc27a91c30d6a511be4245e36684192.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 25,
+                "rotationCenterY": 30
+            },
+            {
+                "assetId": "01acd1076994a4379a3fc9e034bc05fc",
+                "name": "story-Q-3",
+                "bitmapResolution": 1,
+                "md5ext": "01acd1076994a4379a3fc9e034bc05fc.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 22,
+                "rotationCenterY": 29
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Story-R",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "4f217b14a161fcd9590614b0733100ea",
+                "name": "story-R-1",
+                "bitmapResolution": 1,
+                "md5ext": "4f217b14a161fcd9590614b0733100ea.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 22,
+                "rotationCenterY": 26
+            },
+            {
+                "assetId": "3c3f44aba3eff8856472e06b333a7201",
+                "name": "story-R-2",
+                "bitmapResolution": 1,
+                "md5ext": "3c3f44aba3eff8856472e06b333a7201.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 22,
+                "rotationCenterY": 26
+            },
+            {
+                "assetId": "5c1d38d02ae9c4df7851a6e9d52f25b4",
+                "name": "story-R-3",
+                "bitmapResolution": 1,
+                "md5ext": "5c1d38d02ae9c4df7851a6e9d52f25b4.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 20,
+                "rotationCenterY": 23
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Story-S",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "47b9f910048ce4db93bdfbcd2638e19a",
+                "name": "story-S-1",
+                "bitmapResolution": 1,
+                "md5ext": "47b9f910048ce4db93bdfbcd2638e19a.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 16,
+                "rotationCenterY": 25
+            },
+            {
+                "assetId": "5a113fcacd35ababbf23c5a9289433d1",
+                "name": "story-S-2",
+                "bitmapResolution": 1,
+                "md5ext": "5a113fcacd35ababbf23c5a9289433d1.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 16,
+                "rotationCenterY": 25
+            },
+            {
+                "assetId": "fd2a94481c3ef0c223784b2f3c6df874",
+                "name": "story-S-3",
+                "bitmapResolution": 1,
+                "md5ext": "fd2a94481c3ef0c223784b2f3c6df874.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 14,
+                "rotationCenterY": 23
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Story-T",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "001a2186db228fdd9bfbf3f15800bb63",
+                "name": "story-T-1",
+                "bitmapResolution": 1,
+                "md5ext": "001a2186db228fdd9bfbf3f15800bb63.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 22,
+                "rotationCenterY": 27
+            },
+            {
+                "assetId": "b61e1ac30aa2f35d4fd8c23fab1f76ea",
+                "name": "story-T-2",
+                "bitmapResolution": 1,
+                "md5ext": "b61e1ac30aa2f35d4fd8c23fab1f76ea.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 22,
+                "rotationCenterY": 27
+            },
+            {
+                "assetId": "66b22b0ff0a5c1c205a701316ab954cf",
+                "name": "story-T-3",
+                "bitmapResolution": 1,
+                "md5ext": "66b22b0ff0a5c1c205a701316ab954cf.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 20,
+                "rotationCenterY": 24
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Story-U",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "cfb334b977b8f2a39aa56b1e0532829e",
+                "name": "story-U-1",
+                "bitmapResolution": 1,
+                "md5ext": "cfb334b977b8f2a39aa56b1e0532829e.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 24,
+                "rotationCenterY": 26
+            },
+            {
+                "assetId": "51dd73c840ba3aca0f9770e13cb14fb3",
+                "name": "story-U-2",
+                "bitmapResolution": 1,
+                "md5ext": "51dd73c840ba3aca0f9770e13cb14fb3.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 24,
+                "rotationCenterY": 26
+            },
+            {
+                "assetId": "f6b7b4da5362fdac29d84f1fbf19e3f4",
+                "name": "story-U-3",
+                "bitmapResolution": 1,
+                "md5ext": "f6b7b4da5362fdac29d84f1fbf19e3f4.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 21,
+                "rotationCenterY": 24
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Story-V",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "f27e7a4216665a6eab43fe9b4b5ec934",
+                "name": "story-V-1",
+                "bitmapResolution": 1,
+                "md5ext": "f27e7a4216665a6eab43fe9b4b5ec934.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 25,
+                "rotationCenterY": 25
+            },
+            {
+                "assetId": "43a8993221848f90e9f37664e7832b4a",
+                "name": "story-V-2",
+                "bitmapResolution": 1,
+                "md5ext": "43a8993221848f90e9f37664e7832b4a.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 25,
+                "rotationCenterY": 25
+            },
+            {
+                "assetId": "d5c20886e3eb0ca0f5430c9482b1d832",
+                "name": "story-V-3",
+                "bitmapResolution": 1,
+                "md5ext": "d5c20886e3eb0ca0f5430c9482b1d832.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 22,
+                "rotationCenterY": 23
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Story-W",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "396e27d20d1a49edaa106ba6d667cedd",
+                "name": "story-W-1",
+                "bitmapResolution": 1,
+                "md5ext": "396e27d20d1a49edaa106ba6d667cedd.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 37,
+                "rotationCenterY": 25
+            },
+            {
+                "assetId": "f21ba826cd88c376e868f079d6df273c",
+                "name": "story-W-2",
+                "bitmapResolution": 1,
+                "md5ext": "f21ba826cd88c376e868f079d6df273c.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 37,
+                "rotationCenterY": 25
+            },
+            {
+                "assetId": "528df57da4490f6da8c75da06a1367f5",
+                "name": "story-W-3",
+                "bitmapResolution": 1,
+                "md5ext": "528df57da4490f6da8c75da06a1367f5.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 34,
+                "rotationCenterY": 24
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Story-X",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "db0c1a6499169aac6639a1a0076658ce",
+                "name": "story-X-1",
+                "bitmapResolution": 1,
+                "md5ext": "db0c1a6499169aac6639a1a0076658ce.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 22,
+                "rotationCenterY": 26
+            },
+            {
+                "assetId": "ca4e3e84788bdeea42dd5ed952d5a66c",
+                "name": "story-X-2",
+                "bitmapResolution": 1,
+                "md5ext": "ca4e3e84788bdeea42dd5ed952d5a66c.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 22,
+                "rotationCenterY": 26
+            },
+            {
+                "assetId": "04be1176e562eff16f1159f69945a82e",
+                "name": "story-X-3",
+                "bitmapResolution": 1,
+                "md5ext": "04be1176e562eff16f1159f69945a82e.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 20,
+                "rotationCenterY": 24
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Story-Y",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "59275f907633ce02074f787e5767bfde",
+                "name": "story-Y-1",
+                "bitmapResolution": 1,
+                "md5ext": "59275f907633ce02074f787e5767bfde.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 22,
+                "rotationCenterY": 27
+            },
+            {
+                "assetId": "093a9410933f7d01f459f08bcb01735b",
+                "name": "story-Y-2",
+                "bitmapResolution": 1,
+                "md5ext": "093a9410933f7d01f459f08bcb01735b.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 22,
+                "rotationCenterY": 27
+            },
+            {
+                "assetId": "d7fabe2652c93dd1bf91d9064cf5a348",
+                "name": "story-Y-3",
+                "bitmapResolution": 1,
+                "md5ext": "d7fabe2652c93dd1bf91d9064cf5a348.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 20,
+                "rotationCenterY": 24
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                "name": "pop",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 1032,
+                "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Story-Z",
+        "tags": ["alphabet", "letters"],
+        "isStage": false,
+>>>>>>> a72062975f (feat: project-data.ts using codi sprite when loading new project)
         "variables": {},
         "blocks": {}
     }
