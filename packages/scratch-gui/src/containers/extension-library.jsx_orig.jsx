@@ -2,7 +2,6 @@ import bindAll from 'lodash.bindall';
 import PropTypes from 'prop-types';
 import React from 'react';
 import VM from '@scratch/scratch-vm';
-
 import {defineMessages, injectIntl, intlShape} from 'react-intl';
 
 import extensionLibraryContent from '../lib/libraries/extensions/index.jsx';
@@ -26,14 +25,6 @@ const messages = defineMessages({
 class ExtensionLibrary extends React.PureComponent {
     constructor (props) {
         super(props);
-        extensionLibraryContent.forEach(extension => {
-            if (extension.translationMap) {
-                Object.assign(
-                    this.props.intl.messages,
-                    extension.translationMap[this.props.intl.locale]
-                );
-            }
-        });
         bindAll(this, [
             'handleItemSelect'
         ]);

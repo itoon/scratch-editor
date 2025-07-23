@@ -68,8 +68,6 @@ builtinExtensions['tm2scratch'] = () => require('../extensions/scratch3_tm2scrat
 
 builtinExtensions['tm2scratch'] = () => require('../extensions/scratch3_tm2scratch');
 
-builtinExtensions['tm2scratch'] = () => require('../extensions/scratch3_tm2scratch');
-
 class ExtensionManager {
     constructor (runtime) {
         /**
