@@ -49,7 +49,28 @@ import gdxforConnectionSmallIconURL from './gdxfor/gdxfor-small.svg';
 import tm2scratchIconURL from './tm2scratch/tm2scratch.png';
 import tm2scratchInsetIconURL from './tm2scratch/tm2scratch-small.png';
 
+import posenet2scratchIconURL from './posenet2scratch/posenet2scratch.png';
+import posenet2scratchInsetIconURL from './posenet2scratch/posenet2scratch-small.png';
+
 export default [
+    {
+        name: 'Posenet2Scratch',
+        extensionId: 'posenet2scratch',
+        collaborator: 'champierre',
+        iconURL: posenet2scratchIconURL,
+        insetIconURL: posenet2scratchInsetIconURL,
+        description: (
+            <FormattedMessage
+                defaultMessage="PoseNet2Scratch Blocks."
+                description="PoseNet2Scratch Blocks."
+                id="gui.extension.posenet2scratchblocks.description"
+            />
+        ),
+        featured: true,
+        disabled: false,
+        internetConnectionRequired: true,
+        bluetoothRequired: false
+    },
     {
         name: 'TM2Scratch',
         extensionId: 'tm2scratch',
