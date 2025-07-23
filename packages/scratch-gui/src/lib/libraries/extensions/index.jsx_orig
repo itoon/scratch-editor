@@ -46,50 +46,7 @@ import gdxforInsetIconURL from './gdxfor/gdxfor-small.svg';
 import gdxforConnectionIconURL from './gdxfor/gdxfor-illustration.svg';
 import gdxforConnectionSmallIconURL from './gdxfor/gdxfor-small.svg';
 
-import faceSensingIconURL from './faceSensing/faceSensing.png';
-import faceSensingInsetIconURL from './faceSensing/faceSensing-small.svg';
-import tm2scratchIconURL from './tm2scratch/tm2scratch.png';
-import tm2scratchInsetIconURL from './tm2scratch/tm2scratch-small.png';
-
 export default [
-    {
-        name: 'TM2Scratch',
-        extensionId: 'tm2scratch',
-        collaborator: 'Tsukurusha, YengawaLab and Google',
-        iconURL: tm2scratchIconURL,
-        insetIconURL: tm2scratchInsetIconURL,
-        description: (
-            <FormattedMessage
-                defaultMessage="画像や音声を学習させよう。"
-                description="画像や音声を学習させよう。"
-                id="gui.extension.tm2scratchblocks.description"
-            />
-        ),
-        featured: true,
-        disabled: false,
-        internetConnectionRequired: true,
-        bluetoothRequired: false,
-        translationMap: {
-            'ja': {
-                'gui.extension.tm2scratchblocks.description': '画像や音声を学習させよう。'
-            },
-            'ja-Hira': {
-                'gui.extension.tm2scratchblocks.description': 'がぞうやおんせいをがくしゅうさせよう。'
-            },
-            'en': {
-                'gui.extension.tm2scratchblocks.description': 'Recognize your own images and sounds.'
-            },
-            'zh-cn': {
-                'gui.extension.tm2scratchblocks.description': 'Recognize your own images and sounds.'
-            },
-            'ko': {
-                'gui.extension.tm2scratchblocks.description': '나의 이미지와 소리를 인식해볼까요'
-            },
-            'zh-tw': {
-                'gui.extension.tm2scratchblocks.description': 'Recognize your own images and sounds.'
-            }
-        }
-    },
     {
         name: (
             <FormattedMessage
@@ -146,26 +103,6 @@ export default [
                 defaultMessage="Sense motion with the camera."
                 description="Description for the 'Video Sensing' extension"
                 id="gui.extension.videosensing.description"
-            />
-        ),
-        featured: true
-    },
-    {
-        name: (
-            <FormattedMessage
-                defaultMessage="Face Sensing"
-                description="Name for the 'Face Sensing' extension"
-                id="gui.extension.faceSensing.name"
-            />
-        ),
-        extensionId: 'faceSensing',
-        iconURL: faceSensingIconURL,
-        insetIconURL: faceSensingInsetIconURL,
-        description: (
-            <FormattedMessage
-                defaultMessage="Sense faces with the camera."
-                description="Description for the 'Face Sensing' extension"
-                id="gui.extension.faceSensing.description"
             />
         ),
         featured: true
@@ -385,7 +322,7 @@ export default [
         connectionTipIconURL: boostConnectionTipIconURL,
         prescanMessage: (
             <FormattedMessage
-                // eslint-disable-next-line @stylistic/max-len
+                // eslint-disable-next-line max-len
                 defaultMessage="Press the button on your LEGO BOOST, then press the button below to start searching for your device."
                 description="Prompt before searching for a LEGO BOOST"
                 id="gui.extension.boost.prescanMessage"
@@ -431,7 +368,7 @@ export default [
         connectionTipIconURL: wedo2ConnectionTipIconURL,
         prescanMessage: (
             <FormattedMessage
-                // eslint-disable-next-line @stylistic/max-len
+                // eslint-disable-next-line max-len
                 defaultMessage="Press the button on your LEGO WeDo 2.0, then press the button below to start searching for your device."
                 description="Prompt before searching for a LEGO WeDo 2.0"
                 id="gui.extension.wedo2.prescanMessage"
