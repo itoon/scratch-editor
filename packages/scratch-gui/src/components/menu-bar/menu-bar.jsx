@@ -189,6 +189,7 @@ class MenuBar extends React.Component {
             'handleClickNew',
             'handleClickRemix',
             'handleClickSave',
+            'handleClickLoadProject',
             'handleClickSaveAsCopy',
             'handleClickSeeCommunity',
             'handleClickShare',
@@ -226,7 +227,8 @@ class MenuBar extends React.Component {
     }
     handleClickSave () {
         // this save project function is not working, so we are using this to get the project data
-        this.props.vm.toJSON();
+        const tmpProjectJson = this.props.vm.toJSON();
+        console.log(tmpProjectJson);
 
         // get thumbnail project data
         this.props.vm.postIOData('video', {forceTransparentPreview: true});
@@ -244,6 +246,12 @@ class MenuBar extends React.Component {
     handleClickSaveAsCopy () {
         this.props.onClickSaveAsCopy();
         this.props.onRequestCloseFile();
+    }
+    async handleClickLoadProject () {
+        // load project demo
+        // this.props.onLoadingStarted();
+        const tmpProjectJson = {targets: [{isStage: true, name: 'Stage', variables: {'`jEk@4|i[#Fk?(8x)AV.-my variable': ['my variable', 0]}, lists: {}, broadcasts: {}, blocks: {}, comments: {}, currentCostume: 0, costumes: [{name: 'backdrop1', dataFormat: 'svg', assetId: '87ec29ad216c0074c731d581c7f40c39', md5ext: '87ec29ad216c0074c731d581c7f40c39.svg', rotationCenterX: 240, rotationCenterY: 180}], sounds: [{name: 'pop', assetId: '83a9787d4cb6f3b7632b4ddfebf74367', dataFormat: 'wav', format: '', rate: 48000, sampleCount: 1123, md5ext: '83a9787d4cb6f3b7632b4ddfebf74367.wav'}], volume: 100, layerOrder: 0, tempo: 60, videoTransparency: 50, videoState: 'on', textToSpeechLanguage: null}, {isStage: false, name: 'Codi', variables: {}, lists: {}, broadcasts: {}, blocks: {'F(tXtq$K6SN]B@(MrNKa': {opcode: 'posenet2scratch_getX', next: null, parent: '{-R)_](TsJNw)3o2Ha,q', inputs: {PART: [1, 'C8;N(Ecq,;F2:R1?.AZy'], PERSON_NUMBER: [1, '3%}2iT=T)[_y_00$uqK!']}, fields: {}, shadow: false, topLevel: false}, 'C8;N(Ecq,;F2:R1?.AZy': {opcode: 'posenet2scratch_menu_parts', next: null, parent: 'F(tXtq$K6SN]B@(MrNKa', inputs: {}, fields: {parts: ['0', null]}, shadow: true, topLevel: false}, '3%}2iT=T)[_y_00$uqK!': {opcode: 'posenet2scratch_menu_personNumbers', next: null, parent: 'F(tXtq$K6SN]B@(MrNKa', inputs: {}, fields: {personNumbers: ['1', null]}, shadow: true, topLevel: false}, '`Y99qfSS-U/8k6W]HjAY': {opcode: 'control_forever', next: null, parent: '@*J|r#0|!8wr~NH%e}a1', inputs: {SUBSTACK: [2, '{-R)_](TsJNw)3o2Ha,q']}, fields: {}, shadow: false, topLevel: false}, '{-R)_](TsJNw)3o2Ha,q': {opcode: 'motion_gotoxy', next: null, parent: '`Y99qfSS-U/8k6W]HjAY', inputs: {X: [3, 'F(tXtq$K6SN]B@(MrNKa', [4, '0']], Y: [3, 'g6{E[:mTQAg5rTNn*oDC', [4, '0']]}, fields: {}, shadow: false, topLevel: false}, 'g6{E[:mTQAg5rTNn*oDC': {opcode: 'posenet2scratch_getY', next: null, parent: '{-R)_](TsJNw)3o2Ha,q', inputs: {PART: [1, 'Yg*CG=7f?LQw8fH/#nHY'], PERSON_NUMBER: [1, '^]Hn9stc]LZ@}4([g|Yj']}, fields: {}, shadow: false, topLevel: false}, 'Yg*CG=7f?LQw8fH/#nHY': {opcode: 'posenet2scratch_menu_parts', next: null, parent: 'g6{E[:mTQAg5rTNn*oDC', inputs: {}, fields: {parts: ['0', null]}, shadow: true, topLevel: false}, '^]Hn9stc]LZ@}4([g|Yj': {opcode: 'posenet2scratch_menu_personNumbers', next: null, parent: 'g6{E[:mTQAg5rTNn*oDC', inputs: {}, fields: {personNumbers: ['1', null]}, shadow: true, topLevel: false}, '@*J|r#0|!8wr~NH%e}a1': {opcode: 'event_whenflagclicked', next: '`Y99qfSS-U/8k6W]HjAY', parent: null, inputs: {}, fields: {}, shadow: false, topLevel: true, x: 58, y: 160}}, comments: {}, currentCostume: 0, costumes: [{name: 'Codi-1', bitmapResolution: 2, dataFormat: 'png', assetId: 'd872b4650815653e5fde87576aaf0183', md5ext: 'd872b4650815653e5fde87576aaf0183.png', rotationCenterX: 256, rotationCenterY: 257}, {name: 'Codi-2', bitmapResolution: 2, dataFormat: 'png', assetId: '9c25a102a2d8c7dc0c0760f2744afff5', md5ext: '9c25a102a2d8c7dc0c0760f2744afff5.png', rotationCenterX: 256, rotationCenterY: 256}, {name: 'Codi-3', bitmapResolution: 2, dataFormat: 'png', assetId: '3b3ee5e1383b669b62fe93532889a05d', md5ext: '3b3ee5e1383b669b62fe93532889a05d.png', rotationCenterX: 256, rotationCenterY: 257}, {name: 'Codi-4', bitmapResolution: 2, dataFormat: 'png', assetId: '25b4694abbf0e2b9a8ab5728b3c0220d', md5ext: '25b4694abbf0e2b9a8ab5728b3c0220d.png', rotationCenterX: 256, rotationCenterY: 256}], sounds: [{name: 'pop', assetId: '83a9787d4cb6f3b7632b4ddfebf74367', dataFormat: 'wav', format: '', rate: 48000, sampleCount: 1123, md5ext: '83a9787d4cb6f3b7632b4ddfebf74367.wav'}], volume: 100, layerOrder: 1, visible: true, x: -95.50932427788524, y: -31.940211284949157, size: 40, direction: 90, draggable: false, rotationStyle: 'all around'}], monitors: [], extensions: ['posenet2scratch'], meta: {semver: '3.0.0', vm: '11.2.0-svg-sanitization.3', agent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0'}};
+        await this.props.vm.loadProject(tmpProjectJson);
     }
     handleClickSeeCommunity (waitForUpdate) {
         if (this.props.shouldSaveBeforeTransition()) {
@@ -517,6 +525,9 @@ class MenuBar extends React.Component {
                                         
                                         <MenuItem onClick={this.handleClickSave}>
                                             {saveNowMessage}
+                                        </MenuItem>
+                                        <MenuItem onClick={this.handleClickLoadProject}>
+                                            Load Project
                                         </MenuItem>
                                         
                                     </MenuSection>
