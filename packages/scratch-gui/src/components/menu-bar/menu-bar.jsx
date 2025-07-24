@@ -31,6 +31,8 @@ import MenuBarHOC from '../../containers/menu-bar-hoc.jsx';
 import SettingsMenu from './settings-menu.jsx';
 import dataURItoBlob from '../../lib/data-uri-to-blob';
 
+import closeIcon from '../debug-modal/icons/icon--close.svg';
+
 import {openTipsLibrary, openDebugModal} from '../../reducers/modals';
 import {setPlayer} from '../../reducers/mode';
 import {
@@ -100,6 +102,42 @@ import sharedMessages from '../../lib/shared-messages';
 
 
 import {AccountMenuOptionsPropTypes} from '../../lib/account-menu-options';
+
+const exampleList = [{
+    name: 'Squid Game',
+    description: 'A game about a squid game',
+    image: '/static/examples/Squid-Game.png',
+    url: '/static/examples/Squid-Game.sb3',
+    id: 'squid-game'
+},
+{
+    name: 'Popcat Game',
+    description: 'A game about a popcat game',
+    image: '/static/examples/event-popcat.png',
+    url: '/static/examples/event-popcat.sb3',
+    id: 'popcat-game'
+},
+{
+    name: 'Hungry-Chef Game',
+    description: 'A game about a hungry chef game',
+    image: '/static/examples/Hungry-Chef.png',
+    url: '/static/examples/Hungry-Chef.sb3',
+    id: 'hungry-chef-game'
+},
+{
+    name: 'Santa-claus Game',
+    description: 'A game about a santa claus game',
+    image: '/static/examples/Santa-claus.png',
+    url: '/static/examples/Santa-claus.sb3',
+    id: 'santa-claus-game'
+},
+{
+    name: 'Random-number Game',
+    description: 'A game about a random number game',
+    image: '/static/examples/Random-number.png',
+    url: '/static/examples/Random-number.sb3',
+    id: 'random-number-game'
+}];
 
 const ariaMessages = defineMessages({
     tutorials: {
@@ -190,6 +228,7 @@ class MenuBar extends React.Component {
             'handleClickNew',
             'handleClickRemix',
             'handleClickSave',
+            'handleClickExample',
             'handleClickLoadProject',
             'handleClickSaveAsCopy',
             'handleClickSeeCommunity',
@@ -198,8 +237,12 @@ class MenuBar extends React.Component {
             'handleKeyPress',
             'handleRestoreOption',
             'getSaveToComputerHandler',
-            'restoreOptionMessage'
+            'restoreOptionMessage',
+            'handleCloseExample'
         ]);
+        this.state = {
+            showExample: false
+        };
     }
     componentDidMount () {
         document.addEventListener('keydown', this.handleKeyPress);
@@ -222,6 +265,13 @@ class MenuBar extends React.Component {
         }
         this.props.onRequestCloseFile();
     }
+
+    handleClickExample () {
+        this.setState({showExample: true});
+    }
+    handleCloseExample = () => {
+        this.setState({showExample: false});
+    };
     handleClickRemix () {
         this.props.onClickRemix();
         this.props.onRequestCloseFile();
@@ -248,14 +298,16 @@ class MenuBar extends React.Component {
         this.props.onClickSaveAsCopy();
         this.props.onRequestCloseFile();
     }
-    async handleClickLoadProject () {
+    async handleClickLoadProject (projectUrl) {
         // load project demo
         // this.props.onLoadingStarted();
         // const tmpProjectJson = squidGame;
         // '../../examples/Squid-Game.sb3';
-        const response = await fetch('/static/Squid-Game.sb3');
+        // const response = await fetch('/static/Squid-Game.sb3');
+        const response = await fetch(projectUrl);
         const arrayBuffer = await response.arrayBuffer();
         await this.props.vm.loadProject(arrayBuffer);
+        this.setState({showExample: false});
     }
     handleClickSeeCommunity (waitForUpdate) {
         if (this.props.shouldSaveBeforeTransition()) {
@@ -530,10 +582,6 @@ class MenuBar extends React.Component {
                                         <MenuItem onClick={this.handleClickSave}>
                                             {saveNowMessage}
                                         </MenuItem>
-                                        <MenuItem onClick={this.handleClickLoadProject}>
-                                            Load Project Squid Game
-                                        </MenuItem>
-                                        
                                     </MenuSection>
                                     {(this.props.canSave || this.props.canCreateCopy || this.props.canRemix) && (
                                         <MenuSection>
@@ -754,6 +802,19 @@ class MenuBar extends React.Component {
                     <Divider className={classNames(styles.divider)} />
                     <div className={styles.fileGroup}>
                         <div
+                            aria-label="Example"
+                            className={
+                                classNames(styles.menuBarItem, styles.noOffset, styles.hoverable, 'tutorials-button')
+                            }
+                            onClick={this.handleClickExample}
+                        >
+                            <img
+                                className={styles.helpIcon}
+                                src={helpIcon}
+                            />
+                            <span className={styles.tutorialsLabel}>Example</span>
+                        </div>
+                        <div
                             aria-label={this.props.intl.formatMessage(ariaMessages.tutorials)}
                             className={
                                 classNames(styles.menuBarItem, styles.noOffset, styles.hoverable, 'tutorials-button')
@@ -939,6 +1000,131 @@ class MenuBar extends React.Component {
                 </div>
 
                 {aboutButton}
+                {/* Example Popup Modal */}
+                {this.state.showExample && (
+                    <div
+                        style={{
+                            position: 'fixed',
+                            top: 0,
+                            left: 0,
+                            width: '100vw',
+                            height: '100vh',
+                            background: 'rgba(0,0,0,0.5)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            zIndex: 10000
+                        }}
+                    >
+                        
+                        <div
+                            style={{
+                                background: 'white',
+                                borderRadius: 8,
+                                maxWidth: '80%',
+                                width: '100%',
+                                minHeight: 150,
+                                maxHeight: '80%',
+                                boxShadow: '0 2px 16px rgba(0,0,0,0.2)',
+                                position: 'relative',
+                                flexDirection: 'column',
+                                overflowY: 'auto'
+                            }}
+                        >
+                            <div
+                                style={{
+                                    position: 'absolute',
+                                    top: 24,
+                                    right: 24,
+                                    zIndex: 10001
+                                }}
+                                onClick={this.handleCloseExample}
+                            >
+                                <img
+                                    src={closeIcon}
+                                    alt="Close"
+                                    style={{
+                                        cursor: 'pointer'
+                                    }}
+                                />
+                            </div>
+                            <div
+                                style={{
+                                    backgroundColor: 'rgb(31 117 255)',
+                                    padding: '8px 32px'
+                                }}
+                            >
+                                <h2 style={{fontSize: 24, fontWeight: 'bold', color: '#FFF'}}>
+                                    {'CodeVenture Example Project'}
+                                </h2>
+                            </div>
+                            
+                            <div
+                                style={{display: 'grid',
+                                    gridTemplateColumns: 'repeat(12, minmax(0, 1fr))',
+                                    gap: 16,
+                                    padding: 32}}
+                            >
+                                {exampleList.map(example => (
+                                    <div
+                                        key={example.id}
+                                        style={{
+                                            width: '100%',
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            marginBottom: 24,
+                                            border: '1px solid #eee',
+                                            borderRadius: 8,
+                                            padding: 12,
+                                            gridColumn: 'span 3'
+                                        }}
+                                    >
+                                        <img
+                                            src={example.image}
+                                            alt={example.name}
+                                            style={{
+                                                width: '100%',
+                                                height: '100%',
+                                                objectFit: 'cover',
+                                                borderRadius: 8,
+                                                marginRight: 16
+                                            }}
+                                        />
+                                        <div style={{flex: 1}}>
+                                            <div style={{fontWeight: 'bold', fontSize: 18, color: '#000', marginTop: 8}}>
+                                                {example.name}
+                                            </div>
+                                            <div
+                                                style={{
+                                                    fontSize: 14,
+                                                    color: '#666',
+                                                    marginBottom: 8
+                                                }}
+                                            >
+                                                {example.description}
+                                            </div>
+                                            <button
+                                                style={{
+                                                    borderRadius: 4,
+                                                    padding: 10,
+                                                    fontSize: 14,
+                                                    color: '#FFF',
+                                                    width: '100%',
+                                                    backgroundColor: 'rgb(31 117 255)',
+                                                    border: 'none',
+                                                    cursor: 'pointer'
+                                                }}
+                                                onClick={() => this.handleClickLoadProject(example.url)}
+                                            >
+                                                {'Load Example'}
+                                            </button>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                )}
             </Box>
         );
     }
@@ -1036,7 +1222,9 @@ MenuBar.propTypes = {
 
     accountMenuOptions: AccountMenuOptionsPropTypes,
 
-    vm: PropTypes.instanceOf(VM).isRequired
+    vm: PropTypes.instanceOf(VM).isRequired,
+
+    showExample: PropTypes.bool
 };
 
 MenuBar.defaultProps = {
