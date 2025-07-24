@@ -29,6 +29,7 @@ import DeletionRestorer from '../../containers/deletion-restorer.jsx';
 import TurboMode from '../../containers/turbo-mode.jsx';
 import MenuBarHOC from '../../containers/menu-bar-hoc.jsx';
 import SettingsMenu from './settings-menu.jsx';
+import dataURItoBlob from '../../lib/data-uri-to-blob';
 
 import {openTipsLibrary, openDebugModal} from '../../reducers/modals';
 import {setPlayer} from '../../reducers/mode';
@@ -224,6 +225,19 @@ class MenuBar extends React.Component {
         this.props.onRequestCloseFile();
     }
     handleClickSave () {
+        // this save project function is not working, so we are using this to get the project data
+        this.props.vm.toJSON();
+
+        // get thumbnail project data
+        this.props.vm.postIOData('video', {forceTransparentPreview: true});
+        this.props.vm.renderer.requestSnapshot(dataURI => {
+            this.props.vm.postIOData('video', {forceTransparentPreview: false});
+            const blob = dataURItoBlob(dataURI);
+            console.log(blob);
+            return blob;
+        });
+        
+            
         this.props.onClickSave();
         this.props.onRequestCloseFile();
     }
@@ -498,6 +512,13 @@ class MenuBar extends React.Component {
                                         >
                                             {newProjectMessage}
                                         </MenuItem>
+                                    </MenuSection>
+                                    <MenuSection>
+                                        
+                                        <MenuItem onClick={this.handleClickSave}>
+                                            {saveNowMessage}
+                                        </MenuItem>
+                                        
                                     </MenuSection>
                                     {(this.props.canSave || this.props.canCreateCopy || this.props.canRemix) && (
                                         <MenuSection>
