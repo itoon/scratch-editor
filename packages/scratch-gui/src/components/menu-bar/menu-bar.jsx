@@ -97,10 +97,6 @@ import oldtimeyLogo from './oldtimey-logo.svg';
 
 import sharedMessages from '../../lib/shared-messages';
 
-// import example project
-import squidGame from '../../examples/squid-game.json';
-// import squidGameSB3 from '../../examples/Squid-Game.sb3';
-
 
 import {AccountMenuOptionsPropTypes} from '../../lib/account-menu-options';
 
