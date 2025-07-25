@@ -88,6 +88,7 @@ import dropdownCaret from './dropdown-caret.svg';
 import aboutIcon from './icon--about.svg';
 import fileIcon from './icon--file.svg';
 import editIcon from './icon--edit.svg';
+import saveIcon from './ant-design--save-filled.svg';
 import debugIcon from '../debug-modal/icons/icon--debug.svg';
 
 import scratchLogo from './scratch-logo.svg';
@@ -761,7 +762,9 @@ class MenuBar extends React.Component {
                         )}
                         {this.props.canRemix ? remixButton : []}
                     </div>
-                    <div className={classNames(styles.menuBarItem, styles.communityButtonWrapper)}>
+                    <div
+                        className={classNames(styles.menuBarItem, styles.communityButtonWrapper)}
+                    >
                         {this.props.enableCommunity ? (
                             (this.props.isShowingProject || this.props.isUpdating) && (
                                 <ProjectWatcher onDoneUpdating={this.props.onSeeCommunity}>
@@ -787,6 +790,24 @@ class MenuBar extends React.Component {
                     </div>
                     <Divider className={classNames(styles.divider)} />
                     <div className={styles.fileGroup}>
+                        <SB3Downloader>
+                            {(className, downloadProjectCallback) => (
+                                <div
+                                    className={
+                                        classNames(styles.menuBarItem, styles.noOffset, styles.hoverable, 'save-button')
+                                    }
+                                    onClick={this.getSaveToComputerHandler(downloadProjectCallback)}
+                                >
+                                    <img
+                                        className={styles.helpIcon}
+                                        src={saveIcon}
+                                        style={{width: 20, height: 20}}
+                                    />
+                                    <span className={styles.tutorialsLabel}>{'Save'}</span>
+
+                                </div>
+                            )}
+                        </SB3Downloader>
                         <div
                             aria-label="Example"
                             className={
@@ -798,7 +819,7 @@ class MenuBar extends React.Component {
                                 className={styles.helpIcon}
                                 src={helpIcon}
                             />
-                            <span className={styles.tutorialsLabel}>Example</span>
+                            <span className={styles.tutorialsLabel}>{'Example'}</span>
                         </div>
                         <div
                             aria-label={this.props.intl.formatMessage(ariaMessages.tutorials)}
@@ -1075,7 +1096,12 @@ class MenuBar extends React.Component {
                                             }}
                                         />
                                         <div style={{flex: 1}}>
-                                            <div style={{fontWeight: 'bold', fontSize: 18, color: '#000', marginTop: 8}}>
+                                            <div
+                                                style={{fontWeight: 'bold',
+                                                    fontSize: 18,
+                                                    color: '#000',
+                                                    marginTop: 8}}
+                                            >
                                                 {example.name}
                                             </div>
                                             <div
