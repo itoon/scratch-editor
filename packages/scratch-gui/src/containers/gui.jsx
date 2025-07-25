@@ -54,6 +54,7 @@ import {
 
 class GUI extends React.Component {
     componentDidMount () {
+        console.log('GUI componentDidMount', this.props.projectId);
         this.props.onStorageInit(this.props.storage.scratchStorage);
         this.props.onVmInit(this.props.vm);
         this.props.storage.setProjectMetadata?.(this.props.projectId);

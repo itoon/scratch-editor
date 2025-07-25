@@ -61,6 +61,7 @@ const builtinExtensions = {
 
 builtinExtensions['tm2scratch'] = () => require('../extensions/scratch3_tm2scratch');
 builtinExtensions['posenet2scratch'] = () => require('../extensions/scratch3_posenet2scratch');
+builtinExtensions['tmpose2scratch'] = () => require('../extensions/scratch3_tmpose2scratch');
 class ExtensionManager {
     constructor (runtime) {
         /**
