@@ -104,7 +104,6 @@ import queryString from 'query-string';
 
 import {AccountMenuOptionsPropTypes} from '../../lib/account-menu-options';
 
-
 const exampleList = [{
     name: 'Squid Game',
     description: 'A game about a squid game',
@@ -254,8 +253,9 @@ class MenuBar extends React.Component {
         if (exampleId) {
             this.loadExampleById(exampleId);
         } else if (projectId) {
-            // this.loadProjectById(123);
+            
         }
+        this.loadProjectById(123);
     }
 
     componentWillUnmount () {
@@ -282,12 +282,10 @@ class MenuBar extends React.Component {
     }
 
     async loadProjectById (projectId) {
-        try {
-            // fetch url from projectId
-            const downloadURL = `https://firebasestorage.googleapis.com/v0/b/codeventure-development.appspot.com/o/scratch-projects%2FRandom-number%20(1).sb3?alt=media`;
-            await this.handleClickLoadProject(downloadURL);
-        } catch (error) {
-            console.error('Error loading project from Firebase:', error);
+        // $fetch(`/api/projects/${projectId}`)
+        const projectURL = `https://firebasestorage.googleapis.com/v0/b/codeventure-development.appspot.com/o/scratch-projects%2FRandom-number%20(1).sb3?alt=media&token=b7235c95-1f82-408e-a51b-28c75d24894a`;
+        if (projectURL) {
+            await this.handleClickLoadProject(projectURL);
         }
     }
     handleClickNew () {
@@ -780,7 +778,7 @@ class MenuBar extends React.Component {
                                 <FormattedMessage {...ariaMessages.tutorials} />
                             </span>
                         </div>
-                        {/* <div
+                        <div
                             aria-label={this.props.intl.formatMessage(ariaMessages.debug)}
                             className={classNames(styles.menuBarItem, styles.noOffset, styles.hoverable)}
                             onClick={this.props.onOpenDebugModal}
@@ -792,7 +790,7 @@ class MenuBar extends React.Component {
                             <span className={styles.debugLabel}>
                                 <FormattedMessage {...ariaMessages.debug} />
                             </span>
-                        </div> */}
+                        </div>
                     </div>
                 </div>
 
