@@ -103,6 +103,7 @@ import sharedMessages from '../../lib/shared-messages';
 import queryString from 'query-string';
 
 import {AccountMenuOptionsPropTypes} from '../../lib/account-menu-options';
+import Sb3Save from '../../containers/sb3-save.jsx';
 
 
 const exampleList = [{
@@ -316,7 +317,7 @@ class MenuBar extends React.Component {
         this.props.onClickRemix();
         this.props.onRequestCloseFile();
     }
-    handleClickSave () {
+    async handleClickSave () {
         // this save project function is not working, so we are using this to get the project data
         const tmpProjectJson = this.props.vm.toJSON();
         console.log(tmpProjectJson);
@@ -330,9 +331,18 @@ class MenuBar extends React.Component {
             return blob;
         });
         
+        //
+        // try {
+        //     await fetch('http://localhost:4000/api/v1/projects/save', {
+        //         method: 'POST'
+        //     });
+        // } catch (error) {
+        //     console.error('Error saving project:', error);
+        // }
             
-        this.props.onClickSave();
+        // this.props.onClickSave();
         this.props.onRequestCloseFile();
+
     }
     async handleClickLoadProjectFromJson () {
         // it must load from sb3 file upload than json because some load asset bug
@@ -618,17 +628,26 @@ class MenuBar extends React.Component {
                                         </MenuItem>
                                     </MenuSection>
                                     <MenuSection>
-                                        
-                                        <MenuItem onClick={this.handleClickSave}>
-                                            {saveNowMessage}
-                                        </MenuItem>
+                                        <Sb3Save>{(className, downloadProjectCallback) => (
+                                            <MenuItem
+                                                className={className}
+                                                onClick={this.getSaveToComputerHandler(downloadProjectCallback)}
+                                            >
+                                                {saveNowMessage}
+                                            </MenuItem>
+                                        )}</Sb3Save>
                                     </MenuSection>
                                     {(this.props.canSave || this.props.canCreateCopy || this.props.canRemix) && (
                                         <MenuSection>
                                             {this.props.canSave && (
-                                                <MenuItem onClick={this.handleClickSave}>
-                                                    {saveNowMessage}
-                                                </MenuItem>
+                                                <Sb3Save>{(className, downloadProjectCallback) => (
+                                                    <MenuItem
+                                                        className={className}
+                                                        onClick={this.getSaveToComputerHandler(downloadProjectCallback)}
+                                                    >
+                                                        {saveNowMessage}
+                                                    </MenuItem>
+                                                )}</Sb3Save>
                                             )}
                                             {this.props.canCreateCopy && (
                                                 <MenuItem onClick={this.handleClickSaveAsCopy}>
