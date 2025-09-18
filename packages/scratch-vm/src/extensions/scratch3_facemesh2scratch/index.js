@@ -22,6 +22,31 @@ const Message = {
         'ja-Hira': 'にんずう',
         'en': 'people count'
     },
+    startDetection: {
+        'ja': '顔検出を開始する',
+        'ja-Hira': 'かおけんしゅつをかいしする',
+        'en': 'start face detection'
+    },
+    stopDetection: {
+        'ja': '顔検出を停止する',
+        'ja-Hira': 'かおけんしゅつをていしする',
+        'en': 'stop face detection'
+    },
+    isMouthOpen: {
+        'ja': '[PERSON_NUMBER] 人目の口が開いている',
+        'ja-Hira': '[PERSON_NUMBER] にんめのくちがあいている',
+        'en': 'person [PERSON_NUMBER] mouth is open'
+    },
+    getFaceSize: {
+        'ja': '[PERSON_NUMBER] 人目の顔の大きさ',
+        'ja-Hira': '[PERSON_NUMBER] にんめのかおのおおきさ',
+        'en': 'person [PERSON_NUMBER] face size'
+    },
+    getFaceTilt: {
+        'ja': '[PERSON_NUMBER] 人目の顔の傾き',
+        'ja-Hira': '[PERSON_NUMBER] にんめのかおのかたむき',
+        'en': 'person [PERSON_NUMBER] face tilt'
+    },
     videoToggle: {
         'ja': 'ビデオを [VIDEO_STATE] にする',
         'ja-Hira': 'ビデオを [VIDEO_STATE] にする',
@@ -62,19 +87,19 @@ const AvailableLocales = ['en', 'ja', 'ja-Hira'];
 
 class Scratch3Facemesh2ScratchBlocks {
     get PERSON_NUMBER_MENU () {
-        const person_number_menu = [];
+        const personNumberMenu = [];
         for (let i = 1; i <= 10; i++) {
-            person_number_menu.push({text: String(i), value: String(i)});
+            personNumberMenu.push({text: String(i), value: String(i)});
         }
-        return person_number_menu;
+        return personNumberMenu;
     }
 
     get KEYPOINT_MENU () {
-        const keypoint_menu = [];
+        const keypointMenu = [];
         for (let i = 1; i <= 468; i++) {
-            keypoint_menu.push({text: String(i), value: String(i)});
+            keypointMenu.push({text: String(i), value: String(i)});
         }
-        return keypoint_menu;
+        return keypointMenu;
     }
 
     get VIDEO_MENU () {
@@ -145,32 +170,37 @@ class Scratch3Facemesh2ScratchBlocks {
 
         this.faces = [];
         this.ratio = 0.75;
+        this.isDetecting = false;
+        this.facemesh = null;
+        this.video = null;
 
         this.detectFace = () => {
             // We should reuse the video element created by videoProvider instead of creating a new video element
             // This is because iOS or iPad does not allow camera attached to two video elements
             this.video = this.runtime.ioDevices.video.provider.video;
 
-            alert(Message.please_wait[this._locale]);
-
-
-            this.facemesh = ml5.facemesh(this.video, () => {
-                console.log('Model loaded!');
-            });
-
-            this.facemesh.on('predict', faces => {
-                if (faces.length < this.faces.length) {
-                    this.faces.splice(faces.length);
-                }
-                faces.forEach((face, index) => {
-                    this.faces[index] = {keypoints: face.scaledMesh};
+            if (!this.facemesh) {
+                console.log(Message.please_wait[this._locale]);
+                this.facemesh = ml5.facemesh(this.video, () => {
+                    console.log('Facemesh model loaded!');
                 });
-            });
+            }
 
-            
+            if (!this.isDetecting) {
+                this.facemesh.on('predict', faces => {
+                    if (faces.length < this.faces.length) {
+                        this.faces.splice(faces.length);
+                    }
+                    faces.forEach((face, index) => {
+                        this.faces[index] = {keypoints: face.scaledMesh};
+                    });
+                });
+                this.isDetecting = true;
+            }
         };
 
-        this.runtime.ioDevices.video.enableVideo().then(this.detectFace);
+        // Don't automatically start detection - wait for user to call startDetection
+        this.runtime.ioDevices.video.enableVideo();
     }
 
     getInfo () {
@@ -219,6 +249,52 @@ class Scratch3Facemesh2ScratchBlocks {
                     opcode: 'getPeopleCount',
                     blockType: BlockType.REPORTER,
                     text: Message.peopleCount[this._locale]
+                },
+                {
+                    opcode: 'startDetection',
+                    blockType: BlockType.COMMAND,
+                    text: Message.startDetection[this._locale]
+                },
+                {
+                    opcode: 'stopDetection',
+                    blockType: BlockType.COMMAND,
+                    text: Message.stopDetection[this._locale]
+                },
+                {
+                    opcode: 'isMouthOpen',
+                    blockType: BlockType.BOOLEAN,
+                    text: Message.isMouthOpen[this._locale],
+                    arguments: {
+                        PERSON_NUMBER: {
+                            type: ArgumentType.STRING,
+                            menu: 'personNumberMenu',
+                            defaultValue: '1'
+                        }
+                    }
+                },
+                {
+                    opcode: 'getFaceSize',
+                    blockType: BlockType.REPORTER,
+                    text: Message.getFaceSize[this._locale],
+                    arguments: {
+                        PERSON_NUMBER: {
+                            type: ArgumentType.STRING,
+                            menu: 'personNumberMenu',
+                            defaultValue: '1'
+                        }
+                    }
+                },
+                {
+                    opcode: 'getFaceTilt',
+                    blockType: BlockType.REPORTER,
+                    text: Message.getFaceTilt[this._locale],
+                    arguments: {
+                        PERSON_NUMBER: {
+                            type: ArgumentType.STRING,
+                            menu: 'personNumberMenu',
+                            defaultValue: '1'
+                        }
+                    }
                 },
                 {
                     opcode: 'videoToggle',
@@ -291,7 +367,8 @@ class Scratch3Facemesh2ScratchBlocks {
         if (personNumber >= this.faces.length) {
             return 0;
         }
-        if (this.faces[personNumber].keypoints && this.faces[personNumber].keypoints[keypoint]) {
+        if (this.faces[personNumber] && this.faces[personNumber].keypoints &&
+            this.faces[personNumber].keypoints[keypoint]) {
             const x = this.faces[personNumber].keypoints[keypoint][0];
             if (this.runtime.ioDevices.video.mirror === false) {
                 return -1 * (240 - (x * this.ratio));
@@ -310,7 +387,8 @@ class Scratch3Facemesh2ScratchBlocks {
             return 0;
         }
         
-        if (this.faces[personNumber].keypoints && this.faces[personNumber].keypoints[keypoint]) {
+        if (this.faces[personNumber] && this.faces[personNumber].keypoints &&
+            this.faces[personNumber].keypoints[keypoint]) {
             return 180 - (this.faces[personNumber].keypoints[keypoint][1] * this.ratio);
         }
         return 0;
@@ -319,6 +397,66 @@ class Scratch3Facemesh2ScratchBlocks {
 
     getPeopleCount () {
         return this.faces.length;
+    }
+
+    startDetection () {
+        if (!this.isDetecting) {
+            this.runtime.ioDevices.video.enableVideo().then(this.detectFace);
+        }
+    }
+
+    stopDetection () {
+        if (this.isDetecting && this.facemesh) {
+            this.facemesh.removeAllListeners('predict');
+            this.isDetecting = false;
+            // Clear existing face data
+            this.faces = [];
+        }
+    }
+
+    isMouthOpen (args) {
+        const personNumber = parseInt(args.PERSON_NUMBER, 10) - 1;
+
+        if (personNumber >= this.faces.length) {
+            return false;
+        }
+
+        if (!this.faces[personNumber] || !this.faces[personNumber].keypoints) {
+            return false;
+        }
+
+        const keypoints = this.faces[personNumber].keypoints;
+
+        // Key mouth points in MediaPipe Face Mesh:
+        // Upper lip center: 13
+        // Lower lip center: 14
+        // Left mouth corner: 308
+        // Right mouth corner: 78
+        
+        // Check if we have the required keypoints
+        if (!keypoints[13] || !keypoints[14] || !keypoints[308] || !keypoints[78]) {
+            return false;
+        }
+
+        // Calculate mouth opening (vertical distance between upper and lower lip)
+        const upperLip = keypoints[13];
+        const lowerLip = keypoints[14];
+        const mouthHeight = Math.abs(upperLip[1] - lowerLip[1]);
+
+        // Calculate mouth width (horizontal distance between corners)
+        const leftCorner = keypoints[308];
+        const rightCorner = keypoints[78];
+        const mouthWidth = Math.abs(rightCorner[0] - leftCorner[0]);
+
+        // Calculate aspect ratio (height/width)
+        // A higher ratio indicates mouth is more open
+        const aspectRatio = mouthHeight / mouthWidth;
+
+        // Threshold for mouth being "open" - you can adjust this value
+        // Typical values: closed mouth ~0.05-0.1, open mouth ~0.15-0.3+
+        const openThreshold = 0.12;
+
+        return aspectRatio > openThreshold;
     }
 
     videoToggle (args) {
@@ -348,6 +486,90 @@ class Scratch3Facemesh2ScratchBlocks {
 
     setRatio (args) {
         this.ratio = parseFloat(args.RATIO);
+    }
+
+    getFaceSize (args) {
+        const personNumber = parseInt(args.PERSON_NUMBER, 10) - 1;
+        
+        if (personNumber >= this.faces.length) {
+            return 0;
+        }
+        
+        if (!this.faces[personNumber] || !this.faces[personNumber].keypoints) {
+            return 0;
+        }
+        
+        const keypoints = this.faces[personNumber].keypoints;
+        
+        // Using ML5 Facemesh keypoints (468 total points)
+        // Key face boundary points:
+        // Top of forehead: 10
+        // Bottom of chin: 152
+        // Left face boundary: 172
+        // Right face boundary: 397
+        
+        if (!keypoints[10] || !keypoints[152] || !keypoints[172] || !keypoints[397]) {
+            return 0;
+        }
+        
+        // Calculate face dimensions using the actual ML5 keypoints
+        const faceHeight = Math.abs(keypoints[10][1] - keypoints[152][1]);
+        const faceWidth = Math.abs(keypoints[397][0] - keypoints[172][0]);
+        
+        // Calculate face area
+        const faceArea = faceHeight * faceWidth;
+        
+        // Normalize to percentage scale where 100% = normal/reference distance
+        // This baseline represents what we consider "100%" face size
+        const baselineArea = 8000; // Adjust this value based on testing
+        
+        // Allow values > 100% when face gets very close to camera
+        const sizePercentage = Math.max(0, (faceArea / baselineArea) * 100);
+        
+        return Math.round(sizePercentage);
+    }
+
+    getFaceTilt (args) {
+        const personNumber = parseInt(args.PERSON_NUMBER, 10) - 1;
+        
+        if (personNumber >= this.faces.length) {
+            return 0;
+        }
+        
+        if (!this.faces[personNumber] || !this.faces[personNumber].keypoints) {
+            return 0;
+        }
+        
+        const keypoints = this.faces[personNumber].keypoints;
+        
+        // Using ML5 Facemesh keypoints for eye corners to calculate tilt
+        // Left eye outer corner: 33
+        // Right eye outer corner: 263
+        // These are the standard MediaPipe Face Mesh indices
+        
+        if (!keypoints[33] || !keypoints[263]) {
+            return 90;
+        }
+        
+        const leftEye = keypoints[33];
+        const rightEye = keypoints[263];
+        
+        // Calculate the angle between the eyes
+        const deltaY = rightEye[1] - leftEye[1];
+        const deltaX = rightEye[0] - leftEye[0];
+        
+        // Calculate angle in radians, then convert to degrees
+        const angleRadians = Math.atan2(deltaY, deltaX);
+        let angleDegrees = angleRadians * (180 / Math.PI);
+        
+        // Normalize to Scratch's direction system with 90° as default (straight head)
+        // Invert for intuitive direction and add 90° offset
+        angleDegrees = -angleDegrees + 90;
+        
+        // Clamp to reasonable tilt range (0° to 180°, with 90° as center)
+        angleDegrees = Math.max(0, Math.min(180, angleDegrees));
+        
+        return Math.round(angleDegrees);
     }
 
     setLocale () {
