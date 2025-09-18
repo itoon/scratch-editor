@@ -1,7 +1,7 @@
 import classNames from 'classnames';
-import {connect} from 'react-redux';
-import {compose} from 'redux';
-import {defineMessages, FormattedMessage, injectIntl, intlShape} from 'react-intl';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { defineMessages, FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import PropTypes from 'prop-types';
 import bindAll from 'lodash.bindall';
 import bowser from 'bowser';
@@ -9,16 +9,18 @@ import React from 'react';
 
 import VM from '@scratch/scratch-vm';
 
+import backIcon from '../../lib/assets/icon--back.svg';
+
 import Box from '../box/box.jsx';
 import Button from '../button/button.jsx';
 import CommunityButton from './community-button.jsx';
 import ShareButton from './share-button.jsx';
-import {ComingSoonTooltip} from '../coming-soon/coming-soon.jsx';
+import { ComingSoonTooltip } from '../coming-soon/coming-soon.jsx';
 import Divider from '../divider/divider.jsx';
 import SaveStatus from './save-status.jsx';
 import ProjectWatcher from '../../containers/project-watcher.jsx';
 import MenuBarMenu from './menu-bar-menu.jsx';
-import {MenuItem, MenuSection} from '../menu/menu.jsx';
+import { MenuItem, MenuSection } from '../menu/menu.jsx';
 import ProjectTitleInput from './project-title-input.jsx';
 import AuthorInfo from './author-info.jsx';
 import AccountNav from '../../components/menu-bar/account-nav.jsx';
@@ -33,8 +35,8 @@ import dataURItoBlob from '../../lib/data-uri-to-blob';
 
 import closeIcon from '../debug-modal/icons/icon--close.svg';
 
-import {openTipsLibrary, openDebugModal} from '../../reducers/modals';
-import {setPlayer} from '../../reducers/mode';
+import { openTipsLibrary, openDebugModal } from '../../reducers/modals';
+import { setPlayer } from '../../reducers/mode';
 import {
     isTimeTravel220022BC,
     isTimeTravel1920,
@@ -77,7 +79,7 @@ import {
 } from '../../reducers/menus';
 
 import collectMetadata from '../../lib/collect-metadata';
-import {PLATFORM} from '../../lib/platform';
+import { PLATFORM } from '../../lib/platform';
 
 import styles from './menu-bar.css';
 
@@ -102,7 +104,7 @@ import oldtimeyLogo from './oldtimey-logo.svg';
 import sharedMessages from '../../lib/shared-messages';
 import queryString from 'query-string';
 
-import {AccountMenuOptionsPropTypes} from '../../lib/account-menu-options';
+import { AccountMenuOptionsPropTypes } from '../../lib/account-menu-options';
 import Sb3Save from '../../containers/sb3-save.jsx';
 
 
@@ -192,7 +194,7 @@ MenuBarItemTooltip.propTypes = {
     place: PropTypes.oneOf(['top', 'bottom', 'left', 'right'])
 };
 
-const MenuItemTooltip = ({id, isRtl, children, className}) => (
+const MenuItemTooltip = ({ id, isRtl, children, className }) => (
     <ComingSoonTooltip
         className={classNames(styles.comingSoon, className)}
         isRtl={isRtl}
@@ -225,7 +227,7 @@ AboutButton.propTypes = {
 };
 
 class MenuBar extends React.Component {
-    constructor (props) {
+    constructor(props) {
         super(props);
         bindAll(this, [
             'handleClickNew',
@@ -248,7 +250,7 @@ class MenuBar extends React.Component {
             showExample: false
         };
     }
-    componentDidMount () {
+    componentDidMount() {
         document.addEventListener('keydown', this.handleKeyPress);
         const exampleId = this.getExampleIdFromUrl();
         const projectId = this.getProjectIdFromUrl();
@@ -259,30 +261,30 @@ class MenuBar extends React.Component {
         }
     }
 
-    componentWillUnmount () {
+    componentWillUnmount() {
         document.removeEventListener('keydown', this.handleKeyPress);
     }
 
-    getExampleIdFromUrl () {
+    getExampleIdFromUrl() {
         const queryParams = queryString.parse(location.search);
         return queryParams.exampleId || null;
     }
-    
-    getProjectIdFromUrl () {
+
+    getProjectIdFromUrl() {
         const queryParams = queryString.parse(location.search);
         return queryParams.projectId || null;
     }
-    
+
 
     // Method to load example by ID
-    async loadExampleById (exampleId) {
+    async loadExampleById(exampleId) {
         const example = exampleList.find(ex => ex.id === exampleId);
         if (example) {
             await this.handleClickLoadProject(example.url);
         }
     }
 
-    async loadProjectById (projectId) {
+    async loadProjectById(projectId) {
         try {
             // fetch url from projectId
             const downloadURL = `https://firebasestorage.googleapis.com/v0/b/codeventure-development.appspot.com/o/scratch-projects%2FRandom-number%20(1).sb3?alt=media`;
@@ -291,7 +293,7 @@ class MenuBar extends React.Component {
             console.error('Error loading project from Firebase:', error);
         }
     }
-    handleClickNew () {
+    handleClickNew() {
         // if the project is dirty, and user owns the project, we will autosave.
         // but if they are not logged in and can't save, user should consider
         // downloading or logging in first.
@@ -307,30 +309,30 @@ class MenuBar extends React.Component {
         this.props.onRequestCloseFile();
     }
 
-    handleClickExample () {
-        this.setState({showExample: true});
+    handleClickExample() {
+        this.setState({ showExample: true });
     }
     handleCloseExample = () => {
-        this.setState({showExample: false});
+        this.setState({ showExample: false });
     };
-    handleClickRemix () {
+    handleClickRemix() {
         this.props.onClickRemix();
         this.props.onRequestCloseFile();
     }
-    async handleClickSave () {
+    async handleClickSave() {
         // this save project function is not working, so we are using this to get the project data
         const tmpProjectJson = this.props.vm.toJSON();
         console.log(tmpProjectJson);
 
         // get thumbnail project data
-        this.props.vm.postIOData('video', {forceTransparentPreview: true});
+        this.props.vm.postIOData('video', { forceTransparentPreview: true });
         this.props.vm.renderer.requestSnapshot(dataURI => {
-            this.props.vm.postIOData('video', {forceTransparentPreview: false});
+            this.props.vm.postIOData('video', { forceTransparentPreview: false });
             const blob = dataURItoBlob(dataURI);
             console.log(blob);
             return blob;
         });
-        
+
         //
         // try {
         //     await fetch('http://localhost:4000/api/v1/projects/save', {
@@ -339,21 +341,25 @@ class MenuBar extends React.Component {
         // } catch (error) {
         //     console.error('Error saving project:', error);
         // }
-            
+
         // this.props.onClickSave();
         this.props.onRequestCloseFile();
 
     }
-    async handleClickLoadProjectFromJson () {
+    async handleClickLoadProjectFromJson() {
         // it must load from sb3 file upload than json because some load asset bug
-        const tmpProjectJson = {targets: [{isStage: true, name: 'Stage', variables: {'`jEk@4|i[#Fk?(8x)AV.-my variable': ['my variable', 0]}, lists: {}, broadcasts: {}, blocks: {}, comments: {}, currentCostume: 0, costumes: [{name: 'backdrop1', dataFormat: 'svg', assetId: '87ec29ad216c0074c731d581c7f40c39', md5ext: '87ec29ad216c0074c731d581c7f40c39.svg', rotationCenterX: 240, rotationCenterY: 180}], sounds: [{name: 'pop', assetId: '83a9787d4cb6f3b7632b4ddfebf74367', dataFormat: 'wav', format: '', rate: 48000, sampleCount: 1123, md5ext: '83a9787d4cb6f3b7632b4ddfebf74367.wav'}], volume: 100, layerOrder: 0, tempo: 60, videoTransparency: 50, videoState: 'on', textToSpeechLanguage: null}, {isStage: false, name: 'Codi', variables: {}, lists: {}, broadcasts: {}, blocks: {'F(tXtq$K6SN]B@(MrNKa': {opcode: 'posenet2scratch_getX', next: null, parent: '{-R)_](TsJNw)3o2Ha,q', inputs: {PART: [1, 'C8;N(Ecq,;F2:R1?.AZy'], PERSON_NUMBER: [1, '3%}2iT=T)[_y_00$uqK!']}, fields: {}, shadow: false, topLevel: false}, 'C8;N(Ecq,;F2:R1?.AZy': {opcode: 'posenet2scratch_menu_parts', next: null, parent: 'F(tXtq$K6SN]B@(MrNKa', inputs: {}, fields: {parts: ['0', null]}, shadow: true, topLevel: false}, '3%}2iT=T)[_y_00$uqK!': {opcode: 'posenet2scratch_menu_personNumbers', next: null, parent: 'F(tXtq$K6SN]B@(MrNKa', inputs: {}, fields: {personNumbers: ['1', null]}, shadow: true, topLevel: false}, '`Y99qfSS-U/8k6W]HjAY': {opcode: 'control_forever', next: null, parent: '@*J|r#0|!8wr~NH%e}a1', inputs: {SUBSTACK: [2, '{-R)_](TsJNw)3o2Ha,q']}, fields: {}, shadow: false, topLevel: false}, '{-R)_](TsJNw)3o2Ha,q': {opcode: 'motion_gotoxy', next: null, parent: '`Y99qfSS-U/8k6W]HjAY', inputs: {X: [3, 'F(tXtq$K6SN]B@(MrNKa', [4, '0']], Y: [3, 'g6{E[:mTQAg5rTNn*oDC', [4, '0']]}, fields: {}, shadow: false, topLevel: false}, 'g6{E[:mTQAg5rTNn*oDC': {opcode: 'posenet2scratch_getY', next: null, parent: '{-R)_](TsJNw)3o2Ha,q', inputs: {PART: [1, 'Yg*CG=7f?LQw8fH/#nHY'], PERSON_NUMBER: [1, '^]Hn9stc]LZ@}4([g|Yj']}, fields: {}, shadow: false, topLevel: false}, 'Yg*CG=7f?LQw8fH/#nHY': {opcode: 'posenet2scratch_menu_parts', next: null, parent: 'g6{E[:mTQAg5rTNn*oDC', inputs: {}, fields: {parts: ['0', null]}, shadow: true, topLevel: false}, '^]Hn9stc]LZ@}4([g|Yj': {opcode: 'posenet2scratch_menu_personNumbers', next: null, parent: 'g6{E[:mTQAg5rTNn*oDC', inputs: {}, fields: {personNumbers: ['1', null]}, shadow: true, topLevel: false}, '@*J|r#0|!8wr~NH%e}a1': {opcode: 'event_whenflagclicked', next: '`Y99qfSS-U/8k6W]HjAY', parent: null, inputs: {}, fields: {}, shadow: false, topLevel: true, x: 58, y: 160}}, comments: {}, currentCostume: 0, costumes: [{name: 'Codi-1', bitmapResolution: 2, dataFormat: 'png', assetId: 'd872b4650815653e5fde87576aaf0183', md5ext: 'd872b4650815653e5fde87576aaf0183.png', rotationCenterX: 256, rotationCenterY: 257}, {name: 'Codi-2', bitmapResolution: 2, dataFormat: 'png', assetId: '9c25a102a2d8c7dc0c0760f2744afff5', md5ext: '9c25a102a2d8c7dc0c0760f2744afff5.png', rotationCenterX: 256, rotationCenterY: 256}, {name: 'Codi-3', bitmapResolution: 2, dataFormat: 'png', assetId: '3b3ee5e1383b669b62fe93532889a05d', md5ext: '3b3ee5e1383b669b62fe93532889a05d.png', rotationCenterX: 256, rotationCenterY: 257}, {name: 'Codi-4', bitmapResolution: 2, dataFormat: 'png', assetId: '25b4694abbf0e2b9a8ab5728b3c0220d', md5ext: '25b4694abbf0e2b9a8ab5728b3c0220d.png', rotationCenterX: 256, rotationCenterY: 256}], sounds: [{name: 'pop', assetId: '83a9787d4cb6f3b7632b4ddfebf74367', dataFormat: 'wav', format: '', rate: 48000, sampleCount: 1123, md5ext: '83a9787d4cb6f3b7632b4ddfebf74367.wav'}], volume: 100, layerOrder: 1, visible: true, x: -95.50932427788524, y: -31.940211284949157, size: 40, direction: 90, draggable: false, rotationStyle: 'all around'}], monitors: [], extensions: ['posenet2scratch'], meta: {semver: '3.0.0', vm: '11.2.0-svg-sanitization.3', agent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0'}};
+        const tmpProjectJson = { targets: [{ isStage: true, name: 'Stage', variables: { '`jEk@4|i[#Fk?(8x)AV.-my variable': ['my variable', 0] }, lists: {}, broadcasts: {}, blocks: {}, comments: {}, currentCostume: 0, costumes: [{ name: 'backdrop1', dataFormat: 'svg', assetId: '87ec29ad216c0074c731d581c7f40c39', md5ext: '87ec29ad216c0074c731d581c7f40c39.svg', rotationCenterX: 240, rotationCenterY: 180 }], sounds: [{ name: 'pop', assetId: '83a9787d4cb6f3b7632b4ddfebf74367', dataFormat: 'wav', format: '', rate: 48000, sampleCount: 1123, md5ext: '83a9787d4cb6f3b7632b4ddfebf74367.wav' }], volume: 100, layerOrder: 0, tempo: 60, videoTransparency: 50, videoState: 'on', textToSpeechLanguage: null }, { isStage: false, name: 'Codi', variables: {}, lists: {}, broadcasts: {}, blocks: { 'F(tXtq$K6SN]B@(MrNKa': { opcode: 'posenet2scratch_getX', next: null, parent: '{-R)_](TsJNw)3o2Ha,q', inputs: { PART: [1, 'C8;N(Ecq,;F2:R1?.AZy'], PERSON_NUMBER: [1, '3%}2iT=T)[_y_00$uqK!'] }, fields: {}, shadow: false, topLevel: false }, 'C8;N(Ecq,;F2:R1?.AZy': { opcode: 'posenet2scratch_menu_parts', next: null, parent: 'F(tXtq$K6SN]B@(MrNKa', inputs: {}, fields: { parts: ['0', null] }, shadow: true, topLevel: false }, '3%}2iT=T)[_y_00$uqK!': { opcode: 'posenet2scratch_menu_personNumbers', next: null, parent: 'F(tXtq$K6SN]B@(MrNKa', inputs: {}, fields: { personNumbers: ['1', null] }, shadow: true, topLevel: false }, '`Y99qfSS-U/8k6W]HjAY': { opcode: 'control_forever', next: null, parent: '@*J|r#0|!8wr~NH%e}a1', inputs: { SUBSTACK: [2, '{-R)_](TsJNw)3o2Ha,q'] }, fields: {}, shadow: false, topLevel: false }, '{-R)_](TsJNw)3o2Ha,q': { opcode: 'motion_gotoxy', next: null, parent: '`Y99qfSS-U/8k6W]HjAY', inputs: { X: [3, 'F(tXtq$K6SN]B@(MrNKa', [4, '0']], Y: [3, 'g6{E[:mTQAg5rTNn*oDC', [4, '0']] }, fields: {}, shadow: false, topLevel: false }, 'g6{E[:mTQAg5rTNn*oDC': { opcode: 'posenet2scratch_getY', next: null, parent: '{-R)_](TsJNw)3o2Ha,q', inputs: { PART: [1, 'Yg*CG=7f?LQw8fH/#nHY'], PERSON_NUMBER: [1, '^]Hn9stc]LZ@}4([g|Yj'] }, fields: {}, shadow: false, topLevel: false }, 'Yg*CG=7f?LQw8fH/#nHY': { opcode: 'posenet2scratch_menu_parts', next: null, parent: 'g6{E[:mTQAg5rTNn*oDC', inputs: {}, fields: { parts: ['0', null] }, shadow: true, topLevel: false }, '^]Hn9stc]LZ@}4([g|Yj': { opcode: 'posenet2scratch_menu_personNumbers', next: null, parent: 'g6{E[:mTQAg5rTNn*oDC', inputs: {}, fields: { personNumbers: ['1', null] }, shadow: true, topLevel: false }, '@*J|r#0|!8wr~NH%e}a1': { opcode: 'event_whenflagclicked', next: '`Y99qfSS-U/8k6W]HjAY', parent: null, inputs: {}, fields: {}, shadow: false, topLevel: true, x: 58, y: 160 } }, comments: {}, currentCostume: 0, costumes: [{ name: 'Codi-1', bitmapResolution: 2, dataFormat: 'png', assetId: 'd872b4650815653e5fde87576aaf0183', md5ext: 'd872b4650815653e5fde87576aaf0183.png', rotationCenterX: 256, rotationCenterY: 257 }, { name: 'Codi-2', bitmapResolution: 2, dataFormat: 'png', assetId: '9c25a102a2d8c7dc0c0760f2744afff5', md5ext: '9c25a102a2d8c7dc0c0760f2744afff5.png', rotationCenterX: 256, rotationCenterY: 256 }, { name: 'Codi-3', bitmapResolution: 2, dataFormat: 'png', assetId: '3b3ee5e1383b669b62fe93532889a05d', md5ext: '3b3ee5e1383b669b62fe93532889a05d.png', rotationCenterX: 256, rotationCenterY: 257 }, { name: 'Codi-4', bitmapResolution: 2, dataFormat: 'png', assetId: '25b4694abbf0e2b9a8ab5728b3c0220d', md5ext: '25b4694abbf0e2b9a8ab5728b3c0220d.png', rotationCenterX: 256, rotationCenterY: 256 }], sounds: [{ name: 'pop', assetId: '83a9787d4cb6f3b7632b4ddfebf74367', dataFormat: 'wav', format: '', rate: 48000, sampleCount: 1123, md5ext: '83a9787d4cb6f3b7632b4ddfebf74367.wav' }], volume: 100, layerOrder: 1, visible: true, x: -95.50932427788524, y: -31.940211284949157, size: 40, direction: 90, draggable: false, rotationStyle: 'all around' }], monitors: [], extensions: ['posenet2scratch'], meta: { semver: '3.0.0', vm: '11.2.0-svg-sanitization.3', agent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0' } };
         await this.props.vm.loadProject(tmpProjectJson);
     }
-    handleClickSaveAsCopy () {
+    handleClickSaveAsCopy() {
         this.props.onClickSaveAsCopy();
         this.props.onRequestCloseFile();
     }
-    async handleClickLoadProject (projectUrl) {
+
+    handleBackToCurriculum() {
+        window.location.href = 'https://codeventure.app/dashboard';
+    }
+    async handleClickLoadProject(projectUrl) {
         // load project demo
         // this.props.onLoadingStarted();
         // const tmpProjectJson = squidGame;
@@ -363,12 +369,12 @@ class MenuBar extends React.Component {
             const response = await fetch(projectUrl);
             const arrayBuffer = await response.arrayBuffer();
             await this.props.vm.loadProject(arrayBuffer);
-            this.setState({showExample: false});
+            this.setState({ showExample: false });
         } catch (error) {
             console.error('Error loading project:', error);
         }
     }
-    handleClickSeeCommunity (waitForUpdate) {
+    handleClickSeeCommunity(waitForUpdate) {
         if (this.props.shouldSaveBeforeTransition()) {
             this.props.autoUpdateProject(); // save before transitioning to project page
             waitForUpdate(true); // queue the transition to project page
@@ -376,7 +382,7 @@ class MenuBar extends React.Component {
             waitForUpdate(false); // immediately transition to project page
         }
     }
-    handleClickShare (waitForUpdate) {
+    handleClickShare(waitForUpdate) {
         if (!this.props.isShared) {
             if (this.props.canShare) { // save before transitioning to project page
                 this.props.onShare();
@@ -389,7 +395,7 @@ class MenuBar extends React.Component {
             }
         }
     }
-    handleSetMode (mode) {
+    handleSetMode(mode) {
         return () => {
             // Turn on/off filters for modes.
             if (mode === '1920') {
@@ -419,20 +425,20 @@ class MenuBar extends React.Component {
             this.props.onSetTimeTravelMode(mode);
         };
     }
-    handleRestoreOption (restoreFun) {
+    handleRestoreOption(restoreFun) {
         return () => {
             restoreFun();
             this.props.onRequestCloseEdit();
         };
     }
-    handleKeyPress (event) {
+    handleKeyPress(event) {
         const modifier = bowser.mac ? event.metaKey : event.ctrlKey;
         if (modifier && event.key === 's') {
             this.props.onClickSave();
             event.preventDefault();
         }
     }
-    getSaveToComputerHandler (downloadProjectCallback) {
+    getSaveToComputerHandler(downloadProjectCallback) {
         return () => {
             this.props.onRequestCloseFile();
             downloadProjectCallback();
@@ -442,36 +448,36 @@ class MenuBar extends React.Component {
             }
         };
     }
-    restoreOptionMessage (deletedItem) {
+    restoreOptionMessage(deletedItem) {
         switch (deletedItem) {
-        case 'Sprite':
-            return (<FormattedMessage
-                defaultMessage="Restore Sprite"
-                description="Menu bar item for restoring the last deleted sprite."
-                id="gui.menuBar.restoreSprite"
-            />);
-        case 'Sound':
-            return (<FormattedMessage
-                defaultMessage="Restore Sound"
-                description="Menu bar item for restoring the last deleted sound."
-                id="gui.menuBar.restoreSound"
-            />);
-        case 'Costume':
-            return (<FormattedMessage
-                defaultMessage="Restore Costume"
-                description="Menu bar item for restoring the last deleted costume."
-                id="gui.menuBar.restoreCostume"
-            />);
-        default: {
-            return (<FormattedMessage
-                defaultMessage="Restore"
-                description="Menu bar item for restoring the last deleted item in its disabled state." /* eslint-disable-line max-len */
-                id="gui.menuBar.restore"
-            />);
-        }
+            case 'Sprite':
+                return (<FormattedMessage
+                    defaultMessage="Restore Sprite"
+                    description="Menu bar item for restoring the last deleted sprite."
+                    id="gui.menuBar.restoreSprite"
+                />);
+            case 'Sound':
+                return (<FormattedMessage
+                    defaultMessage="Restore Sound"
+                    description="Menu bar item for restoring the last deleted sound."
+                    id="gui.menuBar.restoreSound"
+                />);
+            case 'Costume':
+                return (<FormattedMessage
+                    defaultMessage="Restore Costume"
+                    description="Menu bar item for restoring the last deleted costume."
+                    id="gui.menuBar.restoreCostume"
+                />);
+            default: {
+                return (<FormattedMessage
+                    defaultMessage="Restore"
+                    description="Menu bar item for restoring the last deleted item in its disabled state." /* eslint-disable-line max-len */
+                    id="gui.menuBar.restore"
+                />);
+            }
         }
     }
-    buildAboutMenu (onClickAbout) {
+    buildAboutMenu(onClickAbout) {
         if (!onClickAbout) {
             // hide the button
             return null;
@@ -515,13 +521,13 @@ class MenuBar extends React.Component {
             </div>
         );
     }
-    wrapAboutMenuCallback (callback) {
+    wrapAboutMenuCallback(callback) {
         return () => {
             callback();
             this.props.onRequestCloseAbout();
         };
     }
-    render () {
+    render() {
         const saveNowMessage = (
             <FormattedMessage
                 defaultMessage="Save now"
@@ -577,7 +583,7 @@ class MenuBar extends React.Component {
             >
                 <div className={styles.mainMenu}>
                     <div className={styles.fileGroup}>
-                        <div className={classNames(styles.menuBarItem)}>
+                        {/* <div className={classNames(styles.menuBarItem)}>
                             <img
                                 id="logo_img"
                                 alt="Scratch"
@@ -588,15 +594,25 @@ class MenuBar extends React.Component {
                                 src="https://codeventure.app/logo.svg"
                                 style={{backgroundColor: 'white', padding: '4px 8px'}}
                             />
+                        </div> */}
+                        <div
+                            className={classNames(styles.menuBarItem, styles.hoverable, {
+                                [styles.active]: this.props.fileMenuOpen
+                            })}
+                        >
+
+                            <Button
+                                className={styles.backButton}
+                                onClick={this.handleBackToCurriculum}
+                            >
+                                <FormattedMessage
+                                    defaultMessage="⬅ Back to Curriculum"
+                                    description="⬅ Back to Curriculum"
+                                    id="gui.menuBar.codeventureDashboard"
+                                />
+                            </Button>
+
                         </div>
-                        {(this.props.canChangeTheme || this.props.canChangeLanguage) && (<SettingsMenu
-                            canChangeLanguage={this.props.canChangeLanguage}
-                            canChangeTheme={this.props.canChangeTheme}
-                            isRtl={this.props.isRtl}
-                            onRequestClose={this.props.onRequestCloseSettings}
-                            onRequestOpen={this.props.onClickSettings}
-                            settingsMenuOpen={this.props.settingsMenuOpen}
-                        />)}
                         {(this.props.canManageFiles) && (
                             <div
                                 className={classNames(styles.menuBarItem, styles.hoverable, {
@@ -705,7 +721,7 @@ class MenuBar extends React.Component {
                                 >
                                     <MenuSection>
                                         <MenuItem onClick={this.handleSetMode('NOW')}>
-                                            <span className={classNames({[styles.inactive]: !this.props.modeNow})}>
+                                            <span className={classNames({ [styles.inactive]: !this.props.modeNow })}>
                                                 {'✓'}
                                             </span>
                                             {' '}
@@ -716,7 +732,7 @@ class MenuBar extends React.Component {
                                             />
                                         </MenuItem>
                                         <MenuItem onClick={this.handleSetMode('2020')}>
-                                            <span className={classNames({[styles.inactive]: !this.props.mode2020})}>
+                                            <span className={classNames({ [styles.inactive]: !this.props.mode2020 })}>
                                                 {'✓'}
                                             </span>
                                             {' '}
@@ -764,7 +780,7 @@ class MenuBar extends React.Component {
                                     <img
                                         className={styles.helpIcon}
                                         src={saveIcon}
-                                        style={{width: 20, height: 20}}
+                                        style={{ width: 20, height: 20 }}
                                     />
                                     <span className={styles.tutorialsLabel}>{'Save'}</span>
 
@@ -784,7 +800,7 @@ class MenuBar extends React.Component {
                             />
                             <span className={styles.tutorialsLabel}>{'Example'}</span>
                         </div>
-                        <div
+                        {/* <div
                             aria-label={this.props.intl.formatMessage(ariaMessages.tutorials)}
                             className={
                                 classNames(styles.menuBarItem, styles.noOffset, styles.hoverable, 'tutorials-button')
@@ -798,7 +814,7 @@ class MenuBar extends React.Component {
                             <span className={styles.tutorialsLabel}>
                                 <FormattedMessage {...ariaMessages.tutorials} />
                             </span>
-                        </div>
+                        </div> */}
                         {/* <div
                             aria-label={this.props.intl.formatMessage(ariaMessages.debug)}
                             className={classNames(styles.menuBarItem, styles.noOffset, styles.hoverable)}
@@ -849,7 +865,7 @@ class MenuBar extends React.Component {
                                     className={classNames(
                                         styles.menuBarItem,
                                         styles.hoverable,
-                                        {[styles.active]: this.props.accountMenuOpen}
+                                        { [styles.active]: this.props.accountMenuOpen }
                                     )}
 
                                     isOpen={this.props.accountMenuOpen}
@@ -936,31 +952,6 @@ class MenuBar extends React.Component {
                                             />
                                         </div>
                                     </MenuBarItemTooltip> */}
-                                    <MenuBarItemTooltip
-                                        id="account-nav"
-                                        place={this.props.isRtl ? 'right' : 'left'}
-                                    >
-                                        <div
-                                            className={classNames(
-                                                styles.menuBarItem,
-                                                styles.hoverable,
-                                                styles.accountNavMenu
-                                            )}
-                                        >
-                                            <img
-                                                className={styles.profileIcon}
-                                                // src={profileIcon}
-                                                src="https://codeventure.app/student-avatar/art-toy/01-default.svg"
-                                            />
-                                            <span>
-                                                {'CodeVenture-Beta'}
-                                            </span>
-                                            {/* <img
-                                                className={styles.dropdownCaretIcon}
-                                                src={dropdownCaret}
-                                            /> */}
-                                        </div>
-                                    </MenuBarItemTooltip>
                                 </React.Fragment>
                             ) : []}
                         </React.Fragment>
@@ -984,7 +975,7 @@ class MenuBar extends React.Component {
                             zIndex: 10000
                         }}
                     >
-                        
+
                         <div
                             style={{
                                 background: 'white',
@@ -1022,16 +1013,18 @@ class MenuBar extends React.Component {
                                     padding: '8px 32px'
                                 }}
                             >
-                                <h2 style={{fontSize: 24, fontWeight: 'bold', color: '#FFF'}}>
+                                <h2 style={{ fontSize: 24, fontWeight: 'bold', color: '#FFF' }}>
                                     {'CodeVenture Example Project'}
                                 </h2>
                             </div>
-                            
+
                             <div
-                                style={{display: 'grid',
+                                style={{
+                                    display: 'grid',
                                     gridTemplateColumns: 'repeat(12, minmax(0, 1fr))',
                                     gap: 16,
-                                    padding: 32}}
+                                    padding: 32
+                                }}
                             >
                                 {exampleList.map(example => (
                                     <div
@@ -1058,12 +1051,14 @@ class MenuBar extends React.Component {
                                                 marginRight: 16
                                             }}
                                         />
-                                        <div style={{flex: 1}}>
+                                        <div style={{ flex: 1 }}>
                                             <div
-                                                style={{fontWeight: 'bold',
+                                                style={{
+                                                    fontWeight: 'bold',
                                                     fontSize: 18,
                                                     color: '#000',
-                                                    marginTop: 8}}
+                                                    marginTop: 8
+                                                }}
                                             >
                                                 {example.name}
                                             </div>
@@ -1196,7 +1191,7 @@ MenuBar.propTypes = {
 
 MenuBar.defaultProps = {
     logo: scratchLogo,
-    onShare: () => {}
+    onShare: () => { }
 };
 
 const mapStateToProps = (state, ownProps) => {
