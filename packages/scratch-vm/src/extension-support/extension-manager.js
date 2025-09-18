@@ -58,11 +58,13 @@ const builtinExtensions = {
  * @property {Function} reject - function to call on failed worker startup
  */
 
-builtinExtensions['tm2scratch'] = () => require('../extensions/scratch3_tm2scratch');
+builtinExtensions.tm2scratch = () => require('../extensions/scratch3_tm2scratch');
 
-builtinExtensions['posenet2scratch'] = () => require('../extensions/scratch3_posenet2scratch');
+builtinExtensions.posenet2scratch = () => require('../extensions/scratch3_posenet2scratch');
 
-builtinExtensions['tmpose2scratch'] = () => require('../extensions/scratch3_tmpose2scratch');
+builtinExtensions.tmpose2scratch = () => require('../extensions/scratch3_tmpose2scratch');
+
+builtinExtensions['facemesh2scratch'] = () => require('../extensions/scratch3_facemesh2scratch');
 
 class ExtensionManager {
     constructor (runtime) {

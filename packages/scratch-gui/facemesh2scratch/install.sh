@@ -7,14 +7,14 @@ EXTENSION_ID=facemesh2scratch
 COLLABORATOR=champierre
 EXTENSION_DESCRIPTION="Face Tracking"
 
-cd node_modules/scratch-vm
+cd ../../scratch-vm
 npm install ml5@0.12.2
-cd ../../
+cd ../../packages/scratch-gui
 
-mkdir -p node_modules/scratch-vm/src/extensions/scratch3_${EXTENSION_ID}
-cp ${EXTENSION_ID}/scratch-vm/src/extensions/scratch3_${EXTENSION_ID}/index.js node_modules/scratch-vm/src/extensions/scratch3_${EXTENSION_ID}/
-mv node_modules/scratch-vm/src/extension-support/extension-manager.js node_modules/scratch-vm/src/extension-support/extension-manager.js_orig
-sed -e "s|class ExtensionManager {$|builtinExtensions['${EXTENSION_ID}'] = () => require('../extensions/scratch3_${EXTENSION_ID}');${LF}${LF}class ExtensionManager {|g" node_modules/scratch-vm/src/extension-support/extension-manager.js_orig > node_modules/scratch-vm/src/extension-support/extension-manager.js
+mkdir -p ../scratch-vm/src/extensions/scratch3_${EXTENSION_ID}
+cp ${EXTENSION_ID}/scratch-vm/src/extensions/scratch3_${EXTENSION_ID}/index.js ../scratch-vm/src/extensions/scratch3_${EXTENSION_ID}/
+mv ../scratch-vm/src/extension-support/extension-manager.js ../scratch-vm/src/extension-support/extension-manager.js_orig
+sed -e "s|class ExtensionManager {$|builtinExtensions['${EXTENSION_ID}'] = () => require('../extensions/scratch3_${EXTENSION_ID}');${LF}${LF}class ExtensionManager {|g" ../scratch-vm/src/extension-support/extension-manager.js_orig > ../scratch-vm/src/extension-support/extension-manager.js
 
 mkdir -p src/lib/libraries/extensions/${EXTENSION_ID}
 cp ${EXTENSION_ID}/scratch-gui/src/lib/libraries/extensions/${EXTENSION_ID}/${EXTENSION_ID}.png src/lib/libraries/extensions/${EXTENSION_ID}/
