@@ -22,20 +22,45 @@ const Message = {
         'ja-Hira': 'にんずう',
         'en': 'people count'
     },
-    startDetection: {
-        'ja': '顔検出を開始する',
-        'ja-Hira': 'かおけんしゅつをかいしする',
-        'en': 'start face detection'
+    facialExpression: {
+        'ja': '[PERSON_NUMBER] 人目の [EXPRESSION] している',
+        'ja-Hira': '[PERSON_NUMBER] にんめの [EXPRESSION] している',
+        'en': 'person [PERSON_NUMBER] [EXPRESSION]'
     },
-    stopDetection: {
-        'ja': '顔検出を停止する',
-        'ja-Hira': 'かおけんしゅつをていしする',
-        'en': 'stop face detection'
+    mouthOpen: {
+        'ja': '口が開いて',
+        'ja-Hira': 'くちがあいて',
+        'en': 'mouth is open'
     },
-    isMouthOpen: {
-        'ja': '[PERSON_NUMBER] 人目の口が開いている',
-        'ja-Hira': '[PERSON_NUMBER] にんめのくちがあいている',
-        'en': 'person [PERSON_NUMBER] mouth is open'
+    leftEyeClosed: {
+        'ja': '左目が閉じて',
+        'ja-Hira': 'ひだりめがとじて',
+        'en': 'left eye is closed'
+    },
+    rightEyeClosed: {
+        'ja': '右目が閉じて',
+        'ja-Hira': 'みぎめがとじて',
+        'en': 'right eye is closed'
+    },
+    bothEyesClosed: {
+        'ja': '両目が閉じて',
+        'ja-Hira': 'りょうめがとじて',
+        'en': 'both eyes are closed'
+    },
+    leftEyebrowRaised: {
+        'ja': '左眉毛が上がって',
+        'ja-Hira': 'ひだりまゆげがあがって',
+        'en': 'left eyebrow is raised'
+    },
+    rightEyebrowRaised: {
+        'ja': '右眉毛が上がって',
+        'ja-Hira': 'みぎまゆげがあがって',
+        'en': 'right eyebrow is raised'
+    },
+    bothEyebrowsRaised: {
+        'ja': '両眉毛が上がって',
+        'ja-Hira': 'りょうまゆげがあがって',
+        'en': 'both eyebrows are raised'
     },
     getFaceSize: {
         'ja': '[PERSON_NUMBER] 人目の顔の大きさ',
@@ -229,6 +254,39 @@ class Scratch3Facemesh2ScratchBlocks {
         ];
     }
 
+    get EXPRESSION_MENU () {
+        return [
+            {
+                text: Message.mouthOpen[this._locale],
+                value: 'mouthOpen'
+            }
+            // {
+            //     text: Message.leftEyeClosed[this._locale],
+            //     value: 'leftEyeClosed'
+            // },
+            // {
+            //     text: Message.rightEyeClosed[this._locale],
+            //     value: 'rightEyeClosed'
+            // },
+            // {
+            //     text: Message.bothEyesClosed[this._locale],
+            //     value: 'bothEyesClosed'
+            // },
+            // {
+            //     text: Message.leftEyebrowRaised[this._locale],
+            //     value: 'leftEyebrowRaised'
+            // },
+            // {
+            //     text: Message.rightEyebrowRaised[this._locale],
+            //     value: 'rightEyebrowRaised'
+            // },
+            // {
+            //     text: Message.bothEyebrowsRaised[this._locale],
+            //     value: 'bothEyebrowsRaised'
+            // }
+        ];
+    }
+
     constructor (runtime) {
         this.runtime = runtime;
 
@@ -240,9 +298,13 @@ class Scratch3Facemesh2ScratchBlocks {
             // This is because iOS or iPad does not allow camera attached to two video elements
             this.video = this.runtime.ioDevices.video.provider.video;
 
+            // Show loading popup
+            this.showLoadingPopup();
 
             this.facemesh = ml5.facemesh(this.video, () => {
                 console.log('Model loaded!');
+                // Hide loading popup when model is loaded
+                this.hideLoadingPopup();
             });
 
             this.facemesh.on('predict', faces => {
@@ -263,7 +325,7 @@ class Scratch3Facemesh2ScratchBlocks {
 
         return {
             id: 'facemesh2scratch',
-            name: 'Facemesh2Scratch',
+            name: 'CodeVenture Facemesh',
             blockIconURI: blockIconURI,
             blocks: [
                 {
@@ -280,6 +342,23 @@ class Scratch3Facemesh2ScratchBlocks {
                             type: ArgumentType.STRING,
                             menu: 'featureMenu',
                             defaultValue: 'nose'
+                        }
+                    }
+                },
+                {
+                    opcode: 'facialExpression',
+                    blockType: BlockType.BOOLEAN,
+                    text: Message.facialExpression[this._locale],
+                    arguments: {
+                        PERSON_NUMBER: {
+                            type: ArgumentType.STRING,
+                            menu: 'personNumberMenu',
+                            defaultValue: '1'
+                        },
+                        EXPRESSION: {
+                            type: ArgumentType.STRING,
+                            menu: 'expressionMenu',
+                            defaultValue: 'mouthOpen'
                         }
                     }
                 },
@@ -321,18 +400,7 @@ class Scratch3Facemesh2ScratchBlocks {
                     opcode: 'getPeopleCount',
                     blockType: BlockType.REPORTER,
                     text: Message.peopleCount[this._locale]
-                },
-                {
-                    opcode: 'isMouthOpen',
-                    blockType: BlockType.BOOLEAN,
-                    text: Message.isMouthOpen[this._locale],
-                    arguments: {
-                        PERSON_NUMBER: {
-                            type: ArgumentType.STRING,
-                            menu: 'personNumberMenu',
-                            defaultValue: '1'
-                        }
-                    }
+
                 },
                 {
                     opcode: 'videoToggle',
@@ -422,6 +490,10 @@ class Scratch3Facemesh2ScratchBlocks {
                 featureMenu: {
                     acceptReporters: true,
                     items: this.FEATURE_MENU
+                },
+                expressionMenu: {
+                    acceptReporters: true,
+                    items: this.EXPRESSION_MENU
                 }
             }
         };
@@ -465,24 +537,11 @@ class Scratch3Facemesh2ScratchBlocks {
     getPeopleCount () {
         return this.faces.length;
     }
+    
 
-    startDetection () {
-        if (!this.isDetecting) {
-            this.runtime.ioDevices.video.enableVideo().then(this.detectFace);
-        }
-    }
-
-    stopDetection () {
-        if (this.isDetecting && this.facemesh) {
-            this.facemesh.removeAllListeners('predict');
-            this.isDetecting = false;
-            // Clear existing face data
-            this.faces = [];
-        }
-    }
-
-    isMouthOpen (args) {
+    facialExpression (args) {
         const personNumber = parseInt(args.PERSON_NUMBER, 10) - 1;
+        const expression = args.EXPRESSION;
 
         if (personNumber >= this.faces.length) {
             return false;
@@ -494,42 +553,37 @@ class Scratch3Facemesh2ScratchBlocks {
 
         const keypoints = this.faces[personNumber].keypoints;
 
-        // Key mouth points in MediaPipe Face Mesh:
-        // Upper lip center: 13
-        // Lower lip center: 14
-        // Left mouth corner: 308
-        // Right mouth corner: 78
+        switch (expression) {
+        case 'mouthOpen': {
+            // Mouth open detection
+            if (!keypoints[13] || !keypoints[14] || !keypoints[308] || !keypoints[78]) {
+                return false;
+            }
+
+            const upperLip = keypoints[13];
+            const lowerLip = keypoints[14];
+            const mouthHeight = Math.abs(upperLip[1] - lowerLip[1]);
+
+            const leftCorner = keypoints[308];
+            const rightCorner = keypoints[78];
+            const mouthWidth = Math.abs(rightCorner[0] - leftCorner[0]);
+
+            const aspectRatio = mouthHeight / mouthWidth;
+            const openThreshold = 0.12;
+
+            return aspectRatio > openThreshold;
+        }
         
-        // Check if we have the required keypoints
-        if (!keypoints[13] || !keypoints[14] || !keypoints[308] || !keypoints[78]) {
+        default:
             return false;
         }
-
-        // Calculate mouth opening (vertical distance between upper and lower lip)
-        const upperLip = keypoints[13];
-        const lowerLip = keypoints[14];
-        const mouthHeight = Math.abs(upperLip[1] - lowerLip[1]);
-
-        // Calculate mouth width (horizontal distance between corners)
-        const leftCorner = keypoints[308];
-        const rightCorner = keypoints[78];
-        const mouthWidth = Math.abs(rightCorner[0] - leftCorner[0]);
-
-        // Calculate aspect ratio (height/width)
-        // A higher ratio indicates mouth is more open
-        const aspectRatio = mouthHeight / mouthWidth;
-
-        // Threshold for mouth being "open" - you can adjust this value
-        // Typical values: closed mouth ~0.05-0.1, open mouth ~0.15-0.3+
-        const openThreshold = 0.12;
-
-        return aspectRatio > openThreshold;
     }
 
     videoToggle (args) {
         const state = args.VIDEO_STATE;
         if (state === 'off') {
             this.runtime.ioDevices.video.disableVideo();
+            this.faces = [];
             this.facemesh.video = null; // Stop the model prediction if video is off
         } else {
             this.facemesh.removeAllListeners('predict');
@@ -724,6 +778,89 @@ class Scratch3Facemesh2ScratchBlocks {
 
             // Move the sprite to the calculated position
             util.target.setXY(scratchX, scratchY);
+        }
+    }
+
+    showLoadingPopup () {
+        // Create loading popup overlay
+        if (!this.loadingPopup) {
+            this.loadingPopup = document.createElement('div');
+            this.loadingPopup.id = 'facemesh-loading-popup';
+            this.loadingPopup.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.7);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 10000;
+                font-family: Arial, sans-serif;
+            `;
+
+            // Create loading content
+            const loadingContent = document.createElement('div');
+            loadingContent.style.cssText = `
+                background-color: white;
+                padding: 30px;
+                border-radius: 10px;
+                text-align: center;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+                max-width: 300px;
+            `;
+
+            // Create loading text
+            const loadingText = document.createElement('div');
+            loadingText.textContent = 'Loading Face Detection Model...';
+            loadingText.style.cssText = `
+                font-size: 18px;
+                font-weight: bold;
+                margin-bottom: 20px;
+                color: #333;
+            `;
+
+            // Create loading spinner
+            const spinner = document.createElement('div');
+            spinner.style.cssText = `
+                border: 4px solid #f3f3f3;
+                border-top: 4px solid #4285f4;
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+                animation: spin 1s linear infinite;
+                margin: 0 auto;
+            `;
+
+            // Add spinner animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+            `;
+            document.head.appendChild(style);
+
+            loadingContent.appendChild(loadingText);
+            loadingContent.appendChild(spinner);
+            this.loadingPopup.appendChild(loadingContent);
+            document.body.appendChild(this.loadingPopup);
+        }
+        this.loadingPopup.style.display = 'flex';
+    }
+
+    hideLoadingPopup () {
+        if (this.loadingPopup) {
+            this.loadingPopup.style.display = 'none';
+            // Remove from DOM after a short delay to allow for smooth transition
+            setTimeout(() => {
+                if (this.loadingPopup && this.loadingPopup.parentNode) {
+                    this.loadingPopup.parentNode.removeChild(this.loadingPopup);
+                    this.loadingPopup = null;
+                }
+            }, 100);
         }
     }
 

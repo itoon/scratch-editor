@@ -64,7 +64,7 @@ builtinExtensions.posenet2scratch = () => require('../extensions/scratch3_posene
 
 builtinExtensions.tmpose2scratch = () => require('../extensions/scratch3_tmpose2scratch');
 
-builtinExtensions['facemesh2scratch'] = () => require('../extensions/scratch3_facemesh2scratch');
+builtinExtensions.facemesh2scratch = () => require('../extensions/scratch3_facemesh2scratch');
 
 class ExtensionManager {
     constructor (runtime) {

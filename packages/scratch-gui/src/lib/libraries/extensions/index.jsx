@@ -1,5 +1,5 @@
 import React from 'react';
-import {FormattedMessage} from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 import musicIconURL from './music/music.png';
 import musicInsetIconURL from './music/music-small.svg';
@@ -60,16 +60,16 @@ import facemesh2scratchInsetIconURL from './facemesh2scratch/facemesh2scratch-sm
 
 export default [
     {
-        name: 'Facemesh2Scratch',
+        name: 'CodeVenture Facemesh',
         extensionId: 'facemesh2scratch',
-        collaborator: 'champierre',
+        collaborator: 'CodeVenture, champierre',
         iconURL: facemesh2scratchIconURL,
         insetIconURL: facemesh2scratchInsetIconURL,
         description: (
             <FormattedMessage
-                defaultMessage='Face Tracking'
-                description='Face Tracking'
-                id='gui.extension.facemesh2scratch.description'
+                defaultMessage="Face Tracking"
+                description="Face Tracking"
+                id="gui.extension.facemesh2scratch.description"
             />
         ),
         featured: true,
@@ -85,9 +85,9 @@ export default [
         insetIconURL: tmpose2scratchInsetIconURL,
         description: (
             <FormattedMessage
-                defaultMessage='Recognize your own poses.'
-                description='Recognize your own poses.'
-                id='gui.extension.tmpose2scratchblocks.description'
+                defaultMessage="Recognize your own poses."
+                description="Recognize your own poses."
+                id="gui.extension.tmpose2scratchblocks.description"
             />
         ),
         featured: true,
