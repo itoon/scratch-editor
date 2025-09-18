@@ -47,6 +47,41 @@ const Message = {
         'ja-Hira': '[PERSON_NUMBER] にんめのかおのかたむき',
         'en': 'person [PERSON_NUMBER] face tilt'
     },
+    goToFeature: {
+        'ja': '[PERSON_NUMBER] 人目の [FEATURE] に移動する',
+        'ja-Hira': '[PERSON_NUMBER] にんめの [FEATURE] にいどうする',
+        'en': 'go to person [PERSON_NUMBER] [FEATURE]'
+    },
+    featureForehead: {
+        'ja': '頭の上',
+        'ja-Hira': 'あたまのうえ',
+        'en': 'top of head'
+    },
+    featureNose: {
+        'ja': '鼻',
+        'ja-Hira': 'はな',
+        'en': 'nose'
+    },
+    featureLeftEye: {
+        'ja': '左目',
+        'ja-Hira': 'ひだりめ',
+        'en': 'left eye'
+    },
+    featureRightEye: {
+        'ja': '右目',
+        'ja-Hira': 'みぎめ',
+        'en': 'right eye'
+    },
+    featureBetweenEyes: {
+        'ja': '目と目の間',
+        'ja-Hira': 'めとめのあいだ',
+        'en': 'between eyes'
+    },
+    featureMouth: {
+        'ja': '口',
+        'ja-Hira': 'くち',
+        'en': 'mouth'
+    },
     videoToggle: {
         'ja': 'ビデオを [VIDEO_STATE] にする',
         'ja-Hira': 'ビデオを [VIDEO_STATE] にする',
@@ -165,42 +200,62 @@ class Scratch3Facemesh2ScratchBlocks {
         ];
     }
 
+    get FEATURE_MENU () {
+        return [
+            {
+                text: Message.featureForehead[this._locale],
+                value: 'forehead'
+            },
+            {
+                text: Message.featureNose[this._locale],
+                value: 'nose'
+            },
+            {
+                text: Message.featureLeftEye[this._locale],
+                value: 'leftEye'
+            },
+            {
+                text: Message.featureRightEye[this._locale],
+                value: 'rightEye'
+            },
+            {
+                text: Message.featureBetweenEyes[this._locale],
+                value: 'betweenEyes'
+            },
+            {
+                text: Message.featureMouth[this._locale],
+                value: 'mouth'
+            }
+        ];
+    }
+
     constructor (runtime) {
         this.runtime = runtime;
 
         this.faces = [];
         this.ratio = 0.75;
-        this.isDetecting = false;
-        this.facemesh = null;
-        this.video = null;
 
         this.detectFace = () => {
             // We should reuse the video element created by videoProvider instead of creating a new video element
             // This is because iOS or iPad does not allow camera attached to two video elements
             this.video = this.runtime.ioDevices.video.provider.video;
 
-            if (!this.facemesh) {
-                console.log(Message.please_wait[this._locale]);
-                this.facemesh = ml5.facemesh(this.video, () => {
-                    console.log('Facemesh model loaded!');
-                });
-            }
 
-            if (!this.isDetecting) {
-                this.facemesh.on('predict', faces => {
-                    if (faces.length < this.faces.length) {
-                        this.faces.splice(faces.length);
-                    }
-                    faces.forEach((face, index) => {
-                        this.faces[index] = {keypoints: face.scaledMesh};
-                    });
+            this.facemesh = ml5.facemesh(this.video, () => {
+                console.log('Model loaded!');
+            });
+
+            this.facemesh.on('predict', faces => {
+                if (faces.length < this.faces.length) {
+                    this.faces.splice(faces.length);
+                }
+                faces.forEach((face, index) => {
+                    this.faces[index] = {keypoints: face.scaledMesh};
                 });
-                this.isDetecting = true;
-            }
+            });
         };
 
-        // Don't automatically start detection - wait for user to call startDetection
-        this.runtime.ioDevices.video.enableVideo();
+        this.runtime.ioDevices.video.enableVideo().then(this.detectFace);
     }
 
     getInfo () {
@@ -211,6 +266,23 @@ class Scratch3Facemesh2ScratchBlocks {
             name: 'Facemesh2Scratch',
             blockIconURI: blockIconURI,
             blocks: [
+                {
+                    opcode: 'goToFeature',
+                    blockType: BlockType.COMMAND,
+                    text: Message.goToFeature[this._locale],
+                    arguments: {
+                        PERSON_NUMBER: {
+                            type: ArgumentType.STRING,
+                            menu: 'personNumberMenu',
+                            defaultValue: '1'
+                        },
+                        FEATURE: {
+                            type: ArgumentType.STRING,
+                            menu: 'featureMenu',
+                            defaultValue: 'nose'
+                        }
+                    }
+                },
                 {
                     opcode: 'getX',
                     blockType: BlockType.REPORTER,
@@ -251,43 +323,9 @@ class Scratch3Facemesh2ScratchBlocks {
                     text: Message.peopleCount[this._locale]
                 },
                 {
-                    opcode: 'startDetection',
-                    blockType: BlockType.COMMAND,
-                    text: Message.startDetection[this._locale]
-                },
-                {
-                    opcode: 'stopDetection',
-                    blockType: BlockType.COMMAND,
-                    text: Message.stopDetection[this._locale]
-                },
-                {
                     opcode: 'isMouthOpen',
                     blockType: BlockType.BOOLEAN,
                     text: Message.isMouthOpen[this._locale],
-                    arguments: {
-                        PERSON_NUMBER: {
-                            type: ArgumentType.STRING,
-                            menu: 'personNumberMenu',
-                            defaultValue: '1'
-                        }
-                    }
-                },
-                {
-                    opcode: 'getFaceSize',
-                    blockType: BlockType.REPORTER,
-                    text: Message.getFaceSize[this._locale],
-                    arguments: {
-                        PERSON_NUMBER: {
-                            type: ArgumentType.STRING,
-                            menu: 'personNumberMenu',
-                            defaultValue: '1'
-                        }
-                    }
-                },
-                {
-                    opcode: 'getFaceTilt',
-                    blockType: BlockType.REPORTER,
-                    text: Message.getFaceTilt[this._locale],
                     arguments: {
                         PERSON_NUMBER: {
                             type: ArgumentType.STRING,
@@ -333,7 +371,32 @@ class Scratch3Facemesh2ScratchBlocks {
                             defaultValue: '0.75'
                         }
                     }
+                },
+                {
+                    opcode: 'getFaceSize',
+                    blockType: BlockType.REPORTER,
+                    text: Message.getFaceSize[this._locale],
+                    arguments: {
+                        PERSON_NUMBER: {
+                            type: ArgumentType.STRING,
+                            menu: 'personNumberMenu',
+                            defaultValue: '1'
+                        }
+                    }
+                },
+                {
+                    opcode: 'getFaceTilt',
+                    blockType: BlockType.REPORTER,
+                    text: Message.getFaceTilt[this._locale],
+                    arguments: {
+                        PERSON_NUMBER: {
+                            type: ArgumentType.STRING,
+                            menu: 'personNumberMenu',
+                            defaultValue: '1'
+                        }
+                    }
                 }
+                
             ],
             menus: {
                 personNumberMenu: {
@@ -355,6 +418,10 @@ class Scratch3Facemesh2ScratchBlocks {
                 intervalMenu: {
                     acceptReporters: true,
                     items: this.INTERVAL_MENU
+                },
+                featureMenu: {
+                    acceptReporters: true,
+                    items: this.FEATURE_MENU
                 }
             }
         };
@@ -570,6 +637,94 @@ class Scratch3Facemesh2ScratchBlocks {
         angleDegrees = Math.max(0, Math.min(180, angleDegrees));
         
         return Math.round(angleDegrees);
+    }
+
+    goToFeature (args, util) {
+        const personNumber = parseInt(args.PERSON_NUMBER, 10) - 1;
+        const feature = args.FEATURE;
+
+        if (personNumber >= this.faces.length) {
+            return;
+        }
+
+        if (!this.faces[personNumber] || !this.faces[personNumber].keypoints) {
+            return;
+        }
+
+        const keypoints = this.faces[personNumber].keypoints;
+        let x = 0;
+        let y = 0;
+
+        switch (feature) {
+        case 'forehead': {
+            // Center of forehead: average of several forehead points
+            // Using points around the forehead area
+            if (keypoints[9] && keypoints[10] && keypoints[151]) {
+                x = (keypoints[9][0] + keypoints[10][0] + keypoints[151][0]) / 3;
+                y = (keypoints[9][1] + keypoints[10][1] + keypoints[151][1]) / 3;
+            }
+            break;
+        }
+        case 'nose': {
+            // Nose tip
+            if (keypoints[1]) { // Nose tip point
+                x = keypoints[1][0];
+                y = keypoints[1][1];
+            }
+            break;
+        }
+        case 'leftEye': {
+            // Center of left eye (average of eye corner points)
+            if (keypoints[33] && keypoints[173]) {
+                // Use key corner points for center calculation
+                x = (keypoints[33][0] + keypoints[173][0]) / 2;
+                y = (keypoints[33][1] + keypoints[173][1]) / 2;
+            }
+            break;
+        }
+        case 'rightEye': {
+            // Center of right eye (average of eye corner points)
+            if (keypoints[263] && keypoints[398]) {
+                // Use key corner points for center calculation
+                x = (keypoints[263][0] + keypoints[398][0]) / 2;
+                y = (keypoints[263][1] + keypoints[398][1]) / 2;
+            }
+            break;
+        }
+        case 'betweenEyes': {
+            // Point between the eyes (nose bridge)
+            if (keypoints[6]) { // Nose bridge point
+                x = keypoints[6][0];
+                y = keypoints[6][1];
+            }
+            break;
+        }
+        case 'mouth': {
+            // Center of mouth (average of mouth corner and center points)
+            if (keypoints[13] && keypoints[14] && keypoints[78] && keypoints[308]) {
+                x = (keypoints[13][0] + keypoints[14][0] + keypoints[78][0] + keypoints[308][0]) / 4;
+                y = (keypoints[13][1] + keypoints[14][1] + keypoints[78][1] + keypoints[308][1]) / 4;
+            }
+            break;
+        }
+        default:
+            return;
+        }
+
+        if (x !== 0 || y !== 0) {
+            // Convert coordinates to Scratch coordinate system
+            let scratchX;
+            const scratchY = 180 - (y * this.ratio);
+            
+            if (this.runtime.ioDevices.video.mirror === false) {
+                scratchX = -1 * (240 - (x * this.ratio));
+            } else {
+                scratchX = 240 - (x * this.ratio);
+            }
+
+            // Move the sprite to the calculated position
+            util.target.setXY(scratchX, scratchY);
+        }
     }
 
     setLocale () {
