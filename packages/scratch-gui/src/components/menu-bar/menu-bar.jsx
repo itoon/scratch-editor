@@ -643,7 +643,7 @@ class MenuBar extends React.Component {
                                             {newProjectMessage}
                                         </MenuItem>
                                     </MenuSection>
-                                    <MenuSection>
+                                    {/* <MenuSection>
                                         <Sb3Save>{(className, downloadProjectCallback) => (
                                             <MenuItem
                                                 className={className}
@@ -652,7 +652,7 @@ class MenuBar extends React.Component {
                                                 {saveNowMessage}
                                             </MenuItem>
                                         )}</Sb3Save>
-                                    </MenuSection>
+                                    </MenuSection> */}
                                     {(this.props.canSave || this.props.canCreateCopy || this.props.canRemix) && (
                                         <MenuSection>
                                             {this.props.canSave && (
