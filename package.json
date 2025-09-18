@@ -35,9 +35,11 @@
     "cross-env": "7.0.3",
     "husky": "8.0.3",
     "npm": "10.9.3",
+    "patch-package": "^8.0.0",
     "ts-node": "10.9.2"
   },
   "dependencies": {
-    "cosmiconfig": "^9.0.0"
+    "cosmiconfig": "^9.0.0",
+    "ml5": "^1.2.2"
   }
 }

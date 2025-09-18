@@ -1,10 +1,13 @@
 const ArgumentType = require('../../extension-support/argument-type');
 const BlockType = require('../../extension-support/block-type');
 const Cast = require('../../util/cast');
+const MathUtil = require('../../util/math-util');
 const formatMessage = require('format-message');
 const ml5 = require('ml5');
 
+// please don't fix lint error this line
 const blockIconURI = 'data:image/png;base64,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';
+
 
 const Message = {
     getX: {
@@ -289,35 +292,200 @@ class Scratch3Facemesh2ScratchBlocks {
 
     constructor (runtime) {
         this.runtime = runtime;
-
+        this.video = null;
         this.faces = [];
-        this.ratio = 0.75;
+        this.ratio = 1;
+        this.p5Loaded = false;
+        this.p5Instance = null;
+        
 
-        this.detectFace = () => {
+        // Load p5.js library
+        this.loadP5Library();
+
+        this.detectFace = async () => {
+            
+
             // We should reuse the video element created by videoProvider instead of creating a new video element
             // This is because iOS or iPad does not allow camera attached to two video elements
             this.video = this.runtime.ioDevices.video.provider.video;
+            
+            // Debug video element
+            console.log('Video element:', this.video);
+            console.log('Video readyState:', this.video.readyState);
+            console.log('Video src:', this.video.src);
+            console.log('Video videoWidth:', this.video.videoWidth);
+            console.log('Video videoHeight:', this.video.videoHeight);
 
             // Show loading popup
             this.showLoadingPopup();
-
-            this.facemesh = ml5.facemesh(this.video, () => {
-                console.log('Model loaded!');
-                // Hide loading popup when model is loaded
-                this.hideLoadingPopup();
-            });
-
-            this.facemesh.on('predict', faces => {
-                if (faces.length < this.faces.length) {
-                    this.faces.splice(faces.length);
-                }
-                faces.forEach((face, index) => {
-                    this.faces[index] = {keypoints: face.scaledMesh};
-                });
-            });
+            
+            // Wait for p5.js to load if not already loaded
+            await this.waitForP5Ready();
+            
+            console.log('ml5 object:', ml5);
+            console.log('p5 object:', window.p5);
         };
 
         this.runtime.ioDevices.video.enableVideo().then(this.detectFace);
+    }
+
+    loadP5Library () {
+        // Check if p5.js is already loaded
+        if (typeof window.p5 !== 'undefined') {
+            this.p5Loaded = true;
+            console.log('p5.js already loaded');
+            return;
+        }
+
+        // Check if script is already being loaded
+        if (document.querySelector('script[src*="p5.min.js"]')) {
+            console.log('p5.js script already exists, waiting for load...');
+            this.waitForP5Load();
+            return;
+        }
+
+        // Create and load p5.js script
+        const script = document.createElement('script');
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.9/p5.min.js';
+        script.onload = () => {
+            this.p5Loaded = true;
+            console.log('p5.js loaded successfully');
+            // Initialize p5.js instance
+            this.initializeP5Sketch();
+        };
+        script.onerror = () => {
+            console.error('Failed to load p5.js');
+        };
+        
+        document.head.appendChild(script);
+        console.log('Loading p5.js...');
+    }
+
+    waitForP5Load () {
+        const checkP5 = () => {
+            if (typeof window.p5 !== 'undefined') {
+                this.p5Loaded = true;
+                console.log('p5.js loaded successfully');
+            } else {
+                setTimeout(checkP5, 100);
+            }
+        };
+        checkP5();
+    }
+
+    waitForP5Ready () {
+        return new Promise(resolve => {
+            const checkReady = () => {
+                if (this.p5Loaded && typeof window.p5 !== 'undefined') {
+                    console.log('p5.js is ready');
+                    resolve();
+                } else {
+                    setTimeout(checkReady, 100);
+                }
+            };
+            checkReady();
+        });
+    }
+
+    initializeP5Sketch () {
+        if (this.p5Instance) {
+            console.log('p5.js sketch already initialized');
+            return;
+        }
+
+        // Create a container for the p5.js canvas (visible for debugging, can be hidden later)
+        const container = document.createElement('div');
+        container.id = 'p5-facemesh-container';
+        // container.style.cssText = `
+        //     position: fixed;
+        //     top: 10px;
+        //     right: 10px;
+        //     width: 480px;
+        //     height: 360px;
+        //     z-index: 1000;
+        //     border: 2px solid #00ff00;
+        //     background: rgba(0,0,0,0.1);
+        // `;
+        document.body.appendChild(container);
+
+        // Create p5.js instance
+        this.p5Instance = new window.p5(p => {
+            let video;
+            // p5.js setup function
+            p.setup = async () => {
+                console.log('p5.js setup() called');
+                
+                // Create canvas with Scratch video dimensions (480x360)
+                const canvas = p.createCanvas(480, 360);
+                canvas.parent('p5-facemesh-container');
+                
+                // Create video capture with same dimensions as Scratch
+                video = p.createCapture(p.VIDEO);
+                video.size(480, 360);
+                // video.hide(); // Hide the video element
+                
+                // console.log('Video created in p5.js:', video);
+                this.faceMesh = await ml5.faceMesh();
+                console.log('FaceMesh created in p5.js:', this.faceMesh);
+                this.hideLoadingPopup();
+                this.faceMesh.detectStart(video, results => {
+                    // Convert ml5 results to the format expected by the extension
+                    this.faces = results;
+                    console.log('Faces detected in p5.js:', this.faces);
+                    // console.log('Faces detected in p5.js:', this.faces.length);
+                });
+            };
+
+            // p5.js draw function
+            p.draw = () => {
+                // Clear background
+                p.background(220);
+                
+                // Draw video
+                p.push();
+                p.translate(p.width, 0);
+                p.scale(-1, 1);
+                p.image(video, 0, 0, p.width, p.height);
+                p.pop();
+                
+                // Draw face landmarks if faces are detected
+                if (this.faces.length > 0) {
+                    this.drawFaceLandmarks(p, this.faces);
+                }
+            };
+        }, container);
+
+        console.log('p5.js sketch initialized');
+    }
+
+    drawFaceLandmarks (p, faces) {
+        for (let i = 0; i < faces.length; i++) {
+            const face = faces[i];
+            
+            // Draw keypoints
+            p.stroke(0, 255, 0);
+            p.strokeWeight(2);
+            p.noFill();
+            
+            // Draw face outline
+            p.beginShape();
+            for (let j = 0; j < face.keypoints.length; j++) {
+                const keypoint = face.keypoints[j];
+                p.vertex(p.width - keypoint.x, keypoint.y);
+            }
+            p.endShape(p.CLOSE);
+            
+            // Draw specific keypoints with different colors
+            if (face.keypoints[1]) this.drawKeypoint(p, face.keypoints[1], p.color(255, 0, 0)); // nose tip
+            if (face.keypoints[10]) this.drawKeypoint(p, face.keypoints[10], p.color(0, 0, 255)); // top of head
+            if (face.keypoints[152]) this.drawKeypoint(p, face.keypoints[152], p.color(0, 0, 255)); // bottom of chin
+        }
+    }
+
+    drawKeypoint (p, keypoint, col) {
+        p.fill(col);
+        p.noStroke();
+        p.ellipse(p.width - keypoint.x, keypoint.y, 8, 8);
     }
 
     getInfo () {
@@ -429,18 +597,6 @@ class Scratch3Facemesh2ScratchBlocks {
                     }
                 },
                 {
-                    opcode: 'setRatio',
-                    blockType: BlockType.COMMAND,
-                    text: Message.setRatio[this._locale],
-                    arguments: {
-                        RATIO: {
-                            type: ArgumentType.STRING,
-                            menu: 'ratioMenu',
-                            defaultValue: '0.75'
-                        }
-                    }
-                },
-                {
                     opcode: 'getFaceSize',
                     blockType: BlockType.REPORTER,
                     text: Message.getFaceSize[this._locale],
@@ -508,7 +664,7 @@ class Scratch3Facemesh2ScratchBlocks {
         }
         if (this.faces[personNumber] && this.faces[personNumber].keypoints &&
             this.faces[personNumber].keypoints[keypoint]) {
-            const x = this.faces[personNumber].keypoints[keypoint][0];
+            const x = this.faces[personNumber].keypoints[keypoint].x;
             if (this.runtime.ioDevices.video.mirror === false) {
                 return -1 * (240 - (x * this.ratio));
             }
@@ -528,7 +684,7 @@ class Scratch3Facemesh2ScratchBlocks {
         
         if (this.faces[personNumber] && this.faces[personNumber].keypoints &&
             this.faces[personNumber].keypoints[keypoint]) {
-            return 180 - (this.faces[personNumber].keypoints[keypoint][1] * this.ratio);
+            return 180 - (this.faces[personNumber].keypoints[keypoint].y * this.ratio);
         }
         return 0;
       
@@ -584,9 +740,13 @@ class Scratch3Facemesh2ScratchBlocks {
         if (state === 'off') {
             this.runtime.ioDevices.video.disableVideo();
             this.faces = [];
-            this.facemesh.video = null; // Stop the model prediction if video is off
+            if (this.facemesh) {
+                this.facemesh.detectStop(); // Stop face detection
+            }
         } else {
-            this.facemesh.removeAllListeners('predict');
+            if (this.facemesh) {
+                this.facemesh.detectStop(); // Stop current detection
+            }
             this.runtime.ioDevices.video.enableVideo().then(this.detectFace);
             this.runtime.ioDevices.video.mirror = state === 'on';
         }
@@ -605,11 +765,8 @@ class Scratch3Facemesh2ScratchBlocks {
         this.runtime.ioDevices.video.setPreviewGhost(transparency);
     }
 
-    setRatio (args) {
-        this.ratio = parseFloat(args.RATIO);
-    }
-
     getFaceSize (args) {
+        console.log(this.faces);
         const personNumber = parseInt(args.PERSON_NUMBER, 10) - 1;
         
         if (personNumber >= this.faces.length) {
@@ -634,11 +791,11 @@ class Scratch3Facemesh2ScratchBlocks {
         }
         
         // Calculate face dimensions using the actual ML5 keypoints
-        const faceHeight = Math.abs(keypoints[10][1] - keypoints[152][1]);
-        const faceWidth = Math.abs(keypoints[397][0] - keypoints[172][0]);
+        const faceHeight = Math.abs(keypoints[10].y - keypoints[152].y);
+        const faceWidth = Math.abs(keypoints[397].x - keypoints[172].x);
         
         // Calculate face area
-        const faceArea = faceHeight * faceWidth;
+        const faceArea = faceHeight * faceWidth * 1.2;
         
         // Normalize to percentage scale where 100% = normal/reference distance
         // This baseline represents what we consider "100%" face size
@@ -650,47 +807,90 @@ class Scratch3Facemesh2ScratchBlocks {
         return Math.round(sizePercentage);
     }
 
+
     getFaceTilt (args) {
         const personNumber = parseInt(args.PERSON_NUMBER, 10) - 1;
-        
-        if (personNumber >= this.faces.length) {
-            return 0;
-        }
-        
-        if (!this.faces[personNumber] || !this.faces[personNumber].keypoints) {
-            return 0;
-        }
-        
+
+        if (personNumber >= this.faces.length) return 90;
+        if (!this.faces[personNumber] || !this.faces[personNumber].keypoints) return 90;
+
         const keypoints = this.faces[personNumber].keypoints;
-        
-        // Using ML5 Facemesh keypoints for eye corners to calculate tilt
-        // Left eye outer corner: 33
-        // Right eye outer corner: 263
-        // These are the standard MediaPipe Face Mesh indices
-        
-        if (!keypoints[33] || !keypoints[263]) {
+
+        // Use the eye center coordinates from the face detection
+        if (!this.faces[personNumber].leftEye || !this.faces[personNumber].rightEye) {
             return 90;
         }
+
+        const leftEyePos = {
+            x: this.faces[personNumber].leftEye.centerX,
+            y: this.faces[personNumber].leftEye.centerY
+        };
         
-        const leftEye = keypoints[33];
-        const rightEye = keypoints[263];
+        const rightEyePos = {
+            x: this.faces[personNumber].rightEye.centerX,
+            y: this.faces[personNumber].rightEye.centerY
+        };
+
+        // Convert to Scratch coordinates
+        const leftEyeScratch = this.toScratchCoords(leftEyePos);
+        const rightEyeScratch = this.toScratchCoords(rightEyePos);
+
+        const dx = rightEyeScratch.x - leftEyeScratch.x;
+        const dy = rightEyeScratch.y - leftEyeScratch.y;
         
-        // Calculate the angle between the eyes
-        const deltaY = rightEye[1] - leftEye[1];
-        const deltaX = rightEye[0] - leftEye[0];
+        // Calculate tilt angle
+        const angle = MathUtil.radToDeg(Math.atan2(dy, dx));
         
-        // Calculate angle in radians, then convert to degrees
-        const angleRadians = Math.atan2(deltaY, deltaX);
-        let angleDegrees = angleRadians * (180 / Math.PI);
+        // Convert to tilt system where:
+        // - Head tilted left (negative angle) = 0-90 degrees
+        // - Head straight = 90 degrees
+        // - Head tilted right (positive angle) = 90-180 degrees
+        let tilt = 90 - angle;
         
-        // Normalize to Scratch's direction system with 90° as default (straight head)
-        // Invert for intuitive direction and add 90° offset
-        angleDegrees = -angleDegrees + 90;
+        // Ensure tilt is between 0 and 180
+        if (tilt < 0) tilt += 360;
+        if (tilt > 180) tilt -= 180;
         
-        // Clamp to reasonable tilt range (0° to 180°, with 90° as center)
-        angleDegrees = Math.max(0, Math.min(180, angleDegrees));
+        console.log('Eye positions - Left:', leftEyePos, 'Right:', rightEyePos);
+        console.log('Scratch coords - Left:', leftEyeScratch, 'Right:', rightEyeScratch);
+        console.log('Angle:', angle, 'Tilt:', tilt);
         
-        return Math.round(angleDegrees);
+        return Math.round(tilt);
+    }
+    
+    /**
+     * Convert coordinates from video space to Scratch coordinate system
+     * @param {object} position - {x, y} coordinates from ML5 facemesh
+     * @returns {object} - {x, y} in Scratch coordinate system
+     */
+    toScratchCoords (position) {
+        // Scale coordinates from 480x360 video to Scratch's 480x360 coordinate system
+        const x = position.x * this.ratio;
+        const y = position.y * this.ratio;
+        
+        let scratchX;
+        // Scratch coordinate system: x ranges from -240 to +240
+        if (this.runtime.ioDevices.video.mirror === false) {
+            scratchX = -1 * (240 - x);
+        } else {
+            scratchX = 240 - x;
+        }
+        // Scratch coordinate system: y ranges from -180 to +180
+        const scratchY = 180 - y;
+        
+        return {
+            x: scratchX,
+            y: scratchY
+        };
+    }
+
+    /**
+     * Convert radians to degrees
+     * @param {number} radians - angle in radians
+     * @returns {number} - angle in degrees
+     */
+    radToDeg (radians) {
+        return radians * (180 / Math.PI);
     }
 
     goToFeature (args, util) {
@@ -709,56 +909,49 @@ class Scratch3Facemesh2ScratchBlocks {
         let x = 0;
         let y = 0;
 
+        console.log(keypoints);
+
         switch (feature) {
         case 'forehead': {
             // Center of forehead: average of several forehead points
             // Using points around the forehead area
             if (keypoints[9] && keypoints[10] && keypoints[151]) {
-                x = (keypoints[9][0] + keypoints[10][0] + keypoints[151][0]) / 3;
-                y = (keypoints[9][1] + keypoints[10][1] + keypoints[151][1]) / 3;
+                x = (keypoints[9].x + keypoints[10].x + keypoints[151].x) / 3;
+                y = (keypoints[9].y + keypoints[10].y + keypoints[151].y) / 3;
             }
             break;
         }
         case 'nose': {
             // Nose tip
             if (keypoints[1]) { // Nose tip point
-                x = keypoints[1][0];
-                y = keypoints[1][1];
+                x = keypoints[1].x;
+                y = keypoints[1].y;
             }
             break;
         }
         case 'leftEye': {
             // Center of left eye (average of eye corner points)
-            if (keypoints[33] && keypoints[173]) {
-                // Use key corner points for center calculation
-                x = (keypoints[33][0] + keypoints[173][0]) / 2;
-                y = (keypoints[33][1] + keypoints[173][1]) / 2;
-            }
+            x = this.faces[personNumber].leftEye.centerX;
+            y = this.faces[personNumber].leftEye.centerY;
             break;
         }
         case 'rightEye': {
-            // Center of right eye (average of eye corner points)
-            if (keypoints[263] && keypoints[398]) {
-                // Use key corner points for center calculation
-                x = (keypoints[263][0] + keypoints[398][0]) / 2;
-                y = (keypoints[263][1] + keypoints[398][1]) / 2;
-            }
+            x = this.faces[personNumber].rightEye.centerX;
+            y = this.faces[personNumber].rightEye.centerY;
             break;
         }
         case 'betweenEyes': {
             // Point between the eyes (nose bridge)
             if (keypoints[6]) { // Nose bridge point
-                x = keypoints[6][0];
-                y = keypoints[6][1];
+                x = keypoints[6].x;
+                y = keypoints[6].y;
             }
             break;
         }
         case 'mouth': {
             // Center of mouth (average of mouth corner and center points)
-            if (keypoints[13] && keypoints[14] && keypoints[78] && keypoints[308]) {
-                x = (keypoints[13][0] + keypoints[14][0] + keypoints[78][0] + keypoints[308][0]) / 4;
-                y = (keypoints[13][1] + keypoints[14][1] + keypoints[78][1] + keypoints[308][1]) / 4;
-            }
+            x = this.faces[personNumber].lips.centerX;
+            y = this.faces[personNumber].lips.centerY;
             break;
         }
         default:
@@ -766,18 +959,11 @@ class Scratch3Facemesh2ScratchBlocks {
         }
 
         if (x !== 0 || y !== 0) {
-            // Convert coordinates to Scratch coordinate system
-            let scratchX;
-            const scratchY = 180 - (y * this.ratio);
-            
-            if (this.runtime.ioDevices.video.mirror === false) {
-                scratchX = -1 * (240 - (x * this.ratio));
-            } else {
-                scratchX = 240 - (x * this.ratio);
-            }
-
+            console.log('x:', x, 'y:', y);
+            const scratchCoords = this.toScratchCoords({x, y});
+            console.log('scratchCoords:', scratchCoords);
             // Move the sprite to the calculated position
-            util.target.setXY(scratchX, scratchY);
+            util.target.setXY(scratchCoords.x, scratchCoords.y);
         }
     }
 
