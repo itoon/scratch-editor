@@ -304,8 +304,6 @@ class Scratch3Facemesh2ScratchBlocks {
         this.loadP5Library();
 
         this.detectFace = async () => {
-            
-
             // We should reuse the video element created by videoProvider instead of creating a new video element
             // This is because iOS or iPad does not allow camera attached to two video elements
             this.video = this.runtime.ioDevices.video.provider.video;
@@ -700,22 +698,24 @@ class Scratch3Facemesh2ScratchBlocks {
             return false;
         }
 
+        console.log(this.faces[personNumber]);
+
         const keypoints = this.faces[personNumber].keypoints;
 
         switch (expression) {
         case 'mouthOpen': {
-            // Mouth open detection
-            if (!keypoints[13] || !keypoints[14] || !keypoints[308] || !keypoints[78]) {
+            // Mouth open detection using keypoints 13 (upper lip) and 15 (lower lip)
+            if (!keypoints[13] || !keypoints[15] || !keypoints[308] || !keypoints[78]) {
                 return false;
             }
 
             const upperLip = keypoints[13];
-            const lowerLip = keypoints[14];
-            const mouthHeight = Math.abs(upperLip[1] - lowerLip[1]);
+            const lowerLip = keypoints[15];
+            const mouthHeight = Math.abs(upperLip.y - lowerLip.y);
 
             const leftCorner = keypoints[308];
             const rightCorner = keypoints[78];
-            const mouthWidth = Math.abs(rightCorner[0] - leftCorner[0]);
+            const mouthWidth = Math.abs(rightCorner.x - leftCorner.x);
 
             const aspectRatio = mouthHeight / mouthWidth;
             const openThreshold = 0.12;
@@ -792,7 +792,7 @@ class Scratch3Facemesh2ScratchBlocks {
         const faceWidth = Math.abs(keypoints[397].x - keypoints[172].x);
         
         // Calculate face area
-        const faceArea = faceHeight * faceWidth * 1.2;
+        const faceArea = faceHeight * faceWidth * 1.5;
         
         // Normalize to percentage scale where 100% = normal/reference distance
         // This baseline represents what we consider "100%" face size
@@ -878,15 +878,7 @@ class Scratch3Facemesh2ScratchBlocks {
             y: scratchY
         };
     }
-
-    /**
-     * Convert radians to degrees
-     * @param {number} radians - angle in radians
-     * @returns {number} - angle in degrees
-     */
-    radToDeg (radians) {
-        return radians * (180 / Math.PI);
-    }
+    
 
     goToFeature (args, util) {
         const personNumber = parseInt(args.PERSON_NUMBER, 10) - 1;
