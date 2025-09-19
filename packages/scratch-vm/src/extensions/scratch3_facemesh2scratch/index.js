@@ -712,15 +712,9 @@ class Scratch3Facemesh2ScratchBlocks {
             const upperLip = keypoints[13];
             const lowerLip = keypoints[15];
             const mouthHeight = Math.abs(upperLip.y - lowerLip.y);
+        
 
-            const leftCorner = keypoints[308];
-            const rightCorner = keypoints[78];
-            const mouthWidth = Math.abs(rightCorner.x - leftCorner.x);
-
-            const aspectRatio = mouthHeight / mouthWidth;
-            const openThreshold = 0.12;
-
-            return aspectRatio > openThreshold;
+            return mouthHeight > 10;
         }
         
         default:
