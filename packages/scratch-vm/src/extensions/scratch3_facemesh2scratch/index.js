@@ -294,6 +294,7 @@ class Scratch3Facemesh2ScratchBlocks {
         this.runtime = runtime;
         this.video = null;
         this.faces = [];
+        this.faceMesh = null;
         this.ratio = 1;
         this.p5Loaded = false;
         this.p5Instance = null;
@@ -308,20 +309,12 @@ class Scratch3Facemesh2ScratchBlocks {
             // We should reuse the video element created by videoProvider instead of creating a new video element
             // This is because iOS or iPad does not allow camera attached to two video elements
             this.video = this.runtime.ioDevices.video.provider.video;
-            
-            // Debug video element
-            console.log('Video element:', this.video);
-            console.log('Video readyState:', this.video.readyState);
-            console.log('Video src:', this.video.src);
-            console.log('Video videoWidth:', this.video.videoWidth);
-            console.log('Video videoHeight:', this.video.videoHeight);
-
+                 
             // Show loading popup
             this.showLoadingPopup();
             
             // Wait for p5.js to load if not already loaded
             await this.waitForP5Ready();
-            
             console.log('ml5 object:', ml5);
             console.log('p5 object:', window.p5);
         };
@@ -331,7 +324,9 @@ class Scratch3Facemesh2ScratchBlocks {
 
     loadP5Library () {
         // Check if p5.js is already loaded
-        if (typeof window.p5 !== 'undefined') {
+        if (typeof window.p5 === 'undefined') {
+            // p5.js not loaded, continue with loading process
+        } else {
             this.p5Loaded = true;
             console.log('p5.js already loaded');
             return;
@@ -363,11 +358,11 @@ class Scratch3Facemesh2ScratchBlocks {
 
     waitForP5Load () {
         const checkP5 = () => {
-            if (typeof window.p5 !== 'undefined') {
+            if (typeof window.p5 === 'undefined') {
+                setTimeout(checkP5, 100);
+            } else {
                 this.p5Loaded = true;
                 console.log('p5.js loaded successfully');
-            } else {
-                setTimeout(checkP5, 100);
             }
         };
         checkP5();
@@ -396,62 +391,60 @@ class Scratch3Facemesh2ScratchBlocks {
         // Create a container for the p5.js canvas (visible for debugging, can be hidden later)
         const container = document.createElement('div');
         container.id = 'p5-facemesh-container';
-        // container.style.cssText = `
-        //     position: fixed;
-        //     top: 10px;
-        //     right: 10px;
-        //     width: 480px;
-        //     height: 360px;
-        //     z-index: 1000;
-        //     border: 2px solid #00ff00;
-        //     background: rgba(0,0,0,0.1);
-        // `;
         document.body.appendChild(container);
 
         // Create p5.js instance
         this.p5Instance = new window.p5(p => {
             let video;
             // p5.js setup function
+
+            p.detectStart = () => {
+                this.faceMesh.detectStart(video, results => {
+                    this.faces = results;
+                });
+            };
+
             p.setup = async () => {
                 console.log('p5.js setup() called');
                 
                 // Create canvas with Scratch video dimensions (480x360)
                 const canvas = p.createCanvas(480, 360);
                 canvas.parent('p5-facemesh-container');
+                canvas.hide();
                 
                 // Create video capture with same dimensions as Scratch
                 video = p.createCapture(p.VIDEO);
                 video.size(480, 360);
-                // video.hide(); // Hide the video element
+                video.hide(); // Hide the video element
                 
                 // console.log('Video created in p5.js:', video);
                 this.faceMesh = await ml5.faceMesh();
-                console.log('FaceMesh created in p5.js:', this.faceMesh);
                 this.hideLoadingPopup();
-                this.faceMesh.detectStart(video, results => {
-                    // Convert ml5 results to the format expected by the extension
-                    this.faces = results;
-                    console.log('Faces detected in p5.js:', this.faces);
-                    // console.log('Faces detected in p5.js:', this.faces.length);
-                });
+                p.detectStart();
             };
+            
 
             // p5.js draw function
             p.draw = () => {
                 // Clear background
-                p.background(220);
+                // p.background(220);
                 
-                // Draw video
-                p.push();
-                p.translate(p.width, 0);
-                p.scale(-1, 1);
-                p.image(video, 0, 0, p.width, p.height);
-                p.pop();
+                // // Draw video
+                // p.push();
+                // p.translate(p.width, 0);
+                // p.scale(-1, 1);
+                // p.image(video, 0, 0, p.width, p.height);
+                // p.pop();
                 
-                // Draw face landmarks if faces are detected
-                if (this.faces.length > 0) {
-                    this.drawFaceLandmarks(p, this.faces);
-                }
+                // // Draw face landmarks if faces are detected
+                // if (this.faces.length > 0) {
+                //     this.drawFaceLandmarks(p, this.faces);
+                // }
+            };
+
+            p.detectStop = () => {
+                console.log('Stopping face detection');
+                this.faceMesh.detectStop();
             };
         }, container);
 
@@ -739,15 +732,19 @@ class Scratch3Facemesh2ScratchBlocks {
         const state = args.VIDEO_STATE;
         if (state === 'off') {
             this.runtime.ioDevices.video.disableVideo();
-            this.faces = [];
-            if (this.facemesh) {
-                this.facemesh.detectStop(); // Stop face detection
+            if (this.faceMesh) {
+                this.faceMesh.detectStop();
+                this.faces = [];
             }
         } else {
-            if (this.facemesh) {
-                this.facemesh.detectStop(); // Stop current detection
+            if (this.faceMesh) {
+                this.faceMesh.detectStop();
             }
-            this.runtime.ioDevices.video.enableVideo().then(this.detectFace);
+            this.runtime.ioDevices.video.enableVideo().then(() => {
+                if (this.p5Instance){
+                    this.p5Instance.detectStart();
+                }
+            });
             this.runtime.ioDevices.video.mirror = state === 'on';
         }
     }
@@ -813,8 +810,6 @@ class Scratch3Facemesh2ScratchBlocks {
 
         if (personNumber >= this.faces.length) return 90;
         if (!this.faces[personNumber] || !this.faces[personNumber].keypoints) return 90;
-
-        const keypoints = this.faces[personNumber].keypoints;
 
         // Use the eye center coordinates from the face detection
         if (!this.faces[personNumber].leftEye || !this.faces[personNumber].rightEye) {
@@ -913,12 +908,11 @@ class Scratch3Facemesh2ScratchBlocks {
 
         switch (feature) {
         case 'forehead': {
-            // Center of forehead: average of several forehead points
-            // Using points around the forehead area
-            if (keypoints[9] && keypoints[10] && keypoints[151]) {
-                x = (keypoints[9].x + keypoints[10].x + keypoints[151].x) / 3;
-                y = (keypoints[9].y + keypoints[10].y + keypoints[151].y) / 3;
-            }
+            // Try to use .box or .faceOval if available, otherwise fall back to keypoints
+            const face = this.faces[personNumber];
+            if (face.box) console.log('Box available:', face.box);
+            x = face.box.xMin + (face.box.width / 2); // Center horizontally
+            y = face.box.yMin + (face.box.height * -0.2);
             break;
         }
         case 'nose': {
