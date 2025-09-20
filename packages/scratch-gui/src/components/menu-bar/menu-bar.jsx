@@ -108,41 +108,61 @@ import { AccountMenuOptionsPropTypes } from '../../lib/account-menu-options';
 import Sb3Save from '../../containers/sb3-save.jsx';
 
 
-const exampleList = [{
-    name: 'Squid Game',
-    description: 'A game about a squid game',
-    image: '/static/examples/Squid-Game.png',
-    url: '/static/examples/Squid-Game.sb3',
-    id: 'squid-game'
-},
-{
-    name: 'Popcat Game',
-    description: 'A game about a popcat game',
-    image: '/static/examples/event-popcat.png',
-    url: '/static/examples/event-popcat.sb3',
-    id: 'popcat-game'
-},
-{
-    name: 'Hungry-Chef Game',
-    description: 'A game about a hungry chef game',
-    image: '/static/examples/Hungry-Chef.png',
-    url: '/static/examples/Hungry-Chef.sb3',
-    id: 'hungry-chef-game'
-},
-{
-    name: 'Santa-claus Game',
-    description: 'A game about a santa claus game',
-    image: '/static/examples/Santa-claus.png',
-    url: '/static/examples/Santa-claus.sb3',
-    id: 'santa-claus-game'
-},
-{
-    name: 'Random-number Game',
-    description: 'A game about a random number game',
-    image: '/static/examples/Random-number.png',
-    url: '/static/examples/Random-number.sb3',
-    id: 'random-number-game'
-}];
+const exampleList = [
+    {
+        name: 'Magic Face Filter',
+        description: 'Create fun AI face filters',
+        image: '/static/examples/AI-Face-Tracking.png',
+        url: '/static/examples/AI-Face-Tracking-Setup.sb3',
+        id: 'ai-face-tracking'
+    }, {
+        name: 'AI Dragon Face',
+        description: 'Turn into a fire-breathing dragon with AI face tracking.',
+        image: '/static/examples/AI-Dragon.png',
+        url: '/static/examples/AI-Dragon-Setup.sb3',
+        id: 'ai-dragon'
+    },
+    {
+        name: 'AI Buddy Collector Game',
+        description: 'Control a game using your face and collect items with AI.',
+        image: '/static/examples/AI-Face-Tracking-Buddy-Collector.png',
+        url: '/static/examples/AI-Face-Tracking-Buddy-Collector-Setup.sb3',
+        id: 'ai-face-tracking-buddy-collector'
+    }, {
+        name: 'Squid Game',
+        description: 'Scratch version of the popular Squid Game challenge',
+        image: '/static/examples/Squid-Game.png',
+        url: '/static/examples/Squid-Game.sb3',
+        id: 'squid-game'
+    },
+    {
+        name: 'Popcat Game',
+        description: 'Click to make the Popcat meow and score points!',
+        image: '/static/examples/event-popcat.png',
+        url: '/static/examples/event-popcat.sb3',
+        id: 'popcat-game'
+    },
+    {
+        name: 'Hungry-Chef Game',
+        description: 'Choose your ingredients and cook delicious meals!',
+        image: '/static/examples/Hungry-Chef.png',
+        url: '/static/examples/Hungry-Chef.sb3',
+        id: 'hungry-chef-game'
+    },
+    {
+        name: 'Santa claus Game',
+        description: 'Guide Santa to collect gifts and spread holiday cheer.',
+        image: '/static/examples/Santa-claus.png',
+        url: '/static/examples/Santa-claus.sb3',
+        id: 'santa-claus-game'
+    },
+    {
+        name: 'Random-number Game',
+        description: 'Guess the random number and test your luck.',
+        image: '/static/examples/Random-number.png',
+        url: '/static/examples/Random-number.sb3',
+        id: 'random-number-game'
+    }];
 
 const ariaMessages = defineMessages({
     tutorials: {
