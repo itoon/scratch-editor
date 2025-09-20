@@ -1,6 +1,7 @@
-import {EditorState, createStandaloneRoot, setAppElement} from '../index-standalone';
+import { EditorState, createStandaloneRoot, setAppElement } from '../index-standalone';
 import HashParserHOC from '../lib/hash-parser-hoc.jsx';
-import {PLATFORM} from '../lib/platform.js';
+import CodeVentureAuthHOC from '../lib/codeventure-auth-hoc.jsx';
+import { PLATFORM } from '../lib/platform.js';
 
 import log from '../lib/log.js';
 
@@ -54,7 +55,7 @@ export default appTarget => {
         showTelemetryModal: simulateScratchDesktop
     });
     const gui = createStandaloneRoot(state, appTarget, {
-        wrappers: [HashParserHOC]
+        wrappers: [HashParserHOC, CodeVentureAuthHOC]
     });
 
     // important: this is checking whether `simulateScratchDesktop` is truthy, not just defined!

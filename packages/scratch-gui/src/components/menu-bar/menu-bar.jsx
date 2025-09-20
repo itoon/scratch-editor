@@ -841,7 +841,7 @@ class MenuBar extends React.Component {
                     </div>
 
                     {menuOpts.canHaveSession ? (
-                        this.props.username ? (
+                        this.props.username || this.props.codeventureUser ? (
                             // ************ user is logged in ************
                             <React.Fragment>
                                 {menuOpts.myStuffUrl ? (
@@ -861,31 +861,46 @@ class MenuBar extends React.Component {
                                     </a>
                                 ) : null}
 
-                                <AccountNav
-                                    className={classNames(
-                                        styles.menuBarItem,
-                                        styles.hoverable,
-                                        { [styles.active]: this.props.accountMenuOpen }
-                                    )}
+                                {this.props.codeventureUser ? (
+                                    // CodeVenture user display
+                                    <div
+                                        className={classNames(
+                                            styles.menuBarItem,
+                                            styles.hoverable,
+                                            styles.codeventureUser
+                                        )}
+                                        title={`Logged in as ${this.props.codeventureUser.username} from CodeVenture`}
+                                    >
+                                        <span className={styles.codeventureIndicator}>CV</span>
+                                        <span className={styles.username}>{this.props.codeventureUser.username}</span>
+                                    </div>
+                                ) : (
+                                    <AccountNav
+                                        className={classNames(
+                                            styles.menuBarItem,
+                                            styles.hoverable,
+                                            { [styles.active]: this.props.accountMenuOpen }
+                                        )}
 
-                                    isOpen={this.props.accountMenuOpen}
-                                    isRtl={this.props.isRtl}
+                                        isOpen={this.props.accountMenuOpen}
+                                        isRtl={this.props.isRtl}
 
-                                    menuBarMenuClassName={classNames(styles.menuBarMenu)}
+                                        menuBarMenuClassName={classNames(styles.menuBarMenu)}
 
-                                    onClick={this.props.onClickAccount}
-                                    onClose={this.props.onRequestCloseAccount}
-                                    onLogOut={menuOpts.canLogout ? this.props.onLogOut : null}
+                                        onClick={this.props.onClickAccount}
+                                        onClose={this.props.onRequestCloseAccount}
+                                        onLogOut={menuOpts.canLogout ? this.props.onLogOut : null}
 
-                                    username={this.props.username}
+                                        username={this.props.username}
 
-                                    avatarUrl={menuOpts.avatarUrl}
-                                    myStuffUrl={menuOpts.myStuffUrl}
-                                    profileUrl={menuOpts.profileUrl}
-                                    myClassesUrl={menuOpts.myClassesUrl}
-                                    myClassUrl={menuOpts.myClassUrl}
-                                    accountSettingsUrl={menuOpts.accountSettingsUrl}
-                                />
+                                        avatarUrl={menuOpts.avatarUrl}
+                                        myStuffUrl={menuOpts.myStuffUrl}
+                                        profileUrl={menuOpts.profileUrl}
+                                        myClassesUrl={menuOpts.myClassesUrl}
+                                        myClassUrl={menuOpts.myClassUrl}
+                                        accountSettingsUrl={menuOpts.accountSettingsUrl}
+                                    />
+                                )}
                             </React.Fragment>
                         ) : (
                             // ********* user not logged in, but a session exists
@@ -1181,6 +1196,14 @@ MenuBar.propTypes = {
     showComingSoon: PropTypes.bool,
     username: PropTypes.string,
     userOwnsProject: PropTypes.bool,
+    codeventureUser: PropTypes.shape({
+        isAuthenticated: PropTypes.bool,
+        token: PropTypes.string,
+        username: PropTypes.string,
+        userId: PropTypes.string,
+        source: PropTypes.string
+    }),
+    isValidatingCodeVentureAuth: PropTypes.bool,
 
     accountMenuOptions: AccountMenuOptionsPropTypes,
 

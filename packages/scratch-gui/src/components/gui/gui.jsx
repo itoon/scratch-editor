@@ -1,11 +1,11 @@
 import classNames from 'classnames';
 import omit from 'lodash.omit';
 import PropTypes from 'prop-types';
-import React, {useEffect, useCallback} from 'react';
-import {defineMessages, FormattedMessage, injectIntl, intlShape} from 'react-intl';
-import {connect} from 'react-redux';
+import React, { useEffect, useCallback } from 'react';
+import { defineMessages, FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import { connect } from 'react-redux';
 import MediaQuery from 'react-responsive';
-import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import tabStyles from 'react-tabs/style/react-tabs.css';
 import VM from '@scratch/scratch-vm';
 import Renderer from '@scratch/scratch-render';
@@ -31,10 +31,10 @@ import DragLayer from '../../containers/drag-layer.jsx';
 import ConnectionModal from '../../containers/connection-modal.jsx';
 import TelemetryModal from '../telemetry-modal/telemetry-modal.jsx';
 
-import layout, {STAGE_SIZE_MODES} from '../../lib/layout-constants';
-import {resolveStageSize} from '../../lib/screen-utils';
-import {themeMap} from '../../lib/themes';
-import {AccountMenuOptionsPropTypes} from '../../lib/account-menu-options';
+import layout, { STAGE_SIZE_MODES } from '../../lib/layout-constants';
+import { resolveStageSize } from '../../lib/screen-utils';
+import { themeMap } from '../../lib/themes';
+import { AccountMenuOptionsPropTypes } from '../../lib/account-menu-options';
 
 import styles from './gui.css';
 import addExtensionIcon from './icon--extensions.svg';
@@ -42,8 +42,8 @@ import codeIcon from './icon--code.svg';
 import costumesIcon from './icon--costumes.svg';
 import soundsIcon from './icon--sounds.svg';
 import DebugModal from '../debug-modal/debug-modal.jsx';
-import {setPlatform} from '../../reducers/platform.js';
-import {PLATFORM} from '../../lib/platform.js';
+import { setPlatform } from '../../reducers/platform.js';
+import { PLATFORM } from '../../lib/platform.js';
 
 const messages = defineMessages({
     addExtension: {
@@ -140,6 +140,9 @@ const GUIComponent = props => {
         userOwnsProject,
         hideTutorialProjects,
         vm,
+        // CodeVenture Authentication props
+        codeventureUser,
+        isValidatingCodeVentureAuth,
         ...componentProps
     } = omit(props, 'dispatch', 'setPlatform');
     if (children) {
@@ -283,6 +286,8 @@ const GUIComponent = props => {
                     userOwnsProject={userOwnsProject}
                     username={username}
                     accountMenuOptions={accountMenuOptions}
+                    codeventureUser={codeventureUser}
+                    isValidatingCodeVentureAuth={isValidatingCodeVentureAuth}
                 />
                 <Box className={styles.bodyWrapper}>
                     <Box className={styles.flexWrapper}>
@@ -495,7 +500,10 @@ GUIComponent.propTypes = {
     username: PropTypes.string,
     userOwnsProject: PropTypes.bool,
     hideTutorialProjects: PropTypes.bool,
-    vm: PropTypes.instanceOf(VM).isRequired
+    vm: PropTypes.instanceOf(VM).isRequired,
+    // CodeVenture Authentication props
+    codeventureUser: PropTypes.object,
+    isValidatingCodeVentureAuth: PropTypes.bool
 };
 
 GUIComponent.defaultProps = {

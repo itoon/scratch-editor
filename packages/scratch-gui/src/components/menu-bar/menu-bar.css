@@ -2,6 +2,36 @@
 @import "../../css/units.css";
 @import "../../css/z-index.css";
 
+/* CodeVenture user styles */
+.codeventure-user {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: background-color 0.2s ease;
+}
+
+.codeventure-user:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.codeventure-indicator {
+    background-color: #4CAF50;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: bold;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.3rem;
+    line-height: 1;
+}
+
+.codeventure-user .username {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
 .menu-bar {
     display: flex;
     flex-direction: row;

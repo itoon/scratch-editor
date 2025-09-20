@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test CodeVenture Authentication</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .test-link {
+            display: inline-block;
+            background: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 6px;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        .test-link:hover {
+            background: #45a049;
+        }
+        .current-params {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+            border-left: 4px solid #4CAF50;
+        }
+        .instructions {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+            border-left: 4px solid #2196F3;
+        }
+        .error {
+            background: #ffebee;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+            border-left: 4px solid #f44336;
+        }
+    </style>
+</head>
+<body>
+    <h1>CodeVenture Authentication Test</h1>
+    
+    <div class="instructions">
+        <h3>🔧 How to Test:</h3>
+        <ol>
+            <li>Make sure your Scratch Editor is running on <code>http://localhost:8601</code></li>
+            <li>Click one of the test links below</li>
+            <li>Open browser console (F12) to see debug logs</li>
+            <li>Look for "CV" badge with username in the top menu bar</li>
+        </ol>
+    </div>
+    
+    <h2>Test Links</h2>
+    
+    <p><strong>Test 1: Basic Authentication (should work)</strong></p>
+    <a href="http://localhost:8601/?token=JWT&username=testuser&user_id=123&source=codeventure" class="test-link">
+        Test with Simple Token
+    </a>
+    
+    <p><strong>Test 2: Real JWT Token (should work)</strong></p>
+    <a href="http://localhost:8601/?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJleHAiOjk5OTk5OTk5OTl9.Lkb7zqJUFQOlvNa_5Rz7lEHEZf5YhM8C1qJ5nJ8t9pI&username=john_doe&user_id=12345&source=codeventure" class="test-link">
+        Test with Real JWT
+    </a>
+    
+    <p><strong>Test 3: Missing Parameters (should fail)</strong></p>
+    <a href="http://localhost:8601/?token=JWT&username=testuser&source=codeventure" class="test-link">
+        Test Missing user_id
+    </a>
+    
+    <p><strong>Test 4: Wrong Source (should fail)</strong></p>
+    <a href="http://localhost:8601/?token=JWT&username=testuser&user_id=123&source=wrong" class="test-link">
+        Test Wrong Source
+    </a>
+    
+    <div id="currentParams" class="current-params" style="display:none;">
+        <h3>Current URL Parameters:</h3>
+        <div id="paramsList"></div>
+    </div>
+    
+    <h2>Expected Behavior</h2>
+    
+    <div class="instructions">
+        <h3>✅ When Authentication Works:</h3>
+        <ul>
+            <li>Console shows: "CodeVenture Auth: Parsing URL parameters"</li>
+            <li>Console shows: "CodeVenture Auth: Starting validation..."</li>
+            <li>Console shows: "CodeVenture Auth: User authenticated locally"</li>
+            <li>Menu bar shows green "CV" badge with username</li>
+            <li>URL parameters are cleaned from address bar</li>
+        </ul>
+        
+        <h3>❌ When Authentication Fails:</h3>
+        <ul>
+            <li>Console shows error messages</li>
+            <li>No "CV" badge appears in menu bar</li>
+            <li>URL parameters remain in address bar</li>
+        </ul>
+    </div>
+    
+    <h2>Debugging Steps</h2>
+    
+    <div class="error">
+        <h3>🐛 If Nothing Happens:</h3>
+        <ol>
+            <li><strong>Check Console:</strong> Open F12 → Console tab</li>
+            <li><strong>Look for Logs:</strong> Search for "CodeVenture Auth" messages</li>
+            <li><strong>Check URL:</strong> Make sure all parameters are present</li>
+            <li><strong>Verify Integration:</strong> Ensure CodeVentureAuthHOC is loaded</li>
+            <li><strong>Check Build:</strong> Make sure you've rebuilt after adding auth files</li>
+        </ol>
+    </div>
+    
+    <h2>Manual Test</h2>
+    
+    <p>You can also manually construct a URL:</p>
+    
+    <div class="current-params">
+        <code>http://localhost:8601/?token=<strong>YOUR_TOKEN</strong>&username=<strong>YOUR_USERNAME</strong>&user_id=<strong>YOUR_ID</strong>&source=codeventure</code>
+    </div>
+    
+    <script>
+        // Show current URL parameters if any
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.toString()) {
+            const paramsDiv = document.getElementById('currentParams');
+            const paramsList = document.getElementById('paramsList');
+            paramsDiv.style.display = 'block';
+            
+            const params = [];
+            for (const [key, value] of urlParams.entries()) {
+                params.push(`<strong>${key}:</strong> ${value}`);
+            }
+            paramsList.innerHTML = params.join('<br>');
+        }
+        
+        // Add click handlers to log clicks
+        document.querySelectorAll('.test-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                console.log('Clicking test link:', this.href);
+            });
+        });
+    </script>
+</body>
+</html>

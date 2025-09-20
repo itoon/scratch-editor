@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeVenture Authentication Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .example-link {
+            display: inline-block;
+            background: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 6px;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        .example-link:hover {
+            background: #45a049;
+        }
+        .code-block {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #4CAF50;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 12px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>CodeVenture Authentication Integration</h1>
+    
+    <p>This page demonstrates how to integrate CodeVenture authentication with the Scratch Editor. When users click the "Scratch" menu in CodeVenture, they should be redirected to the Scratch Editor with authentication parameters.</p>
+    
+    <h2>Example Authentication URLs</h2>
+    
+    <p>Click the links below to test the authentication flow:</p>
+    
+    <a href="/?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJleHAiOjk5OTk5OTk5OTl9.Lkb7zqJUFQOlvNa_5Rz7lEHEZf5YhM8C1qJ5nJ8t9pI&username=john_doe&user_id=12345&source=codeventure" class="example-link">
+        Test with Valid Token
+    </a>
+    
+    <a href="/?token=invalid_token&username=jane_smith&user_id=67890&source=codeventure" class="example-link">
+        Test with Invalid Token
+    </a>
+    
+    <a href="/?username=no_token_user&user_id=11111&source=codeventure" class="example-link">
+        Test without Token
+    </a>
+    
+    <h2>URL Parameter Format</h2>
+    
+    <p>CodeVenture should redirect users to the Scratch Editor with the following URL format:</p>
+    
+    <div class="code-block">
+https://your-scratch-editor.com/?token=JWT_TOKEN&username=USERNAME&user_id=USER_ID&source=codeventure
+    </div>
+    
+    <h3>Required Parameters:</h3>
+    <ul>
+        <li><strong>token</strong>: JWT token from CodeVenture authentication</li>
+        <li><strong>username</strong>: User's username</li>
+        <li><strong>user_id</strong>: User's unique identifier</li>
+        <li><strong>source</strong>: Must be "codeventure" to identify the source</li>
+    </ul>
+    
+    <h2>Implementation Details</h2>
+    
+    <h3>What Happens When User Arrives:</h3>
+    <ol>
+        <li>The <code>CodeVentureAuthHOC</code> parses URL parameters</li>
+        <li>Token and user data are validated</li>
+        <li>If validation passes, user is automatically authenticated</li>
+        <li>Sensitive URL parameters are removed for security</li>
+        <li>User sees their name in the menu bar with "CV" indicator</li>
+    </ol>
+    
+    <h3>Menu Bar Display:</h3>
+    <p>When authenticated via CodeVenture, users will see:</p>
+    <ul>
+        <li>A green "CV" badge indicating CodeVenture authentication</li>
+        <li>Their username displayed next to the badge</li>
+        <li>Hover tooltip showing "Logged in as [username] from CodeVenture"</li>
+    </ul>
+    
+    <h2>CodeVenture Backend Integration</h2>
+    
+    <p>For production use, CodeVenture needs to provide:</p>
+    
+    <h3>1. JWT Token Generation</h3>
+    <div class="code-block">
+// Example JWT payload
+{
+  "sub": "user_id",
+  "username": "user_name", 
+  "iat": 1516239022,
+  "exp": 1516325422,
+  "iss": "codeventure.app"
+}
+    </div>
+    
+    <h3>2. Token Validation API (Optional)</h3>
+    <div class="code-block">
+POST https://codeventure.app/api/auth/validate
+Authorization: Bearer {token}
+Content-Type: application/json
+
+{
+  "username": "user123",
+  "userId": "12345"
+}
+
+// Response:
+{
+  "valid": true,
+  "username": "user123", 
+  "userId": "12345",
+  "profile": {
+    "displayName": "User Name",
+    "avatar": "avatar_url"
+  }
+}
+    </div>
+    
+    <div class="warning">
+        <strong>Security Note:</strong> The current implementation uses basic token validation for development. 
+        For production, enable API validation by setting <code>DEFAULT_CONFIG.requireAPIValidation = true</code> 
+        in <code>codeventure-auth.js</code>.
+    </div>
+    
+    <h2>Configuration</h2>
+    
+    <p>Authentication behavior can be configured in <code>packages/scratch-gui/src/lib/codeventure-auth.js</code>:</p>
+    
+    <div class="code-block">
+export const DEFAULT_CONFIG = {
+    apiUrl: 'https://codeventure.app/api/auth/validate',
+    tokenExpiration: 24 * 60 * 60 * 1000, // 24 hours
+    requireAPIValidation: false, // Set to true in production
+    cleanUrlAfterAuth: true
+};
+    </div>
+    
+    <h2>Testing</h2>
+    
+    <p>To test the integration:</p>
+    <ol>
+        <li>Build the Scratch Editor: <code>npm run build</code></li>
+        <li>Serve the built files locally</li>
+        <li>Visit the URL with authentication parameters</li>
+        <li>Check that the user appears authenticated in the menu bar</li>
+        <li>Verify that URL parameters are cleaned after authentication</li>
+    </ol>
+    
+    <script>
+        // Show current URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.toString()) {
+            const paramsDiv = document.createElement('div');
+            paramsDiv.className = 'code-block';
+            paramsDiv.innerHTML = '<strong>Current URL Parameters:</strong><br>' + 
+                Array.from(urlParams.entries())
+                    .map(([key, value]) => `${key}: ${value}`)
+                    .join('<br>');
+            document.body.appendChild(paramsDiv);
+        }
+    </script>
+</body>
+</html>
