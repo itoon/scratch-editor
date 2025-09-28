@@ -162,6 +162,12 @@ const exampleList = [
         image: '/static/examples/Random-number.png',
         url: '/static/examples/Random-number.sb3',
         id: 'random-number-game'
+    }, {
+        name: 'Collect Item',
+        description: 'Collect items and score points!',
+        image: '/static/examples/scratch-ai-collect-item.png',
+        url: '/static/examples/ai-collect-item-setup.sb3',
+        id: 'collect-item-game'
     }];
 
 const ariaMessages = defineMessages({
