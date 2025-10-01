@@ -94,7 +94,6 @@ const CodeVentureAuthHOC = function (WrappedComponent) {
                     });
                 } else {
                     // Basic validation only (for development/testing)
-                    console.log('CodeVenture Auth: Using basic validation only');
                     const userData = createUserData({ token, username, userId });
                     console.log('CodeVenture Auth: User authenticated locally:', userData);
                     this.setState({

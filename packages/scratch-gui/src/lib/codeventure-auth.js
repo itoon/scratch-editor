@@ -82,15 +82,10 @@ export const isTokenExpired = token => {
  */
 export const validateAuthParams = ({token, username, userId, source}) => {
     const errors = [];
+    console.log('token', token);
     
     if (!token) {
         errors.push('Token is required');
-    } else if (token !== 'JWT' && !isValidJWTFormat(token)) {
-        // Allow 'JWT' as a test token, otherwise validate format
-        errors.push('Invalid token format');
-    } else if (token !== 'JWT' && isTokenExpired(token)) {
-        // Don't check expiration for test token
-        errors.push('Token is expired');
     }
     
     if (!username || typeof username !== 'string') {
@@ -119,9 +114,8 @@ export const validateAuthParams = ({token, username, userId, source}) => {
  * @param {string} apiUrl - CodeVenture API URL (optional, defaults to production)
  * @returns {Promise<object>} - Validation result
  */
-export const validateTokenWithAPI = async (token, username, userId, apiUrl = 'https://localhost:4000/api/1.0/sso/exchange') => {
+export const validateTokenWithAPI = async (token, username, userId, apiUrl = 'http://localhost:4000/api/1.0/sso/exchange') => {
     try {
-        console.log('apiUrl');
         const response = await fetch(apiUrl, {
             method: 'POST',
             headers: {
@@ -136,11 +130,9 @@ export const validateTokenWithAPI = async (token, username, userId, apiUrl = 'ht
         }
         
         const data = await response.json();
-        console.log('data', data);
-        
         return {
-            isValid: data.valid === true,
-            userData: data,
+            isValid: data.status === 200,
+            userData: data.user,
             error: null
         };
     } catch (error) {
@@ -198,6 +190,6 @@ export const cleanAuthFromURL = (additionalParams = []) => {
 export const DEFAULT_CONFIG = {
     apiUrl: 'https://codeventure.app/api/auth/validate',
     tokenExpiration: 24 * 60 * 60 * 1000, // 24 hours in milliseconds
-    requireAPIValidation: false, // Set to true in production
+    requireAPIValidation: true, // Set to true in production
     cleanUrlAfterAuth: true
 };
