@@ -114,7 +114,11 @@ export const validateAuthParams = ({token, username, userId, source}) => {
  * @param {string} apiUrl - CodeVenture API URL (optional, defaults to production)
  * @returns {Promise<object>} - Validation result
  */
-export const validateTokenWithAPI = async (token, username, userId, apiUrl = 'http://localhost:4000/api/1.0/sso/exchange') => {
+export const validateTokenWithAPI = async (token, username, userId, apiUrl) => {
+    if (!apiUrl) {
+        const apiBaseUrl = process.env.CODEVENTURE_API_URL || 'http://localhost:4000';
+        apiUrl = `${apiBaseUrl}/api/1.0/sso/exchange`;
+    }
     try {
         const response = await fetch(apiUrl, {
             method: 'POST',
@@ -132,11 +136,53 @@ export const validateTokenWithAPI = async (token, username, userId, apiUrl = 'ht
         const data = await response.json();
         return {
             isValid: data.status === 200,
-            userData: data.user,
+            userData: data.data?.user || data.user,
+            accessToken: data.data?.accessToken,
             error: null
         };
     } catch (error) {
         console.error('Token validation API error:', error);
+        return {
+            isValid: false,
+            userData: null,
+            accessToken: null,
+            error: error.message
+        };
+    }
+};
+
+/**
+ * Validates access token and retrieves user data from /auth/me endpoint
+ * @param {string} accessToken - Access token
+ * @param {string} apiUrl - API base URL
+ * @returns {Promise<object>} - User data or error
+ */
+export const getUserFromAccessToken = async (accessToken, apiUrl) => {
+    if (!apiUrl) {
+        const apiBaseUrl = process.env.CODEVENTURE_API_URL || 'http://localhost:4000';
+        apiUrl = `${apiBaseUrl}/api/1.0/auth/me`;
+    }
+    try {
+        const response = await fetch(apiUrl, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${accessToken}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
+        const data = await response.json();
+        return {
+            isValid: data.status === 200 || response.status === 200,
+            userData: data.data?.user || data.user || data.data,
+            error: null
+        };
+    } catch (error) {
+        console.error('Get user from access token error:', error);
         return {
             isValid: false,
             userData: null,
@@ -154,9 +200,13 @@ export const validateTokenWithAPI = async (token, username, userId, apiUrl = 'ht
 export const createUserData = (params, additionalData = {}) => ({
     isAuthenticated: true,
     token: params.token,
+    accessToken: params.accessToken || params.token,
     username: params.username,
     userId: params.userId,
     source: 'codeventure',
+    displayName: additionalData.displayName || params.username,
+    avatarImage: additionalData.avatarImage || null,
+    email: additionalData.email || null,
     profile: additionalData.profile || {},
     validatedAt: new Date().toISOString(),
     ...additionalData
@@ -182,6 +232,59 @@ export const cleanAuthFromURL = (additionalParams = []) => {
     if (hasChanges) {
         window.history.replaceState({}, document.title, url.toString());
     }
+};
+
+/**
+ * LocalStorage key for storing access token
+ */
+const STORAGE_KEY = 'codeventure_access_token';
+
+/**
+ * Save access token to localStorage
+ * @param {string} accessToken - Access token to save
+ */
+export const saveAccessToken = accessToken => {
+    try {
+        if (accessToken) {
+            localStorage.setItem(STORAGE_KEY, accessToken);
+            console.log('CodeVenture Auth: Access token saved to localStorage');
+        }
+    } catch (error) {
+        console.error('Error saving access token:', error);
+    }
+};
+
+/**
+ * Get access token from localStorage
+ * @returns {string|null} - Stored access token or null
+ */
+export const getStoredAccessToken = () => {
+    try {
+        return localStorage.getItem(STORAGE_KEY);
+    } catch (error) {
+        console.error('Error reading access token:', error);
+        return null;
+    }
+};
+
+/**
+ * Clear access token from localStorage
+ */
+export const clearAccessToken = () => {
+    try {
+        localStorage.removeItem(STORAGE_KEY);
+        console.log('CodeVenture Auth: Access token cleared from localStorage');
+    } catch (error) {
+        console.error('Error clearing access token:', error);
+    }
+};
+
+/**
+ * Logout user - clears session data
+ */
+export const logout = () => {
+    clearAccessToken();
+    console.log('CodeVenture Auth: User logged out');
 };
 
 /**

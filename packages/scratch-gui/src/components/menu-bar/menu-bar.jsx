@@ -283,7 +283,7 @@ class MenuBar extends React.Component {
         if (exampleId) {
             this.loadExampleById(exampleId);
         } else if (projectId) {
-            // this.loadProjectById(123);
+            this.loadProjectById(projectId);
         }
     }
 
@@ -312,9 +312,17 @@ class MenuBar extends React.Component {
 
     async loadProjectById(projectId) {
         try {
-            // fetch url from projectId
-            const downloadURL = `https://firebasestorage.googleapis.com/v0/b/codeventure-development.appspot.com/o/scratch-projects%2FRandom-number%20(1).sb3?alt=media`;
-            await this.handleClickLoadProject(downloadURL);
+            const accessToken = localStorage.getItem('codeventure_access_token');
+            const response = await fetch(`http://localhost:4000/api/v1/projects/${projectId}`, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            });
+            const data = await response.json();
+            console.log(data);
+            const projectUrl = data.project.projectUrl;
+            this.props.vm.onSetProjectTitle(data.project.title);
+            await this.handleClickLoadProject(projectUrl);
         } catch (error) {
             console.error('Error loading project from Firebase:', error);
         }
@@ -669,7 +677,7 @@ class MenuBar extends React.Component {
                                             {newProjectMessage}
                                         </MenuItem>
                                     </MenuSection>
-                                    {/* <MenuSection>
+                                    <MenuSection>
                                         <Sb3Save>{(className, downloadProjectCallback) => (
                                             <MenuItem
                                                 className={className}
@@ -678,7 +686,7 @@ class MenuBar extends React.Component {
                                                 {saveNowMessage}
                                             </MenuItem>
                                         )}</Sb3Save>
-                                    </MenuSection> */}
+                                    </MenuSection>
                                     {(this.props.canSave || this.props.canCreateCopy || this.props.canRemix) && (
                                         <MenuSection>
                                             {this.props.canSave && (
@@ -866,6 +874,7 @@ class MenuBar extends React.Component {
                         )}
                     </div>
 
+
                     {menuOpts.canHaveSession ? (
                         this.props.username || this.props.codeventureUser ? (
                             // ************ user is logged in ************
@@ -888,45 +897,26 @@ class MenuBar extends React.Component {
                                 ) : null}
 
                                 {this.props.codeventureUser ? (
-                                    // CodeVenture user display
                                     <div
                                         className={classNames(
                                             styles.menuBarItem,
-                                            styles.hoverable,
-                                            styles.codeventureUser
+                                            styles.accountNavMenu
                                         )}
                                         title={`Logged in as ${this.props.codeventureUser.username} from CodeVenture`}
                                     >
-                                        <span className={styles.codeventureIndicator}>CV</span>
-                                        <span className={styles.username}>{this.props.codeventureUser.username}</span>
+                                        <img
+                                            className={styles.profileIcon}
+                                            src={this.props.codeventureUser?.avatarImage ?
+                                                `${process.env.CODEVENTURE_APP_URL || 'https://codeventure.app'}${this.props.codeventureUser.avatarImage}` :
+                                                `${process.env.CODEVENTURE_APP_URL || 'https://codeventure.app'}/student-avatar/art-toy/01-default.svg`}
+                                        />
+                                        <span>
+                                            {this.props.codeventureUser?.displayName ||
+                                                this.props.codeventureUser?.username ||
+                                                'CodeVenture User'}
+                                        </span>
                                     </div>
-                                ) : (
-                                    <AccountNav
-                                        className={classNames(
-                                            styles.menuBarItem,
-                                            styles.hoverable,
-                                            { [styles.active]: this.props.accountMenuOpen }
-                                        )}
-
-                                        isOpen={this.props.accountMenuOpen}
-                                        isRtl={this.props.isRtl}
-
-                                        menuBarMenuClassName={classNames(styles.menuBarMenu)}
-
-                                        onClick={this.props.onClickAccount}
-                                        onClose={this.props.onRequestCloseAccount}
-                                        onLogOut={menuOpts.canLogout ? this.props.onLogOut : null}
-
-                                        username={this.props.username}
-
-                                        avatarUrl={menuOpts.avatarUrl}
-                                        myStuffUrl={menuOpts.myStuffUrl}
-                                        profileUrl={menuOpts.profileUrl}
-                                        myClassesUrl={menuOpts.myClassesUrl}
-                                        myClassUrl={menuOpts.myClassUrl}
-                                        accountSettingsUrl={menuOpts.accountSettingsUrl}
-                                    />
-                                )}
+                                ) : null}
                             </React.Fragment>
                         ) : (
                             // ********* user not logged in, but a session exists
@@ -979,7 +969,7 @@ class MenuBar extends React.Component {
                         <React.Fragment>
                             {this.props.showComingSoon ? (
                                 <React.Fragment>
-                                    {/* <MenuBarItemTooltip id="mystuff">
+                                    <MenuBarItemTooltip id="mystuff">
                                         <div
                                             className={classNames(
                                                 styles.menuBarItem,
@@ -992,7 +982,35 @@ class MenuBar extends React.Component {
                                                 src={mystuffIcon}
                                             />
                                         </div>
-                                    </MenuBarItemTooltip> */}
+                                    </MenuBarItemTooltip>
+                                    <MenuBarItemTooltip
+                                        id="account-nav"
+                                        place={this.props.isRtl ? 'right' : 'left'}
+                                    >
+                                        <div
+                                            className={classNames(
+                                                styles.menuBarItem,
+                                                styles.hoverable,
+                                                styles.accountNavMenu
+                                            )}
+                                        >
+                                            <img
+                                                className={styles.profileIcon}
+                                                src={this.props.codeventureUser?.avatarImage ?
+                                                    `https://codeventure.app${this.props.codeventureUser.avatarImage}` :
+                                                    'https://codeventure.app/student-avatar/art-toy/01-default.svg'}
+                                            />
+                                            <span>
+                                                {this.props.codeventureUser?.displayName ||
+                                                    this.props.codeventureUser?.username ||
+                                                    'CodeVenture User'}
+                                            </span>
+                                            <img
+                                                className={styles.dropdownCaretIcon}
+                                                src={dropdownCaret}
+                                            />
+                                        </div>
+                                    </MenuBarItemTooltip>
                                 </React.Fragment>
                             ) : []}
                         </React.Fragment>
@@ -1227,7 +1245,10 @@ MenuBar.propTypes = {
         token: PropTypes.string,
         username: PropTypes.string,
         userId: PropTypes.string,
-        source: PropTypes.string
+        source: PropTypes.string,
+        displayName: PropTypes.string,
+        avatarImage: PropTypes.string,
+        email: PropTypes.string
     }),
     isValidatingCodeVentureAuth: PropTypes.bool,
 
@@ -1248,6 +1269,8 @@ const mapStateToProps = (state, ownProps) => {
     const user = state.session && state.session.session && state.session.session.user;
     const permissions = state.session && state.session.permissions;
     const sessionExists = state.session && typeof state.session.session !== 'undefined';
+    // CodeVenture users can have a session even without Redux session state
+    const hasSession = sessionExists || ownProps.codeventureUser;
 
     return {
         aboutMenuOpen: aboutMenuOpen(state),
@@ -1279,7 +1302,7 @@ const mapStateToProps = (state, ownProps) => {
         ),
 
         accountMenuOptions: ownProps.accountMenuOptions ?? {
-            canHaveSession: sessionExists ?? false,
+            canHaveSession: hasSession ?? false,
 
             canRegister: true,
             canLogin: true,

@@ -6,6 +6,10 @@ import {
     validateTokenWithAPI,
     createUserData,
     cleanAuthFromURL,
+    getUserFromAccessToken,
+    saveAccessToken,
+    getStoredAccessToken,
+    clearAccessToken,
     DEFAULT_CONFIG
 } from './codeventure-auth';
 
@@ -28,6 +32,7 @@ const CodeVentureAuthHOC = function (WrappedComponent) {
 
         componentDidMount() {
             this.parseAuthFromUrl();
+            this.restoreSessionFromStorage();
         }
 
         parseAuthFromUrl() {
@@ -59,6 +64,53 @@ const CodeVentureAuthHOC = function (WrappedComponent) {
             }
         }
 
+        async restoreSessionFromStorage() {
+            // Don't restore if we're processing URL params
+            const queryParams = queryString.parse(window.location.search);
+            if (queryParams.token && queryParams.source === 'codeventure') {
+                console.log('CodeVenture Auth: Skipping session restore, processing URL auth');
+                return;
+            }
+
+            const storedAccessToken = getStoredAccessToken();
+            if (!storedAccessToken) {
+                console.log('CodeVenture Auth: No stored access token found');
+                return;
+            }
+
+            console.log('CodeVenture Auth: Found stored access token, validating...');
+            this.setState({ isValidatingToken: true });
+
+            try {
+                const result = await getUserFromAccessToken(storedAccessToken);
+
+                if (result.isValid && result.userData) {
+                    const userData = createUserData(
+                        {
+                            token: storedAccessToken,
+                            username: result.userData.username,
+                            userId: result.userData._id || result.userData.id
+                        },
+                        result.userData
+                    );
+
+                    console.log('CodeVenture Auth: Session restored from localStorage:', userData);
+                    this.setState({
+                        codeventureUser: userData,
+                        isValidatingToken: false
+                    });
+                } else {
+                    console.warn('CodeVenture Auth: Stored token is invalid, clearing...');
+                    clearAccessToken();
+                    this.setState({ isValidatingToken: false });
+                }
+            } catch (error) {
+                console.error('CodeVenture Auth: Error restoring session:', error);
+                clearAccessToken();
+                this.setState({ isValidatingToken: false });
+            }
+        }
+
         async validateAndSetAuth(token, username, userId) {
             try {
                 console.log('CodeVenture Auth: Validating parameters...');
@@ -83,6 +135,11 @@ const CodeVentureAuthHOC = function (WrappedComponent) {
                         console.warn('CodeVenture API validation failed:', apiValidation.error);
                         this.handleAuthFailure();
                         return;
+                    }
+
+                    // Save access token to localStorage for session persistence
+                    if (apiValidation.accessToken) {
+                        saveAccessToken(apiValidation.accessToken);
                     }
 
                     // Create user data with API response
@@ -115,6 +172,7 @@ const CodeVentureAuthHOC = function (WrappedComponent) {
         }
 
         handleAuthFailure() {
+            clearAccessToken();
             this.setState({
                 codeventureUser: null,
                 isValidatingToken: false
