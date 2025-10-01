@@ -299,24 +299,184 @@ class Scratch3Facemesh2ScratchBlocks {
         this.p5Loaded = false;
         this.p5Instance = null;
         
+
+        // Load p5.js library
+        this.loadP5Library();
+
+        this.detectFace = async () => {
+            // We should reuse the video element created by videoProvider instead of creating a new video element
+            // This is because iOS or iPad does not allow camera attached to two video elements
+            this.video = this.runtime.ioDevices.video.provider.video;
+                 
+            // Show loading popup
+            this.showLoadingPopup();
+            
+            // Wait for p5.js to load if not already loaded
+            await this.waitForP5Ready();
+            console.log('ml5 object:', ml5);
+            console.log('p5 object:', window.p5);
+        };
+
+        this.runtime.ioDevices.video.enableVideo().then(this.detectFace);
+    }
+
+    loadP5Library () {
+        // Check if p5.js is already loaded
+        if (typeof window.p5 === 'undefined') {
+            // p5.js not loaded, continue with loading process
+        } else {
+            this.p5Loaded = true;
+            console.log('p5.js already loaded');
+            return;
+        }
+
+        // Check if script is already being loaded
+        if (document.querySelector('script[src*="p5.min.js"]')) {
+            console.log('p5.js script already exists, waiting for load...');
+            this.waitForP5Load();
+            return;
+        }
+
+        // Create and load p5.js script
+        const script = document.createElement('script');
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.9/p5.min.js';
+        script.onload = () => {
+            this.p5Loaded = true;
+            console.log('p5.js loaded successfully');
+            // Initialize p5.js instance
+            this.initializeP5Sketch();
+        };
+        script.onerror = () => {
+            console.error('Failed to load p5.js');
+        };
         
-        this.runtime.ioDevices.video.enableVideo().then(async () => {
-            await this.detectFace();
+        document.head.appendChild(script);
+        console.log('Loading p5.js...');
+    }
+
+    waitForP5Load () {
+        const checkP5 = () => {
+            if (typeof window.p5 === 'undefined') {
+                setTimeout(checkP5, 100);
+            } else {
+                this.p5Loaded = true;
+                console.log('p5.js loaded successfully');
+            }
+        };
+        checkP5();
+    }
+
+    waitForP5Ready () {
+        return new Promise(resolve => {
+            const checkReady = () => {
+                if (this.p5Loaded && typeof window.p5 !== 'undefined') {
+                    console.log('p5.js is ready');
+                    resolve();
+                } else {
+                    setTimeout(checkReady, 100);
+                }
+            };
+            checkReady();
         });
     }
-    
-    async detectFace (){
-        this.video = this.runtime.ioDevices.video.provider.video;
-        this.video.width = 480;
-        this.video.height = 360;
-        this.video.autoplay = true;
-        this.videoEnabled = true;
-        this.showLoadingPopup();
-        this.faceMesh = await ml5.faceMesh();
-        this.faceMesh.detectStart(this.video, results => {
-            this.faces = results;
-        });
-        this.hideLoadingPopup();
+
+    initializeP5Sketch () {
+        if (this.p5Instance) {
+            console.log('p5.js sketch already initialized');
+            return;
+        }
+
+        // Create a container for the p5.js canvas (visible for debugging, can be hidden later)
+        const container = document.createElement('div');
+        container.id = 'p5-facemesh-container';
+        document.body.appendChild(container);
+
+        // Create p5.js instance
+        this.p5Instance = new window.p5(p => {
+            let video;
+            // p5.js setup function
+
+            p.detectStart = () => {
+                this.faceMesh.detectStart(video, results => {
+                    this.faces = results;
+                });
+            };
+
+            p.setup = async () => {
+                console.log('p5.js setup() called');
+                
+                // Create canvas with Scratch video dimensions (480x360)
+                const canvas = p.createCanvas(480, 360);
+                canvas.parent('p5-facemesh-container');
+                canvas.hide();
+                
+                // Create video capture with same dimensions as Scratch
+                video = p.createCapture(p.VIDEO);
+                video.size(480, 360);
+                video.hide(); // Hide the video element
+                
+                // console.log('Video created in p5.js:', video);
+                this.faceMesh = await ml5.faceMesh();
+                this.hideLoadingPopup();
+                p.detectStart();
+            };
+            
+
+            // p5.js draw function
+            p.draw = () => {
+                // Clear background
+                // p.background(220);
+                
+                // // Draw video
+                // p.push();
+                // p.translate(p.width, 0);
+                // p.scale(-1, 1);
+                // p.image(video, 0, 0, p.width, p.height);
+                // p.pop();
+                
+                // // Draw face landmarks if faces are detected
+                // if (this.faces.length > 0) {
+                //     this.drawFaceLandmarks(p, this.faces);
+                // }
+            };
+
+            p.detectStop = () => {
+                console.log('Stopping face detection');
+                this.faceMesh.detectStop();
+            };
+        }, container);
+
+        console.log('p5.js sketch initialized');
+    }
+
+    drawFaceLandmarks (p, faces) {
+        for (let i = 0; i < faces.length; i++) {
+            const face = faces[i];
+            
+            // Draw keypoints
+            p.stroke(0, 255, 0);
+            p.strokeWeight(2);
+            p.noFill();
+            
+            // Draw face outline
+            p.beginShape();
+            for (let j = 0; j < face.keypoints.length; j++) {
+                const keypoint = face.keypoints[j];
+                p.vertex(p.width - keypoint.x, keypoint.y);
+            }
+            p.endShape(p.CLOSE);
+            
+            // Draw specific keypoints with different colors
+            if (face.keypoints[1]) this.drawKeypoint(p, face.keypoints[1], p.color(255, 0, 0)); // nose tip
+            if (face.keypoints[10]) this.drawKeypoint(p, face.keypoints[10], p.color(0, 0, 255)); // top of head
+            if (face.keypoints[152]) this.drawKeypoint(p, face.keypoints[152], p.color(0, 0, 255)); // bottom of chin
+        }
+    }
+
+    drawKeypoint (p, keypoint, col) {
+        p.fill(col);
+        p.noStroke();
+        p.ellipse(p.width - keypoint.x, keypoint.y, 8, 8);
     }
 
     getInfo () {
@@ -571,13 +731,13 @@ class Scratch3Facemesh2ScratchBlocks {
                 this.faces = [];
             }
         } else {
-            this.runtime.ioDevices.video.disableVideo();
             if (this.faceMesh) {
                 this.faceMesh.detectStop();
-                this.faces = [];
             }
-            this.runtime.ioDevices.video.enableVideo().then(async () => {
-                await this.detectFace();
+            this.runtime.ioDevices.video.enableVideo().then(() => {
+                if (this.p5Instance){
+                    this.p5Instance.detectStart();
+                }
             });
             this.runtime.ioDevices.video.mirror = state === 'on';
         }
