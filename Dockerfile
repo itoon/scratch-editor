@@ -54,5 +54,10 @@ ENV PORT=8080
 # Expose the port
 EXPOSE 8080
 
+# Add the runtime entrypoint
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
 # Start the app
+CMD ["/entrypoint.sh"]
 CMD ["serve", "-s", "build", "-l", "8080"]
