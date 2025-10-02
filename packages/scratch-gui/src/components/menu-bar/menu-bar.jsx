@@ -778,16 +778,18 @@ class MenuBar extends React.Component {
                                             {newProjectMessage}
                                         </MenuItem>
                                     </MenuSection>
-                                    <MenuSection>
-                                        <Sb3Save vm={this.props.vm}>{(className, downloadProjectCallback) => (
-                                            <MenuItem
-                                                className={className}
-                                                onClick={this.getSaveToComputerHandler(downloadProjectCallback)}
-                                            >
-                                                {saveNowMessage}
-                                            </MenuItem>
-                                        )}</Sb3Save>
-                                    </MenuSection>
+                                    {(this.props.codeventureUser) && (
+                                        <MenuSection>
+                                            <Sb3Save vm={this.props.vm}>{(className, downloadProjectCallback) => (
+                                                <MenuItem
+                                                    className={className}
+                                                    onClick={this.getSaveToComputerHandler(downloadProjectCallback)}
+                                                >
+                                                    {saveNowMessage}
+                                                </MenuItem>
+                                            )}</Sb3Save>
+                                        </MenuSection>
+                                    )}
                                     {(this.props.canSave || this.props.canCreateCopy || this.props.canRemix) && (
                                         <MenuSection>
                                             {this.props.canSave && (
