@@ -1,5 +1,5 @@
 import React from 'react';
-import {FormattedMessage} from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import keyMirror from 'keymirror';
 
 import successImage from '../assets/icon--success.svg';
@@ -212,6 +212,20 @@ const alerts = [
         ),
         iconSpinner: true,
         level: AlertLevels.SUCCESS
+    },
+    {
+        alertId: 'projectPermissionDenied',
+        alertType: AlertTypes.STANDARD,
+        clearList: [],
+        closeButton: true,
+        content: (
+            <FormattedMessage
+                defaultMessage="You have no permission for this project."
+                description="Message indicating that user doesn't have permission to access the project"
+                id="gui.alerts.projectPermissionDenied"
+            />
+        ),
+        level: AlertLevels.WARN
     }
 ];
 

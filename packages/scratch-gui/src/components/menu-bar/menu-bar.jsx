@@ -54,6 +54,7 @@ import {
     remixProject,
     saveProjectAsCopy
 } from '../../reducers/project-state';
+import { setProjectTitle } from '../../reducers/project-title';
 import {
     openAboutMenu,
     closeAboutMenu,
@@ -77,6 +78,7 @@ import {
     openSettingsMenu,
     closeSettingsMenu
 } from '../../reducers/menus';
+import { showAlertWithTimeout } from '../../reducers/alerts';
 
 import collectMetadata from '../../lib/collect-metadata';
 import { PLATFORM } from '../../lib/platform';
@@ -108,67 +110,7 @@ import { AccountMenuOptionsPropTypes } from '../../lib/account-menu-options';
 import Sb3Save from '../../containers/sb3-save.jsx';
 
 
-const exampleList = [
-    {
-        name: 'Magic Face Filter',
-        description: 'Create fun AI face filters',
-        image: '/static/examples/AI-Face-Tracking.png',
-        url: '/static/examples/AI-Face-Tracking-Setup.sb3',
-        id: 'ai-face-tracking'
-    }, {
-        name: 'AI Dragon Face',
-        description: 'Turn into a fire-breathing dragon with AI face tracking.',
-        image: '/static/examples/AI-Dragon.png',
-        url: '/static/examples/AI-Dragon-Setup.sb3',
-        id: 'ai-dragon'
-    },
-    {
-        name: 'AI Buddy Collector Game',
-        description: 'Control a game using your face and collect items with AI.',
-        image: '/static/examples/AI-Face-Tracking-Buddy-Collector.png',
-        url: '/static/examples/AI-Face-Tracking-Buddy-Collector-Setup.sb3',
-        id: 'ai-face-tracking-buddy-collector'
-    }, {
-        name: 'Squid Game',
-        description: 'Scratch version of the popular Squid Game challenge',
-        image: '/static/examples/Squid-Game.png',
-        url: '/static/examples/Squid-Game.sb3',
-        id: 'squid-game'
-    },
-    {
-        name: 'Popcat Game',
-        description: 'Click to make the Popcat meow and score points!',
-        image: '/static/examples/event-popcat.png',
-        url: '/static/examples/event-popcat.sb3',
-        id: 'popcat-game'
-    },
-    {
-        name: 'Hungry-Chef Game',
-        description: 'Choose your ingredients and cook delicious meals!',
-        image: '/static/examples/Hungry-Chef.png',
-        url: '/static/examples/Hungry-Chef.sb3',
-        id: 'hungry-chef-game'
-    },
-    {
-        name: 'Santa claus Game',
-        description: 'Guide Santa to collect gifts and spread holiday cheer.',
-        image: '/static/examples/Santa-claus.png',
-        url: '/static/examples/Santa-claus.sb3',
-        id: 'santa-claus-game'
-    },
-    {
-        name: 'Random-number Game',
-        description: 'Guess the random number and test your luck.',
-        image: '/static/examples/Random-number.png',
-        url: '/static/examples/Random-number.sb3',
-        id: 'random-number-game'
-    }, {
-        name: 'Collect Item',
-        description: 'Collect items and score points!',
-        image: '/static/examples/scratch-ai-collect-item.png',
-        url: '/static/examples/ai-collect-item-setup.sb3',
-        id: 'collect-item-game'
-    }];
+const exampleList = [];
 
 const ariaMessages = defineMessages({
     tutorials: {
@@ -270,25 +212,51 @@ class MenuBar extends React.Component {
             'handleRestoreOption',
             'getSaveToComputerHandler',
             'restoreOptionMessage',
-            'handleCloseExample'
+            'handleCloseExample',
+            'fetchExamples'
         ]);
         this.state = {
-            showExample: false
+            showExample: false,
+            exampleList: []
         };
     }
-    componentDidMount() {
+    async componentDidMount() {
         document.addEventListener('keydown', this.handleKeyPress);
+
+        // Fetch examples from API
+        await this.fetchExamples();
+
         const exampleId = this.getExampleIdFromUrl();
         const projectId = this.getProjectIdFromUrl();
         if (exampleId) {
-            this.loadExampleById(exampleId);
+            await this.loadExampleById(exampleId);
         } else if (projectId) {
-            this.loadProjectById(projectId);
+            await this.loadProjectById(projectId);
         }
     }
 
     componentWillUnmount() {
         document.removeEventListener('keydown', this.handleKeyPress);
+    }
+
+    async fetchExamples() {
+        try {
+            const apiBaseUrl = process.env.CODEVENTURE_API_URL || 'http://localhost:4000';
+            const response = await fetch(`${apiBaseUrl}/api/1.0/examples`);
+
+            if (response.ok) {
+                const res = await response.json();
+                this.setState({ exampleList: res.examples });
+            } else {
+                console.warn('Failed to fetch examples from API, using fallback');
+                // Fallback to hardcoded examples if API fails
+                this.setState({ exampleList: [] });
+            }
+        } catch (error) {
+            console.error('Error fetching examples:', error);
+            // Fallback to hardcoded examples if API fails
+            this.setState({ exampleList: [] });
+        }
     }
 
     getExampleIdFromUrl() {
@@ -304,7 +272,7 @@ class MenuBar extends React.Component {
 
     // Method to load example by ID
     async loadExampleById(exampleId) {
-        const example = exampleList.find(ex => ex.id === exampleId);
+        const example = this.state.exampleList.find(ex => ex.id === exampleId);
         if (example) {
             await this.handleClickLoadProject(example.url);
         }
@@ -313,16 +281,37 @@ class MenuBar extends React.Component {
     async loadProjectById(projectId) {
         try {
             const accessToken = localStorage.getItem('codeventure_access_token');
-            const response = await fetch(`http://localhost:4000/api/v1/projects/${projectId}`, {
+            const apiBaseUrl = process.env.CODEVENTURE_API_URL || 'http://localhost:4000';
+            const response = await fetch(`${apiBaseUrl}/api/1.0/projects/${projectId}`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`
                 }
             });
+
+            if (response.status === 403) {
+                // Show permission denied alert
+                this.props.onShowAlert('projectPermissionDenied');
+
+                // Remove projectId from URL
+                const newUrl = new URL(window.location);
+                newUrl.searchParams.delete('projectId');
+                window.history.replaceState({}, '', newUrl.toString());
+
+                return;
+            }
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
             const data = await response.json();
-            console.log(data);
+
             const projectUrl = data.project.projectUrl;
-            this.props.vm.onSetProjectTitle(data.project.title);
+            const projectTitle = data.project.title;
+            // Load the project file first
             await this.handleClickLoadProject(projectUrl);
+            this.props.onSetProjectTitle(projectTitle);
+
         } catch (error) {
             console.error('Error loading project from Firebase:', error);
         }
@@ -369,7 +358,7 @@ class MenuBar extends React.Component {
 
         //
         // try {
-        //     await fetch('http://localhost:4000/api/v1/projects/save', {
+        //     await fetch('http://localhost:4000/api/1.0/projects/save', {
         //         method: 'POST'
         //     });
         // } catch (error) {
@@ -678,7 +667,7 @@ class MenuBar extends React.Component {
                                         </MenuItem>
                                     </MenuSection>
                                     <MenuSection>
-                                        <Sb3Save>{(className, downloadProjectCallback) => (
+                                        <Sb3Save vm={this.props.vm}>{(className, downloadProjectCallback) => (
                                             <MenuItem
                                                 className={className}
                                                 onClick={this.getSaveToComputerHandler(downloadProjectCallback)}
@@ -788,6 +777,7 @@ class MenuBar extends React.Component {
                                 id="title-field"
                             >
                                 <ProjectTitleInput
+                                    projectTitle={this.props.projectTitle}
                                     className={classNames(styles.titleFieldGrowable)}
                                 />
                             </MenuBarItemTooltip>
@@ -1085,7 +1075,7 @@ class MenuBar extends React.Component {
                                     padding: 32
                                 }}
                             >
-                                {exampleList.map(example => (
+                                {this.state.exampleList.map(example => (
                                     <div
                                         key={example.id}
                                         style={{
@@ -1229,6 +1219,7 @@ MenuBar.propTypes = {
     onRequestOpenAbout: PropTypes.func,
     onSeeCommunity: PropTypes.func,
     onSetTimeTravelMode: PropTypes.func,
+    onSetProjectTitle: PropTypes.func,
     onShare: PropTypes.func,
     onStartSelectingFileUpload: PropTypes.func,
     onToggleLoginOpen: PropTypes.func,
@@ -1341,7 +1332,10 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     onClickSave: () => dispatch(manualUpdateProject()),
     onClickSaveAsCopy: () => dispatch(saveProjectAsCopy()),
     onSeeCommunity: ownProps.onSeeCommunity ?? (() => dispatch(setPlayer(true))),
-    onSetTimeTravelMode: mode => dispatch(setTimeTravel(mode))
+    onSetTimeTravelMode: mode => dispatch(setTimeTravel(mode)),
+    onSetProjectTitle: title => dispatch(setProjectTitle(title)),
+    onShowAlert: alertId => showAlertWithTimeout(dispatch, alertId)
+
 });
 
 export default compose(
