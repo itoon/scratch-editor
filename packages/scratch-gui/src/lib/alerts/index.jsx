@@ -226,6 +226,21 @@ const alerts = [
             />
         ),
         level: AlertLevels.WARN
+    },
+    {
+        alertId: 'remixSuccess',
+        alertType: AlertTypes.STANDARD,
+        clearList: [],
+        content: (
+            <FormattedMessage
+                defaultMessage="Project remixed successfully!"
+                description="Message indicating that project was successfully remixed"
+                id="gui.alerts.remixSuccess"
+            />
+        ),
+        iconURL: successImage,
+        level: AlertLevels.SUCCESS,
+        maxDisplaySecs: 3
     }
 ];
 

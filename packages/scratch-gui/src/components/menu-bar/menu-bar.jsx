@@ -200,6 +200,7 @@ class MenuBar extends React.Component {
         bindAll(this, [
             'handleClickNew',
             'handleClickRemix',
+            'handleClickRemixProject',
             'handleClickSave',
             'handleClickExample',
             'handleClickLoadProject',
@@ -217,7 +218,9 @@ class MenuBar extends React.Component {
         ]);
         this.state = {
             showExample: false,
-            exampleList: []
+            exampleList: [],
+            isProjectOwner: true,
+            currentProjectId: null
         };
     }
     async componentDidMount() {
@@ -274,6 +277,11 @@ class MenuBar extends React.Component {
     async loadExampleById(exampleId) {
         const example = this.state.exampleList.find(ex => ex.id === exampleId);
         if (example) {
+            // Reset ownership state for examples
+            this.setState({
+                isProjectOwner: true,
+                currentProjectId: null
+            });
             await this.handleClickLoadProject(example.url);
         }
     }
@@ -308,6 +316,15 @@ class MenuBar extends React.Component {
 
             const projectUrl = data.project.projectUrl;
             const projectTitle = data.project.title;
+            const isOwner = data.project.isOwner || false;
+
+
+            // Update state with ownership information
+            this.setState({
+                isProjectOwner: data.project.authorId._id.toString() == this.props.codeventureUser._id.toString(),
+                currentProjectId: projectId
+            });
+
             // Load the project file first
             await this.handleClickLoadProject(projectUrl);
             this.props.onSetProjectTitle(projectTitle);
@@ -327,6 +344,11 @@ class MenuBar extends React.Component {
         );
         this.props.onRequestCloseFile();
         if (readyToReplaceProject) {
+            // Reset ownership state for new projects
+            this.setState({
+                isProjectOwner: true,
+                currentProjectId: null
+            });
             this.props.onClickNew(this.props.canSave && this.props.canCreateNew);
         }
         this.props.onRequestCloseFile();
@@ -341,6 +363,49 @@ class MenuBar extends React.Component {
     handleClickRemix() {
         this.props.onClickRemix();
         this.props.onRequestCloseFile();
+    }
+
+    async handleClickRemixProject() {
+        if (!this.state.currentProjectId) {
+            console.error('No project ID available for remix');
+            return;
+        }
+
+        try {
+            const accessToken = localStorage.getItem('codeventure_access_token');
+            const apiBaseUrl = process.env.CODEVENTURE_API_URL || 'http://localhost:4000';
+
+            const response = await fetch(`${apiBaseUrl}/api/1.0/projects/${this.state.currentProjectId}/remix`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            const newProjectId = data.data._id;
+
+            if (newProjectId) {
+                // Show success alert
+                this.props.onShowAlert('remixSuccess');
+
+                // Redirect to the new project after a short delay
+                setTimeout(() => {
+                    const newUrl = new URL(window.location);
+                    newUrl.searchParams.delete('projectId');
+                    newUrl.searchParams.set('projectId', newProjectId);
+                    window.location.href = newUrl.toString();
+                }, 1000); // 1 second delay to show the success message
+            }
+        } catch (error) {
+            console.error('Error remixing project:', error);
+            this.props.onShowAlert('creatingError');
+        }
     }
     async handleClickSave() {
         // this save project function is not working, so we are using this to get the project data
@@ -793,28 +858,65 @@ class MenuBar extends React.Component {
                     ) : null)}
                     <Divider className={classNames(styles.divider)} />
                     <div className={styles.fileGroup}>
-                        <SB3Downloader>
-                            {(className, downloadProjectCallback) => (
-                                <div
-                                    className={
-                                        classNames(styles.menuBarItem, styles.noOffset, styles.hoverable, 'save-button')
-                                    }
-                                    onClick={this.getSaveToComputerHandler(downloadProjectCallback)}
-                                >
-                                    <img
-                                        className={styles.helpIcon}
-                                        src={saveIcon}
-                                        style={{ width: 20, height: 20 }}
-                                    />
-                                    <span className={styles.tutorialsLabel}>{'Save'}</span>
-
-                                </div>
-                            )}
-                        </SB3Downloader>
+                        {this.state.isProjectOwner && (
+                            this.props.codeventureUser ? (
+                                <Sb3Save vm={this.props.vm}>
+                                    {(className, downloadProjectCallback) => (
+                                        <div
+                                            className={
+                                                classNames(styles.menuBarItem, styles.hoverable, 'save-button')
+                                            }
+                                            onClick={this.getSaveToComputerHandler(downloadProjectCallback)}
+                                        >
+                                            <img
+                                                className={styles.helpIcon}
+                                                src={saveIcon}
+                                                style={{ width: 20, height: 20 }}
+                                            />
+                                            <span className={styles.tutorialsLabel}>{'Save'}</span>
+                                        </div>
+                                    )}
+                                </Sb3Save>
+                            ) : (
+                                <SB3Downloader>
+                                    {(className, downloadProjectCallback) => (
+                                        <div
+                                            className={
+                                                classNames(styles.menuBarItem, styles.hoverable, 'save-button')
+                                            }
+                                            onClick={this.getSaveToComputerHandler(downloadProjectCallback)}
+                                        >
+                                            <img
+                                                className={styles.helpIcon}
+                                                src={saveIcon}
+                                                style={{ width: 20, height: 20 }}
+                                            />
+                                            <span className={styles.tutorialsLabel}>{'Save'}</span>
+                                        </div>
+                                    )}
+                                </SB3Downloader>
+                            )
+                        )}
+                        {!this.state.isProjectOwner && this.state.currentProjectId && (
+                            <div
+                                aria-label="Remix"
+                                className={
+                                    classNames(styles.menuBarItem, styles.hoverable, 'remix-button')
+                                }
+                                onClick={this.handleClickRemixProject}
+                            >
+                                <img
+                                    className={styles.helpIcon}
+                                    src={remixIcon}
+                                    style={{ width: 20, height: 20 }}
+                                />
+                                <span className={styles.tutorialsLabel}>{'Remix'}</span>
+                            </div>
+                        )}
                         <div
                             aria-label="Example"
                             className={
-                                classNames(styles.menuBarItem, styles.noOffset, styles.hoverable, 'tutorials-button')
+                                classNames(styles.menuBarItem, styles.hoverable, 'tutorials-button')
                             }
                             onClick={this.handleClickExample}
                         >
@@ -887,24 +989,28 @@ class MenuBar extends React.Component {
                                 ) : null}
 
                                 {this.props.codeventureUser ? (
-                                    <div
-                                        className={classNames(
-                                            styles.menuBarItem,
-                                            styles.accountNavMenu
-                                        )}
-                                        title={`Logged in as ${this.props.codeventureUser.username} from CodeVenture`}
-                                    >
-                                        <img
-                                            className={styles.profileIcon}
-                                            src={this.props.codeventureUser?.avatarImage ?
-                                                `${process.env.CODEVENTURE_APP_URL || 'https://codeventure.app'}${this.props.codeventureUser.avatarImage}` :
-                                                `${process.env.CODEVENTURE_APP_URL || 'https://codeventure.app'}/student-avatar/art-toy/01-default.svg`}
-                                        />
-                                        <span>
-                                            {this.props.codeventureUser?.displayName ||
-                                                this.props.codeventureUser?.username ||
-                                                'CodeVenture User'}
-                                        </span>
+                                    <div>
+                                        <div
+                                            className={classNames(
+                                                styles.menuBarItem,
+                                                styles.accountNavMenu
+                                            )}
+                                            title={`Logged in as ${this.props.codeventureUser.username} from CodeVenture`}
+                                        >
+                                            <img
+                                                className={styles.profileIcon}
+                                                src={this.props.codeventureUser?.avatarImage ?
+                                                    (this.props.codeventureUser.avatarImage.startsWith('http') ?
+                                                        this.props.codeventureUser.avatarImage :
+                                                        `${process.env.CODEVENTURE_APP_URL || 'https://codeventure.app'}${this.props.codeventureUser.avatarImage}`) :
+                                                    `${process.env.CODEVENTURE_APP_URL || 'https://codeventure.app'}/student-avatar/art-toy/01-default.svg`}
+                                            />
+                                            <span>
+                                                {this.props.codeventureUser?.displayName ||
+                                                    this.props.codeventureUser?.username ||
+                                                    'CodeVenture User'}
+                                            </span>
+                                        </div>
                                     </div>
                                 ) : null}
                             </React.Fragment>
@@ -987,7 +1093,9 @@ class MenuBar extends React.Component {
                                             <img
                                                 className={styles.profileIcon}
                                                 src={this.props.codeventureUser?.avatarImage ?
-                                                    `https://codeventure.app${this.props.codeventureUser.avatarImage}` :
+                                                    (this.props.codeventureUser.avatarImage.startsWith('http') ?
+                                                        this.props.codeventureUser.avatarImage :
+                                                        `https://codeventure.app${this.props.codeventureUser.avatarImage}`) :
                                                     'https://codeventure.app/student-avatar/art-toy/01-default.svg'}
                                             />
                                             <span>
@@ -1236,6 +1344,7 @@ MenuBar.propTypes = {
         token: PropTypes.string,
         username: PropTypes.string,
         userId: PropTypes.string,
+        _id: PropTypes.string,
         source: PropTypes.string,
         displayName: PropTypes.string,
         avatarImage: PropTypes.string,
