@@ -1,6 +1,20 @@
 const path = require('path');
 const webpack = require('webpack');
-require('dotenv').config({path: path.resolve(__dirname, '.env')});
+const fs = require('fs');
+const dotenv = require('dotenv');
+
+// Load environment variables from .env file for local development
+// In production (Google Cloud Run), these will be overridden by runtime environment variables
+// Try to load .env from the scratch-gui directory, fallback to root if not found
+const envPath = path.resolve(__dirname, '.env');
+const rootEnvPath = path.resolve(__dirname, '../../.env');
+
+// Load .env file if it exists
+if (fs.existsSync(envPath)) {
+    dotenv.config({path: envPath});
+} else if (fs.existsSync(rootEnvPath)) {
+    dotenv.config({path: rootEnvPath});
+}
 
 // Plugins
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -58,8 +72,12 @@ const baseConfig = new ScratchWebpackConfigBuilder(
         'process.env.GA_ID': `"${process.env.GA_ID || 'UA-000000-01'}"`,
         'process.env.GTM_ENV_AUTH': `"${process.env.GTM_ENV_AUTH || ''}"`,
         'process.env.GTM_ID': process.env.GTM_ID ? `"${process.env.GTM_ID}"` : null,
+        // CodeVenture environment variables - will use Cloud Run env vars in production
         'process.env.CODEVENTURE_API_URL': `"${process.env.CODEVENTURE_API_URL || 'http://localhost:4000'}"`,
-        'process.env.CODEVENTURE_APP_URL': `"${process.env.CODEVENTURE_APP_URL || 'https://codeventure.app'}"`
+        'process.env.CODEVENTURE_APP_URL': `"${process.env.CODEVENTURE_APP_URL || 'https://codeventure.app'}"`,
+        // Additional Cloud Run environment variables
+        'process.env.PORT': `"${process.env.PORT || '8080'}"`,
+        'process.env.NODE_ENV': `"${process.env.NODE_ENV || 'development'}"`
     }))
     .addPlugin(new CopyWebpackPlugin({
         patterns: [

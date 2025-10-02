@@ -29,7 +29,9 @@ RUN npm run build
 WORKDIR /app/packages/scratch-vm
 RUN npm run build
 
+# Build the GUI with environment variables available
 WORKDIR /app/packages/scratch-gui
+# Environment variables from Cloud Run will be available during build
 RUN npm run build
 RUN npm link
 RUN npm link scratch-gui
