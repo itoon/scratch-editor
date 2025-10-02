@@ -744,7 +744,6 @@ class MenuBar extends React.Component {
                                     description="⬅ Back to Curriculum1"
                                     id="gui.menuBar.codeventureDashboard"
                                 />
-                                {process.env.CODEVENTURE_APP_URL}
                             </Button>
 
                         </div>
