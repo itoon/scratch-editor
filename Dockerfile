@@ -32,6 +32,8 @@ RUN npm run build
 # Build the GUI with environment variables available
 WORKDIR /app/packages/scratch-gui
 # Environment variables from Cloud Run will be available during build
+ENV CODEVENTURE_API_URL=https://codeventure-mvp-api-89482725665.asia-southeast1.run.app
+ENV CODEVENTURE_APP_URL=https://uat-codeventure-frontend-89482725665.asia-southeast1.run.app
 # Do NOT set ENV variables here - they will override Cloud Run variables
 RUN npm run build
 RUN npm link
@@ -50,8 +52,6 @@ COPY --from=build /app/packages/scratch-gui/build ./build
 
 # Cloud Run expects the app to listen on $PORT
 ENV PORT=8080
-ENV CODEVENTURE_API_URL=https://codeventure-mvp-api-89482725665.asia-southeast1.run.app
-ENV CODEVENTURE_APP_URL=https://uat-codeventure-frontend-89482725665.asia-southeast1.run.app
 
 # Expose the port
 EXPOSE 8080
