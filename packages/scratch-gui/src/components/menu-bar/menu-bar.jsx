@@ -214,7 +214,8 @@ class MenuBar extends React.Component {
             'getSaveToComputerHandler',
             'restoreOptionMessage',
             'handleCloseExample',
-            'fetchExamples'
+            'fetchExamples',
+            'handleBackToCurriculum'
         ]);
         this.state = {
             showExample: false,
@@ -486,8 +487,32 @@ class MenuBar extends React.Component {
         this.props.onRequestCloseFile();
     }
 
-    handleBackToCurriculum() {
-        window.location.href = 'https://codeventure.app/dashboard';
+    async handleBackToCurriculum() {
+        if (this.props.codeventureUser) {
+            try {
+                const accessToken = localStorage.getItem('codeventure_access_token');
+                const apiBaseUrl = process.env.CODEVENTURE_API_URL || 'http://localhost:4000';
+                const response = await fetch(`${apiBaseUrl}/api/1.0/sso/generate`, {
+                    method: 'POST',
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`
+                    }
+                });
+
+                if (response.ok) {
+                    const res = await response.json();
+                    window.location.href = `${process.env.CODEVENTURE_APP_URL}/auth?code=${res.data}&redirectUrl=/dashboard/projects`;
+                } else {
+                    console.warn('Failed to fetch examples from API, using fallback');
+                    // Fallback to hardcoded examples if API fails
+                }
+            } catch (error) {
+                console.error('Error fetching examples:', error);
+                // Fallback to hardcoded examples if API fails
+            }
+        } else {
+            window.location.href = `${process.env.CODEVENTURE_APP_URL}/login`;
+        }
     }
     async handleClickLoadProject(projectUrl) {
         // load project demo
@@ -1020,20 +1045,19 @@ class MenuBar extends React.Component {
                             // ************ user is logged in ************
                             <React.Fragment>
                                 {menuOpts.myStuffUrl ? (
-                                    <a href={menuOpts.myStuffUrl}>
-                                        <div
-                                            className={classNames(
-                                                styles.menuBarItem,
-                                                styles.hoverable,
-                                                styles.mystuffButton
-                                            )}
-                                        >
-                                            <img
-                                                className={styles.mystuffIcon}
-                                                src={mystuffIcon}
-                                            />
-                                        </div>
-                                    </a>
+                                    <div
+                                        onClick={this.handleBackToCurriculum}
+                                        className={classNames(
+                                            styles.menuBarItem,
+                                            styles.hoverable,
+                                            styles.mystuffButton
+                                        )}
+                                    >
+                                        <img
+                                            className={styles.mystuffIcon}
+                                            src={mystuffIcon}
+                                        />
+                                    </div>
                                 ) : null}
 
                                 {this.props.codeventureUser ? (
