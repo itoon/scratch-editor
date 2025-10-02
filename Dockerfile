@@ -50,14 +50,12 @@ COPY --from=build /app/packages/scratch-gui/build ./build
 
 # Cloud Run expects the app to listen on $PORT
 ENV PORT=8080
+ENV CODEVENTURE_API_URL=https://codeventure-mvp-api-89482725665.asia-southeast1.run.app
+ENV CODEVENTURE_APP_URL=https://uat-codeventure-frontend-89482725665.asia-southeast1.run.app
 
 # Expose the port
 EXPOSE 8080
 
-# Add the runtime entrypoint
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
 
 # Start the app
-CMD ["/entrypoint.sh"]
 CMD ["serve", "-s", "build", "-l", "8080"]
