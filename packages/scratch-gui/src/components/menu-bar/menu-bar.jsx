@@ -229,12 +229,47 @@ class MenuBar extends React.Component {
         // Fetch examples from API
         await this.fetchExamples();
 
+        // Wait for authentication to complete before loading projects
+        this.waitForAuthAndLoadProject();
+    }
+
+    async waitForAuthAndLoadProject() {
+        // Wait for authentication validation to complete
+        if (this.props.isValidatingCodeVentureAuth) {
+            console.log('CodeVenture Auth: Waiting for authentication to complete...');
+            // Check every 100ms until authentication is complete
+            const checkAuth = () => {
+                if (!this.props.isValidatingCodeVentureAuth) {
+                    this.loadProjectFromUrl();
+                } else {
+                    setTimeout(checkAuth, 100);
+                }
+            };
+            checkAuth();
+        } else {
+            // Authentication already complete, load project immediately
+            this.loadProjectFromUrl();
+        }
+    }
+
+    async loadProjectFromUrl() {
         const exampleId = this.getExampleIdFromUrl();
         const projectId = this.getProjectIdFromUrl();
         if (exampleId) {
             await this.loadExampleById(exampleId);
         } else if (projectId) {
             await this.loadProjectById(projectId);
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        // If authentication just completed and we have a projectId, load it
+        if (prevProps.isValidatingCodeVentureAuth && !this.props.isValidatingCodeVentureAuth) {
+            const projectId = this.getProjectIdFromUrl();
+            if (projectId && !this.state.currentProjectId) {
+                console.log('CodeVenture Auth: Authentication completed, loading project...');
+                this.loadProjectFromUrl();
+            }
         }
     }
 
@@ -339,6 +374,13 @@ class MenuBar extends React.Component {
         // downloading or logging in first.
         // Note that if user is logged in and editing someone else's project,
         // they'll lose their work.
+
+        // move projectId url
+        const newUrl = new URL(window.location);
+        newUrl.searchParams.delete('projectId');
+        newUrl.searchParams.delete('exampleId');
+        window.history.replaceState({}, '', newUrl.toString());
+
         const readyToReplaceProject = this.props.confirmReadyToReplaceProject(
             this.props.intl.formatMessage(sharedMessages.replaceProjectWarning)
         );
@@ -530,6 +572,10 @@ class MenuBar extends React.Component {
         return () => {
             this.props.onRequestCloseFile();
             downloadProjectCallback();
+
+            // Show save success message
+            this.props.onShowAlert('saveSuccess');
+
             if (this.props.onProjectTelemetryEvent) {
                 const metadata = collectMetadata(this.props.vm, this.props.projectTitle, this.props.locale);
                 this.props.onProjectTelemetryEvent('projectDidSave', metadata);
@@ -695,7 +741,7 @@ class MenuBar extends React.Component {
                             >
                                 <FormattedMessage
                                     defaultMessage="⬅ Back to Curriculum"
-                                    description="⬅ Back to Curriculum"
+                                    description="⬅ Back to Curriculum1"
                                     id="gui.menuBar.codeventureDashboard"
                                 />
                             </Button>
