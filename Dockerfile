@@ -31,6 +31,8 @@ RUN npm run build
 
 # Build the GUI with environment variables available
 WORKDIR /app/packages/scratch-gui
+ENV CODEVENTURE_API_URL=http://localhost:4000
+ENV CODEVENTURE_APP_URL=http://localhost:3000
 # Environment variables from Cloud Run will be available during build
 RUN npm run build
 RUN npm link
