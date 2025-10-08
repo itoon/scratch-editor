@@ -110,6 +110,12 @@ const Message = {
         'ja-Hira': 'くち',
         'en': 'mouth'
     },
+    pointInDirection: {
+        en: 'point in direction of face tilt of person [PERSON_NUMBER]'
+    },
+    setFaceSize: {
+        en: 'set size to face of person [PERSON_NUMBER]'
+    },
     videoToggle: {
         'ja': 'ビデオを [VIDEO_STATE] にする',
         'ja-Hira': 'ビデオを [VIDEO_STATE] にする',
@@ -312,7 +318,10 @@ class Scratch3Facemesh2ScratchBlocks {
         this.video.autoplay = true;
         this.videoEnabled = true;
         this.showLoadingPopup();
-        this.faceMesh = await ml5.faceMesh();
+        const options = {
+            maxFaces: 10
+        };
+        this.faceMesh = await ml5.faceMesh(options);
         this.faceMesh.detectStart(this.video, results => {
             this.faces = results;
         });
@@ -341,6 +350,30 @@ class Scratch3Facemesh2ScratchBlocks {
                             type: ArgumentType.STRING,
                             menu: 'featureMenu',
                             defaultValue: 'nose'
+                        }
+                    }
+                },
+                {
+                    opcode: 'setFaceSize',
+                    blockType: BlockType.COMMAND,
+                    text: Message.setFaceSize[this._locale],
+                    arguments: {
+                        PERSON_NUMBER: {
+                            type: ArgumentType.STRING,
+                            menu: 'personNumberMenu',
+                            defaultValue: '1'
+                        }
+                    }
+                },
+                {
+                    opcode: 'setTilt',
+                    blockType: BlockType.COMMAND,
+                    text: Message.pointInDirection[this._locale],
+                    arguments: {
+                        PERSON_NUMBER: {
+                            type: ArgumentType.STRING,
+                            menu: 'personNumberMenu',
+                            defaultValue: '1'
                         }
                     }
                 },
@@ -537,8 +570,7 @@ class Scratch3Facemesh2ScratchBlocks {
         if (!this.faces[personNumber] || !this.faces[personNumber].keypoints) {
             return false;
         }
-
-        console.log(this.faces[personNumber]);
+        
 
         const keypoints = this.faces[personNumber].keypoints;
 
@@ -597,7 +629,7 @@ class Scratch3Facemesh2ScratchBlocks {
     }
 
     getFaceSize (args) {
-        console.log(this.faces);
+        
         const personNumber = parseInt(args.PERSON_NUMBER, 10) - 1;
         
         if (personNumber >= this.faces.length) {
@@ -608,34 +640,10 @@ class Scratch3Facemesh2ScratchBlocks {
             return 0;
         }
         
-        const keypoints = this.faces[personNumber].keypoints;
         
-        // Using ML5 Facemesh keypoints (468 total points)
-        // Key face boundary points:
-        // Top of forehead: 10
-        // Bottom of chin: 152
-        // Left face boundary: 172
-        // Right face boundary: 397
-        
-        if (!keypoints[10] || !keypoints[152] || !keypoints[172] || !keypoints[397]) {
-            return 0;
-        }
-        
-        // Calculate face dimensions using the actual ML5 keypoints
-        const faceHeight = Math.abs(keypoints[10].y - keypoints[152].y);
-        const faceWidth = Math.abs(keypoints[397].x - keypoints[172].x);
-        
-        // Calculate face area
-        const faceArea = faceHeight * faceWidth * 1.5;
-        
-        // Normalize to percentage scale where 100% = normal/reference distance
-        // This baseline represents what we consider "100%" face size
-        const baselineArea = 8000; // Adjust this value based on testing
-        
-        // Allow values > 100% when face gets very close to camera
-        const sizePercentage = Math.max(0, (faceArea / baselineArea) * 100);
-        
-        return Math.round(sizePercentage);
+        // can we use box.width with ratio of sprite
+        const width = this.faces[personNumber].box.width * 1.4;
+        return width;
     }
 
 
@@ -680,9 +688,9 @@ class Scratch3Facemesh2ScratchBlocks {
         if (tilt < 0) tilt += 360;
         if (tilt > 180) tilt -= 180;
         
-        console.log('Eye positions - Left:', leftEyePos, 'Right:', rightEyePos);
-        console.log('Scratch coords - Left:', leftEyeScratch, 'Right:', rightEyeScratch);
-        console.log('Angle:', angle, 'Tilt:', tilt);
+        // console.log('Eye positions - Left:', leftEyePos, 'Right:', rightEyePos);
+        // console.log('Scratch coords - Left:', leftEyeScratch, 'Right:', rightEyeScratch);
+        // console.log('Angle:', angle, 'Tilt:', tilt);
         
         return Math.round(tilt);
     }
@@ -714,6 +722,16 @@ class Scratch3Facemesh2ScratchBlocks {
     }
     
 
+    setFaceSize (args, util) {
+        const faceSize = this.getFaceSize(args, util);
+        util.target.setSize(faceSize);
+    }
+
+    setTilt (args, util) {
+        const tilt = this.getFaceTilt(args, util);
+        util.target.setDirection(tilt);
+    }
+
     goToFeature (args, util) {
         const personNumber = parseInt(args.PERSON_NUMBER, 10) - 1;
         const feature = args.FEATURE;
@@ -730,16 +748,19 @@ class Scratch3Facemesh2ScratchBlocks {
         let x = 0;
         let y = 0;
 
-        console.log(keypoints);
-
         switch (feature) {
         case 'forehead': {
             // Try to use .box or .faceOval if available, otherwise fall back to keypoints
-            const face = this.faces[personNumber];
-            if (face.box) console.log('Box available:', face.box);
-            x = face.box.xMin + (face.box.width / 2); // Center horizontally
-            y = face.box.yMin + (face.box.height * -0.2);
+            // const face = this.faces[personNumber];
+            if (keypoints[10]) { // Nose bridge point
+                x = keypoints[10].x;
+                y = keypoints[10].y - 20;
+            }
             break;
+            // if (face.box) console.log('Box available:', face.box);
+            // x = face.box.xMin + (face.box.width / 2); // Center horizontally
+            // y = face.box.yMin + (face.box.height * -0.2);
+            // break;
         }
         case 'nose': {
             // Nose tip
@@ -779,9 +800,7 @@ class Scratch3Facemesh2ScratchBlocks {
         }
 
         if (x !== 0 || y !== 0) {
-            console.log('x:', x, 'y:', y);
             const scratchCoords = this.toScratchCoords({x, y});
-            console.log('scratchCoords:', scratchCoords);
             // Move the sprite to the calculated position
             util.target.setXY(scratchCoords.x, scratchCoords.y);
         }
