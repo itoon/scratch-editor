@@ -281,7 +281,7 @@ class MenuBar extends React.Component {
     async fetchExamples() {
         try {
             const apiBaseUrl = process.env.CODEVENTURE_API_URL || 'http://localhost:4000';
-            const response = await fetch(`${apiBaseUrl}/api/1.0/examples`);
+            const response = await fetch(`${apiBaseUrl}/api/1.0/projects/examples`);
 
             if (response.ok) {
                 const res = await response.json();
