@@ -221,7 +221,8 @@ class MenuBar extends React.Component {
             showExample: false,
             exampleList: [],
             isProjectOwner: true,
-            currentProjectId: null
+            currentProjectId: null,
+            isLoadingProject: false
         };
     }
     async componentDidMount() {
@@ -254,12 +255,27 @@ class MenuBar extends React.Component {
     }
 
     async loadProjectFromUrl() {
+        // Prevent double loading
+        if (this.state.isLoadingProject) {
+            console.log('Project loading already in progress, skipping...');
+            return;
+        }
+
         const exampleId = this.getExampleIdFromUrl();
         const projectId = this.getProjectIdFromUrl();
-        if (exampleId) {
-            await this.loadExampleById(exampleId);
-        } else if (projectId) {
-            await this.loadProjectById(projectId);
+
+        if (exampleId || projectId) {
+            this.setState({ isLoadingProject: true });
+
+            try {
+                if (exampleId) {
+                    await this.loadExampleById(exampleId);
+                } else if (projectId) {
+                    await this.loadProjectById(projectId);
+                }
+            } finally {
+                this.setState({ isLoadingProject: false });
+            }
         }
     }
 
@@ -267,7 +283,7 @@ class MenuBar extends React.Component {
         // If authentication just completed and we have a projectId, load it
         if (prevProps.isValidatingCodeVentureAuth && !this.props.isValidatingCodeVentureAuth) {
             const projectId = this.getProjectIdFromUrl();
-            if (projectId && !this.state.currentProjectId) {
+            if (projectId && !this.state.currentProjectId && !this.state.isLoadingProject) {
                 console.log('CodeVenture Auth: Authentication completed, loading project...');
                 this.loadProjectFromUrl();
             }
