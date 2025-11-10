@@ -371,8 +371,8 @@ class Scratch3Posenet2ScratchBlocks {
                 if (poses.length > 0 && this.videoEnabled) {
                     this.poses = poses;
                     this.keypoints = poses[0].keypoints;
-                    console.log('Pose', this.poses);
-                    console.log('Keypoints', this.keypoints);
+                    // console.log('Pose', this.poses);
+                    // console.log('Keypoints', this.keypoints);
                 } else {
                     this.poses = [];
                     this.keypoints = [];

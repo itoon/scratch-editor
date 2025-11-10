@@ -320,6 +320,7 @@ class Scratch3Facemesh2ScratchBlocks {
         this.showLoadingPopup();
         const options = {
             maxFaces: 10
+            // solutionPath: 'https://storage.googleapis.com/kagglesdsdata/models/1458/1724/model.json?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=gcp-kaggle-com%40kaggle-161607.iam.gserviceaccount.com%2F20251012%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20251012T110326Z&X-Goog-Expires=259200&X-Goog-SignedHeaders=host&X-Goog-Signature=5bbc403cffa3edf6a034ad010239ad3fcf6c7894ba433c9e92c1d6d617b5d87710051e3367303caadf4c12f7fd3129c553d3f942c2e93766098b3cd508f934d17c3be9f26153a34dfe1cf478070bbcbcfb2971256085bba1129d30bab1c82b352261b42d5d346f5b3e5c526826aa1888700d6bf457d46bf94efc0242b84aac46f9e27fe4d1eda56ffba5cc3d85a923d26481e284b5c880e1482638dca2b1782f4068333e25bf846a7fd9eb5161c38308723ad80323f41bce600a9025e0c68b4fd73838804294b9077666aa8d523e3d3ffbc36f76c4b534f3bbf26fec2e1ba9035b59f8d7a5d7072946d6a9fbb281d525cda5c6038f98770db01af0a2e953dafb'
         };
         this.faceMesh = await ml5.faceMesh(options);
         this.faceMesh.detectStart(this.video, results => {
