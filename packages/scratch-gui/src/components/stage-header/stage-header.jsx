@@ -1,15 +1,15 @@
-import {defineMessages, injectIntl, intlShape} from 'react-intl';
+import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import PropTypes from 'prop-types';
-import React from 'react';
-import {connect} from 'react-redux';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import VM from '@scratch/scratch-vm';
 
 import Box from '../box/box.jsx';
 import Button from '../button/button.jsx';
 import ToggleButtons from '../toggle-buttons/toggle-buttons.jsx';
 import Controls from '../../containers/controls.jsx';
-import {getStageDimensions} from '../../lib/screen-utils';
-import {STAGE_SIZE_MODES} from '../../lib/layout-constants';
+import { getStageDimensions } from '../../lib/screen-utils';
+import { STAGE_SIZE_MODES } from '../../lib/layout-constants';
 
 import fullScreenIcon from './icon--fullscreen.svg';
 import largeStageIcon from './icon--large-stage.svg';
@@ -61,6 +61,14 @@ const StageHeaderComponent = function (props) {
         vm
     } = props;
 
+    // Auto enter fullscreen when URL has fullscreen=true
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('fullscreen') === 'true' && !isFullScreen) {
+            onSetStageFull();
+        }
+    }, []);
+
     let header = null;
 
     if (isFullScreen) {
@@ -99,7 +107,7 @@ const StageHeaderComponent = function (props) {
             <Box className={styles.stageHeaderWrapperOverlay}>
                 <Box
                     className={styles.stageMenuWrapper}
-                    style={{width: stageDimensions.width}}
+                    style={{ width: stageDimensions.width }}
                 >
                     <Controls vm={vm} />
                     {stageButton}
