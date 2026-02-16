@@ -339,13 +339,22 @@ class MenuBar extends React.Component {
     }
 
     async loadProjectById(projectId) {
+        const accessToken = localStorage.getItem('codeventure_access_token');
+        const apiBaseUrl = process.env.CODEVENTURE_API_URL || 'http://localhost:4000';
+        const queryParams = queryString.parse(location.search);
+        let url = '';
+        let headers = {};
         try {
-            const accessToken = localStorage.getItem('codeventure_access_token');
-            const apiBaseUrl = process.env.CODEVENTURE_API_URL || 'http://localhost:4000';
-            const response = await fetch(`${apiBaseUrl}/api/1.0/projects/${projectId}`, {
-                headers: {
+            if (queryParams.source === 'codeventure') {
+                url = `${apiBaseUrl}/api/1.0/projects/${projectId}/public`;
+            } else {
+                url = `${apiBaseUrl}/api/1.0/projects/${projectId}`;
+                headers = {
                     Authorization: `Bearer ${accessToken}`
-                }
+                };
+            }
+            const response = await fetch(url, {
+                headers: headers
             });
 
             if (response.status === 403) {
@@ -372,10 +381,12 @@ class MenuBar extends React.Component {
 
 
             // Update state with ownership information
-            this.setState({
-                isProjectOwner: data.project.authorId._id.toString() == this.props.codeventureUser._id.toString(),
-                currentProjectId: projectId
-            });
+            if (queryParams.source !== 'codeventure') {
+                this.setState({
+                    isProjectOwner: data.project.authorId._id.toString() == this.props.codeventureUser._id.toString(),
+                    currentProjectId: projectId
+                });
+            }
 
             // Load the project file first
             await this.handleClickLoadProject(projectUrl);
