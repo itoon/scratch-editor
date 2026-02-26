@@ -377,16 +377,17 @@ class MenuBar extends React.Component {
 
             const projectUrl = data.project.projectUrl;
             const projectTitle = data.project.title;
-            const isOwner = data.project.isOwner || false;
 
-
-            // Update state with ownership information
-            if (queryParams.source !== 'codeventure') {
-                this.setState({
-                    isProjectOwner: data.project.authorId._id.toString() == this.props.codeventureUser._id.toString(),
-                    currentProjectId: projectId
-                });
-            }
+            // Always update ownership state so Remix button shows correctly
+            // (e.g. when redirecting with source=codeventure it was never set before)
+            const resolvedIsOwner = data.project.isOwner === true || data.project.isOwner === false ?
+                data.project.isOwner :
+                (data.project.authorId && this.props.codeventureUser &&
+                    data.project.authorId._id.toString() === this.props.codeventureUser._id.toString());
+            this.setState({
+                isProjectOwner: resolvedIsOwner !== false,
+                currentProjectId: projectId
+            });
 
             // Load the project file first
             await this.handleClickLoadProject(projectUrl);
