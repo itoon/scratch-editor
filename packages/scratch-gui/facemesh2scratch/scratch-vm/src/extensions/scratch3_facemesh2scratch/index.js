@@ -142,34 +142,64 @@ class Scratch3Facemesh2ScratchBlocks {
 
     constructor (runtime) {
         this.runtime = runtime;
-
         this.faces = [];
         this.ratio = 0.75;
+        this._lastFacesUpdate = 0;
+        this._facesUpdateIntervalMs = 66;
 
         this.detectFace = () => {
-            // We should reuse the video element created by videoProvider instead of creating a new video element
-            // This is because iOS or iPad does not allow camera attached to two video elements
             this.video = this.runtime.ioDevices.video.provider.video;
-
-            alert(Message.please_wait[this._locale]);
-
-
-            this.facemesh = ml5.facemesh(this.video, () => {
-                console.log('Model loaded!');
-            });
-
-            this.facemesh.on('predict', faces => {
-                console.log('faces', faces);
-                if (faces.length < this.faces.length) {
-                    this.faces.splice(faces.length);
-                }
-                faces.forEach((face, index) => {
-                    this.faces[index] = {keypoints: face.scaledMesh};
+            this._showLoadingPopup();
+            const startLoad = () => {
+                this.facemesh = ml5.facemesh(this.video, () => {
+                    this._hideLoadingPopup();
                 });
-            });
+                this.facemesh.on('predict', faces => {
+                    const now = Date.now();
+                    if (now - this._lastFacesUpdate >= this._facesUpdateIntervalMs) {
+                        this._lastFacesUpdate = now;
+                        if (faces.length < this.faces.length) {
+                            this.faces.splice(faces.length);
+                        }
+                        faces.forEach((face, index) => {
+                            this.faces[index] = {keypoints: face.scaledMesh};
+                        });
+                    }
+                });
+            };
+            if (typeof requestIdleCallback !== 'undefined') {
+                requestIdleCallback(startLoad, { timeout: 100 });
+            } else {
+                setTimeout(startLoad, 0);
+            }
         };
 
-        this.runtime.ioDevices.video.enableVideo().then(this.detectFace);
+        this.runtime.ioDevices.video.enableVideo().then(() => {
+            if (typeof requestIdleCallback !== 'undefined') {
+                requestIdleCallback(() => this.detectFace(), { timeout: 100 });
+            } else {
+                setTimeout(() => this.detectFace(), 0);
+            }
+        });
+    }
+
+    _showLoadingPopup () {
+        if (this._loadingPopup) return;
+        this._loadingPopup = document.createElement('div');
+        this._loadingPopup.id = 'facemesh-loading-popup';
+        this._loadingPopup.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);display:flex;justify-content:center;align-items:center;z-index:10000;font-family:Arial,sans-serif';
+        const content = document.createElement('div');
+        content.style.cssText = 'background:#fff;padding:24px;border-radius:8px;text-align:center';
+        content.textContent = 'Loading Face Detection Model...';
+        this._loadingPopup.appendChild(content);
+        document.body.appendChild(this._loadingPopup);
+    }
+
+    _hideLoadingPopup () {
+        if (this._loadingPopup && this._loadingPopup.parentNode) {
+            this._loadingPopup.parentNode.removeChild(this._loadingPopup);
+            this._loadingPopup = null;
+        }
     }
 
     getInfo () {
@@ -286,27 +316,26 @@ class Scratch3Facemesh2ScratchBlocks {
     getX (args) {
         const personNumber = parseInt(args.PERSON_NUMBER, 10) - 1;
         const keypoint = parseInt(args.KEYPOINT, 10) - 1;
-
-        if (this.faces[personNumber].keypoints && this.faces[personNumber].keypoints[keypoint]) {
-            if (this.runtime.ioDevices.video.mirror === false) {
-                return -1 * (240 - this.faces[personNumber].keypoints[keypoint][0] * this.ratio);
-            }
-            return 240 - this.faces[personNumber].keypoints[keypoint][0] * this.ratio;
-        
+        if (personNumber >= this.faces.length || !this.faces[personNumber] || !this.faces[personNumber].keypoints) {
+            return '';
         }
-        return '';
-      
+        const kp = this.faces[personNumber].keypoints[keypoint];
+        if (!kp) return '';
+        if (this.runtime.ioDevices.video.mirror === false) {
+            return -1 * (240 - kp[0] * this.ratio);
+        }
+        return 240 - kp[0] * this.ratio;
     }
 
     getY (args) {
         const personNumber = parseInt(args.PERSON_NUMBER, 10) - 1;
         const keypoint = parseInt(args.KEYPOINT, 10) - 1;
-
-        if (this.faces[personNumber].keypoints && this.faces[personNumber].keypoints[keypoint]) {
-            return 180 - this.faces[personNumber].keypoints[keypoint][1] * this.ratio;
+        if (personNumber >= this.faces.length || !this.faces[personNumber] || !this.faces[personNumber].keypoints) {
+            return '';
         }
-        return '';
-      
+        const kp = this.faces[personNumber].keypoints[keypoint];
+        if (!kp) return '';
+        return 180 - kp[1] * this.ratio;
     }
 
     getPeopleCount () {
@@ -317,10 +346,16 @@ class Scratch3Facemesh2ScratchBlocks {
         const state = args.VIDEO_STATE;
         if (state === 'off') {
             this.runtime.ioDevices.video.disableVideo();
-            this.facemesh.video = null; // Stop the model prediction if video is off
+            if (this.facemesh) this.facemesh.video = null;
         } else {
-            this.facemesh.removeAllListeners('predict');
-            this.runtime.ioDevices.video.enableVideo().then(this.detectFace);
+            if (this.facemesh) this.facemesh.removeAllListeners('predict');
+            this.runtime.ioDevices.video.enableVideo().then(() => {
+                if (typeof requestIdleCallback !== 'undefined') {
+                    requestIdleCallback(() => this.detectFace(), { timeout: 100 });
+                } else {
+                    setTimeout(() => this.detectFace(), 0);
+                }
+            });
             this.runtime.ioDevices.video.mirror = state === 'on';
         }
     }
