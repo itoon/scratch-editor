@@ -345,7 +345,7 @@ class MenuBar extends React.Component {
         let url = '';
         let headers = {};
         try {
-            if (queryParams.source === 'codeventure') {
+            if (queryParams.is_community === 'true') {
                 url = `${apiBaseUrl}/api/1.0/projects/${projectId}/public`;
             } else {
                 url = `${apiBaseUrl}/api/1.0/projects/${projectId}`;
