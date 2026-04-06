@@ -290,7 +290,7 @@ class Scratch3TM2ScratchBlocks {
         }
 
         let script = document.createElement('script');
-        script.src = 'https://stretch3.github.io/ml5-library/ml5.min.js';
+        script.src = 'https://unpkg.com/ml5@1.3.1/dist/ml5.min.js';
         document.head.appendChild(script);
     }
 

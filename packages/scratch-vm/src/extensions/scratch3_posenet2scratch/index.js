@@ -18,6 +18,26 @@ let formatMessage = require('format-message');
  */
 let extensionURL = 'https://champierre.github.io/posenet2scratch/posenet2scratch.mjs';
 
+const BODY_PART_NAMES = [
+  'nose',
+  'left_eye',
+  'right_eye',
+  'left_ear',
+  'right_ear',
+  'left_shoulder',
+  'right_shoulder',
+  'left_elbow',
+  'right_elbow',
+  'left_wrist',
+  'right_wrist',
+  'left_hip',
+  'right_hip',
+  'left_knee',
+  'right_knee',
+  'left_ankle',
+  'right_ankle'
+];
+
 const Message = {
   x: {
     'ja': 'のx座標',
@@ -357,6 +377,7 @@ class Scratch3Posenet2ScratchBlocks {
         this.keypoints = [];
         this.videoEnabled = false;
         this.locale = this.setLocale();
+        this.bodyPose = null;
 
         let detectPose = () => {
           this.video = this.runtime.ioDevices.video.provider.video;
@@ -364,6 +385,27 @@ class Scratch3Posenet2ScratchBlocks {
           this.video.height = 360;
           this.video.autoplay = true;
           this.videoEnabled = true;
+
+          if (typeof ml5.bodyPose === 'function') {
+            ml5.bodyPose({
+              modelType: 'MULTIPOSE_LIGHTNING',
+              enableSmoothing: true
+            }).then(bodyPose => {
+              this.bodyPose = bodyPose;
+              this.bodyPose.detectStart(this.video, poses => {
+                if (poses.length > 0 && this.videoEnabled) {
+                  this.poses = poses.map(this.normalizeBodyPoseResult);
+                  this.keypoints = this.poses[0].pose.keypoints;
+                } else {
+                  this.poses = [];
+                  this.keypoints = [];
+                }
+              });
+            }).catch(error => {
+              console.error('BodyPose failed to load', error);
+            });
+            return;
+          }
 
           this.poseNet = ml5.poseNet(this.video, {maxPoseDetections: 10}, ()=>{
             console.log('Model Loaded!');
@@ -381,6 +423,35 @@ class Scratch3Posenet2ScratchBlocks {
         }
 
         this.runtime.ioDevices.video.enableVideo().then(detectPose);
+    }
+
+    normalizeBodyPoseResult (pose) {
+      return {
+        pose: {
+          keypoints: BODY_PART_NAMES.map(partName => {
+            const keypoint = this.findBodyPoseKeypoint(pose, partName);
+            return keypoint ? {
+              part: partName,
+              score: keypoint.confidence || keypoint.score || 0,
+              position: {
+                x: keypoint.x,
+                y: keypoint.y
+              }
+            } : null;
+          })
+        }
+      };
+    }
+
+    findBodyPoseKeypoint (pose, partName) {
+      if (!pose || !Array.isArray(pose.keypoints)) return null;
+      return pose.keypoints.find(keypoint =>
+        keypoint &&
+        (keypoint.name === partName ||
+          keypoint.part === partName ||
+          keypoint.name === partName.replace('_', '') ||
+          keypoint.part === partName.replace('_', ''))
+      ) || null;
     }
 
     getInfo () {

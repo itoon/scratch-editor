@@ -59,9 +59,14 @@ const builtinExtensions = {
  * @property {Function} reject - function to call on failed worker startup
  */
 
-builtinExtensions['tm2scratch'] = () => require('../extensions/scratch3_tm2scratch');
-builtinExtensions['posenet2scratch'] = () => require('../extensions/scratch3_posenet2scratch');
-builtinExtensions['tmpose2scratch'] = () => require('../extensions/scratch3_tmpose2scratch');
+builtinExtensions.tm2scratch = () => require('../extensions/scratch3_tm2scratch');
+
+builtinExtensions.posenet2scratch = () => require('../extensions/scratch3_posenet2scratch');
+
+builtinExtensions.tmpose2scratch = () => require('../extensions/scratch3_tmpose2scratch');
+
+builtinExtensions.facemesh2scratch = () => require('../extensions/scratch3_facemesh2scratch');
+
 class ExtensionManager {
     constructor (runtime) {
         /**
@@ -73,6 +78,7 @@ class ExtensionManager {
         /**
          * FIFO queue of extensions which have been requested but not yet loaded in a worker,
          * along with promise resolution functions to call once the worker is ready or failed.
+         *
          * @type {Array.<PendingExtensionWorker>}
          */
         this.pendingExtensions = [];

@@ -1,5 +1,5 @@
 import React from 'react';
-import {FormattedMessage} from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 import musicIconURL from './music/music.png';
 import musicInsetIconURL from './music/music-small.svg';
@@ -48,6 +48,7 @@ import gdxforConnectionSmallIconURL from './gdxfor/gdxfor-small.svg';
 
 import faceSensingIconURL from './faceSensing/faceSensing.png';
 import faceSensingInsetIconURL from './faceSensing/faceSensing-small.svg';
+
 import tm2scratchIconURL from './tm2scratch/tm2scratch.png';
 import tm2scratchInsetIconURL from './tm2scratch/tm2scratch-small.png';
 
@@ -57,7 +58,28 @@ import posenet2scratchInsetIconURL from './posenet2scratch/posenet2scratch-small
 import tmpose2scratchIconURL from './tmpose2scratch/tmpose2scratch.png';
 import tmpose2scratchInsetIconURL from './tmpose2scratch/tmpose2scratch-small.png';
 
+import facemesh2scratchIconURL from './facemesh2scratch/facemesh2scratch.png';
+import facemesh2scratchInsetIconURL from './facemesh2scratch/facemesh2scratch-small.png';
+
 export default [
+    {
+        name: 'CodeVenture Facemesh',
+        extensionId: 'facemesh2scratch',
+        collaborator: 'CodeVenture, champierre',
+        iconURL: facemesh2scratchIconURL,
+        insetIconURL: facemesh2scratchInsetIconURL,
+        description: (
+            <FormattedMessage
+                defaultMessage="Face Tracking"
+                description="Face Tracking"
+                id="gui.extension.facemesh2scratch.description"
+            />
+        ),
+        featured: true,
+        disabled: false,
+        internetConnectionRequired: true,
+        bluetoothRequired: false
+    },
     {
         name: 'TMPose2Scratch',
         extensionId: 'tmpose2scratch',
@@ -66,9 +88,9 @@ export default [
         insetIconURL: tmpose2scratchInsetIconURL,
         description: (
             <FormattedMessage
-                defaultMessage='Recognize your own poses.'
-                description='Recognize your own poses.'
-                id='gui.extension.tmpose2scratchblocks.description'
+                defaultMessage="Recognize your own poses."
+                description="Recognize your own poses."
+                id="gui.extension.tmpose2scratchblocks.description"
             />
         ),
         featured: true,
@@ -210,7 +232,7 @@ export default [
         name: (
             <FormattedMessage
                 defaultMessage="Face Sensing"
-                description="Name for the 'Face Sensing' extension"
+                description="Name for the Face Sensing extension"
                 id="gui.extension.faceSensing.name"
             />
         ),
@@ -220,7 +242,7 @@ export default [
         description: (
             <FormattedMessage
                 defaultMessage="Sense faces with the camera."
-                description="Description for the 'Face Sensing' extension"
+                description="Description for the Face Sensing extension"
                 id="gui.extension.faceSensing.description"
             />
         ),
@@ -441,7 +463,7 @@ export default [
         connectionTipIconURL: boostConnectionTipIconURL,
         prescanMessage: (
             <FormattedMessage
-                // eslint-disable-next-line @stylistic/max-len
+                // eslint-disable-next-line max-len
                 defaultMessage="Press the button on your LEGO BOOST, then press the button below to start searching for your device."
                 description="Prompt before searching for a LEGO BOOST"
                 id="gui.extension.boost.prescanMessage"
@@ -487,7 +509,7 @@ export default [
         connectionTipIconURL: wedo2ConnectionTipIconURL,
         prescanMessage: (
             <FormattedMessage
-                // eslint-disable-next-line @stylistic/max-len
+                // eslint-disable-next-line max-len
                 defaultMessage="Press the button on your LEGO WeDo 2.0, then press the button below to start searching for your device."
                 description="Prompt before searching for a LEGO WeDo 2.0"
                 id="gui.extension.wedo2.prescanMessage"
