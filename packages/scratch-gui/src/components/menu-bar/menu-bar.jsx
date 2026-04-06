@@ -30,8 +30,8 @@ import DeletionRestorer from '../../containers/deletion-restorer.jsx';
 import TurboMode from '../../containers/turbo-mode.jsx';
 import MenuBarHOC from '../../containers/menu-bar-hoc.jsx';
 import SettingsMenu from './settings-menu.jsx';
+import ExampleModal from '../example-modal/example-modal.jsx';
 
-import closeIcon from '../debug-modal/icons/icon--close.svg';
 import {getCodeVentureApiBaseUrl, getCodeVentureAppBaseUrl} from '../../lib/codeventure-auth';
 
 import {openTipsLibrary, openDebugModal} from '../../reducers/modals';
@@ -131,6 +131,14 @@ const exampleList = [{
     url: '/static/examples/AI-Face-Tracking-Buddy-Collector-Setup.sb3',
     id: 'ai-buddy-collector-game',
     aliases: ['ai-face-tracking-buddy-collector', 'buddy-collector-game']
+},
+{
+    name: 'Collect Item',
+    description: 'Collect items in a Scratch AI mini game example.',
+    image: '/static/examples/scratch-ai-collect-item.png',
+    url: '/static/examples/ai-collect-item-setup.sb3',
+    id: 'collect-item',
+    aliases: ['ai-collect-item']
 }];
 
 const ariaMessages = defineMessages({
@@ -1151,131 +1159,12 @@ class MenuBar extends React.Component {
                 </div>
 
                 {aboutButton}
-                {/* Example Popup Modal */}
-                {this.state.showExample && (
-                    <div
-                        style={{
-                            position: 'fixed',
-                            top: 0,
-                            left: 0,
-                            width: '100vw',
-                            height: '100vh',
-                            background: 'rgba(0,0,0,0.5)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            zIndex: 10000
-                        }}
-                    >
-                        
-                        <div
-                            style={{
-                                background: 'white',
-                                borderRadius: 8,
-                                maxWidth: '80%',
-                                width: '100%',
-                                minHeight: 150,
-                                maxHeight: '80%',
-                                boxShadow: '0 2px 16px rgba(0,0,0,0.2)',
-                                position: 'relative',
-                                flexDirection: 'column',
-                                overflowY: 'auto'
-                            }}
-                        >
-                            <div
-                                style={{
-                                    position: 'absolute',
-                                    top: 24,
-                                    right: 24,
-                                    zIndex: 10001
-                                }}
-                                onClick={this.handleCloseExample}
-                            >
-                                <img
-                                    src={closeIcon}
-                                    alt="Close"
-                                    style={{
-                                        cursor: 'pointer'
-                                    }}
-                                />
-                            </div>
-                            <div
-                                style={{
-                                    backgroundColor: 'rgb(31 117 255)',
-                                    padding: '8px 32px'
-                                }}
-                            >
-                                <h2 style={{fontSize: 24, fontWeight: 'bold', color: '#FFF'}}>
-                                    {'CodeVenture Example Project'}
-                                </h2>
-                            </div>
-                            
-                            <div
-                                style={{display: 'grid',
-                                    gridTemplateColumns: 'repeat(12, minmax(0, 1fr))',
-                                    gap: 16,
-                                    padding: 32}}
-                            >
-                                {examples.map(example => (
-                                    <div
-                                        key={example.id}
-                                        style={{
-                                            width: '100%',
-                                            display: 'flex',
-                                            flexDirection: 'column',
-                                            marginBottom: 24,
-                                            border: '1px solid #eee',
-                                            borderRadius: 8,
-                                            padding: 12,
-                                            gridColumn: 'span 3'
-                                        }}
-                                    >
-                                        <img
-                                            src={example.image}
-                                            alt={example.name}
-                                            style={{
-                                                width: '100%',
-                                                height: '100%',
-                                                objectFit: 'cover',
-                                                borderRadius: 8,
-                                                marginRight: 16
-                                            }}
-                                        />
-                                        <div style={{flex: 1}}>
-                                            <div style={{fontWeight: 'bold', fontSize: 18, color: '#000', marginTop: 8}}>
-                                                {example.name}
-                                            </div>
-                                            <div
-                                                style={{
-                                                    fontSize: 14,
-                                                    color: '#666',
-                                                    marginBottom: 8
-                                                }}
-                                            >
-                                                {example.description}
-                                            </div>
-                                            <button
-                                                style={{
-                                                    borderRadius: 4,
-                                                    padding: 10,
-                                                    fontSize: 14,
-                                                    color: '#FFF',
-                                                    width: '100%',
-                                                    backgroundColor: 'rgb(31 117 255)',
-                                                    border: 'none',
-                                                    cursor: 'pointer'
-                                                }}
-                                                onClick={() => this.handleClickLoadProject(example.url)}
-                                            >
-                                                {'Load Example'}
-                                            </button>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                )}
+                <ExampleModal
+                    examples={examples}
+                    isOpen={this.state.showExample}
+                    onClose={this.handleCloseExample}
+                    onLoadExample={this.handleClickLoadProject}
+                />
             </Box>
         );
     }

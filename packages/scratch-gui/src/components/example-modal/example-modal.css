@@ -1,0 +1,133 @@
+@import "../../css/colors.css";
+
+.example-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 510;
+}
+
+.example-modal-container {
+    background: white;
+    border-radius: 8px;
+    width: 1000px;
+    max-height: 90%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 4px 0 $ui-black-transparent-10;
+    outline: none;
+    margin: 0 40px;
+
+    .modal-header {
+        display: flex;
+        border-radius: 8px 8px 0 0;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 12px;
+        background-color: $ui-green-2;
+    }
+
+    .header-title {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        font-size: 1rem;
+        line-height: 1.25rem;
+        font-weight: 700;
+        color: white;
+    }
+
+    .header-icon {
+        height: 22px;
+        width: 22px;
+    }
+
+    .close-button {
+        display: flex;
+        background: none;
+        border: none;
+        cursor: pointer;
+        width: 32px;
+        height: 32px;
+    }
+
+    .modal-content {
+        padding: 24px;
+        overflow-y: auto;
+    }
+
+    .modal-content::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .modal-content::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .example-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 16px;
+    }
+
+    .example-card {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid $ui-black-transparent-10;
+        border-radius: 8px;
+        overflow: hidden;
+        background: white;
+    }
+
+    .example-image {
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        object-fit: cover;
+        background: $ui-secondary;
+    }
+
+    .example-body {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        gap: 8px;
+        padding: 16px;
+        color: $text-primary;
+    }
+
+    .example-name {
+        font-size: 1rem;
+        line-height: 1.25rem;
+        font-weight: 700;
+    }
+
+    .example-description {
+        flex: 1;
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+        color: $text-primary-transparent;
+    }
+
+    .load-button {
+        background-color: $ui-green-2;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 10px 12px;
+        font-size: 0.875rem;
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    .load-button:hover {
+        filter: brightness(0.96);
+    }
+}
