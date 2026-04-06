@@ -124,6 +124,13 @@ const StageHeaderComponent = function (props) {
         }
     }, [shouldShowCallout]);
 
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('fullscreen') === 'true' && !isFullScreen) {
+            onSetStageFull();
+        }
+    }, [isFullScreen, onSetStageFull]);
+
     const onUpdateThumbnail = useCallback(
         throttle(() => {
             if (!onUpdateProjectThumbnail) return;
@@ -182,6 +189,7 @@ const StageHeaderComponent = function (props) {
 
     if (isFullScreen) {
         const stageDimensions = getStageDimensions(null, true);
+        const isFullscreenFromUrl = new URLSearchParams(window.location.search).get('fullscreen') === 'true';
         const stageButton = showBranding ? (
             <div className={styles.embedScratchLogo}>
                 <a
@@ -195,7 +203,7 @@ const StageHeaderComponent = function (props) {
                     />
                 </a>
             </div>
-        ) : (
+        ) : isFullscreenFromUrl ? null : (
             <div className={styles.unselectWrapper}>
                 <Button
                     className={styles.stageButton}

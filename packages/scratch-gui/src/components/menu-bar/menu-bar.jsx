@@ -24,14 +24,15 @@ import ProjectTitleInput from './project-title-input.jsx';
 import AuthorInfo from './author-info.jsx';
 import AccountNav from '../../components/menu-bar/account-nav.jsx';
 import LoginDropdown from './login-dropdown.jsx';
+import Sb3Save from '../../containers/sb3-save.jsx';
 import SB3Downloader from '../../containers/sb3-downloader.jsx';
 import DeletionRestorer from '../../containers/deletion-restorer.jsx';
 import TurboMode from '../../containers/turbo-mode.jsx';
 import MenuBarHOC from '../../containers/menu-bar-hoc.jsx';
 import SettingsMenu from './settings-menu.jsx';
-import dataURItoBlob from '../../lib/data-uri-to-blob';
 
 import closeIcon from '../debug-modal/icons/icon--close.svg';
+import {getCodeVentureApiBaseUrl, getCodeVentureAppBaseUrl} from '../../lib/codeventure-auth';
 
 import {openTipsLibrary, openDebugModal} from '../../reducers/modals';
 import {setPlayer} from '../../reducers/mode';
@@ -89,6 +90,7 @@ import dropdownCaret from './dropdown-caret.svg';
 import aboutIcon from './icon--about.svg';
 import fileIcon from './icon--file.svg';
 import editIcon from './icon--edit.svg';
+import saveIcon from './ant-design--save-filled.svg';
 import debugIcon from '../debug-modal/icons/icon--debug.svg';
 
 import scratchLogo from './scratch-logo.svg';
@@ -99,44 +101,36 @@ import prehistoricLogo from './prehistoric-logo.svg';
 import oldtimeyLogo from './oldtimey-logo.svg';
 
 import sharedMessages from '../../lib/shared-messages';
+import queryString from 'query-string';
 
 
 import {AccountMenuOptionsPropTypes} from '../../lib/account-menu-options';
+import {showAlertWithTimeout} from '../../reducers/alerts';
+import {setProjectTitle} from '../../reducers/project-title';
 
 const exampleList = [{
-    name: 'Squid Game',
-    description: 'A game about a squid game',
-    image: '/static/examples/Squid-Game.png',
-    url: '/static/examples/Squid-Game.sb3',
-    id: 'squid-game'
+    name: 'Magic Face Filter',
+    description: 'Face tracking example with live AI filter effects.',
+    image: '/static/examples/AI-Face-Tracking.png',
+    url: '/static/examples/AI-Face-Tracking-Setup.sb3',
+    id: 'magic-face-filter',
+    aliases: ['ai-face-tracking']
 },
 {
-    name: 'Popcat Game',
-    description: 'A game about a popcat game',
-    image: '/static/examples/event-popcat.png',
-    url: '/static/examples/event-popcat.sb3',
-    id: 'popcat-game'
+    name: 'AI Dragon Face',
+    description: 'A face tracking project with an AI dragon overlay.',
+    image: '/static/examples/AI-Dragon.png',
+    url: '/static/examples/AI-Dragon-Setup.sb3',
+    id: 'ai-dragon-face',
+    aliases: ['ai-dragon']
 },
 {
-    name: 'Hungry-Chef Game',
-    description: 'A game about a hungry chef game',
-    image: '/static/examples/Hungry-Chef.png',
-    url: '/static/examples/Hungry-Chef.sb3',
-    id: 'hungry-chef-game'
-},
-{
-    name: 'Santa-claus Game',
-    description: 'A game about a santa claus game',
-    image: '/static/examples/Santa-claus.png',
-    url: '/static/examples/Santa-claus.sb3',
-    id: 'santa-claus-game'
-},
-{
-    name: 'Random-number Game',
-    description: 'A game about a random number game',
-    image: '/static/examples/Random-number.png',
-    url: '/static/examples/Random-number.sb3',
-    id: 'random-number-game'
+    name: 'AI Buddy Collector Game',
+    description: 'Collect buddy items with AI face tracking controls.',
+    image: '/static/examples/AI-Face-Tracking-Buddy-Collector.png',
+    url: '/static/examples/AI-Face-Tracking-Buddy-Collector-Setup.sb3',
+    id: 'ai-buddy-collector-game',
+    aliases: ['ai-face-tracking-buddy-collector', 'buddy-collector-game']
 }];
 
 const ariaMessages = defineMessages({
@@ -227,9 +221,18 @@ class MenuBar extends React.Component {
         bindAll(this, [
             'handleClickNew',
             'handleClickRemix',
+            'handleClickRemixProject',
             'handleClickSave',
             'handleClickExample',
             'handleClickLoadProject',
+            'handleBackToCurriculum',
+            'waitForAuthAndLoadProject',
+            'loadProjectFromUrl',
+            'fetchExamples',
+            'getExampleIdFromUrl',
+            'getProjectIdFromUrl',
+            'loadExampleById',
+            'loadProjectById',
             'handleClickSaveAsCopy',
             'handleClickSeeCommunity',
             'handleClickShare',
@@ -241,14 +244,145 @@ class MenuBar extends React.Component {
             'handleCloseExample'
         ]);
         this.state = {
-            showExample: false
+            showExample: false,
+            exampleList: [],
+            isProjectOwner: true,
+            currentProjectId: null,
+            isLoadingProject: false
         };
     }
-    componentDidMount () {
+    async componentDidMount () {
         document.addEventListener('keydown', this.handleKeyPress);
+        await this.fetchExamples();
+        this.waitForAuthAndLoadProject();
+    }
+    componentDidUpdate (prevProps) {
+        if (prevProps.isValidatingCodeVentureAuth && !this.props.isValidatingCodeVentureAuth) {
+            const projectId = this.getProjectIdFromUrl();
+            if (projectId && !this.state.currentProjectId && !this.state.isLoadingProject) {
+                this.loadProjectFromUrl();
+            }
+        }
     }
     componentWillUnmount () {
         document.removeEventListener('keydown', this.handleKeyPress);
+    }
+    async fetchExamples () {
+        try {
+            const apiBaseUrl = getCodeVentureApiBaseUrl();
+            const response = await fetch(`${apiBaseUrl}/api/1.0/projects/examples`);
+            if (response.ok) {
+                const res = await response.json();
+                this.setState({exampleList: res.examples});
+            } else {
+                this.setState({exampleList: []});
+            }
+        } catch (error) {
+            console.error('Error fetching examples:', error);
+            this.setState({exampleList: []});
+        }
+    }
+    waitForAuthAndLoadProject () {
+        if (this.props.isValidatingCodeVentureAuth) {
+            const checkAuth = () => {
+                if (!this.props.isValidatingCodeVentureAuth) {
+                    this.loadProjectFromUrl();
+                } else {
+                    setTimeout(checkAuth, 100);
+                }
+            };
+            checkAuth();
+        } else {
+            this.loadProjectFromUrl();
+        }
+    }
+    async loadProjectFromUrl () {
+        if (this.state.isLoadingProject) return;
+
+        const exampleId = this.getExampleIdFromUrl();
+        const projectId = this.getProjectIdFromUrl();
+
+        if (exampleId || projectId) {
+            this.setState({isLoadingProject: true});
+            try {
+                if (exampleId) {
+                    await this.loadExampleById(exampleId);
+                } else if (projectId) {
+                    await this.loadProjectById(projectId);
+                }
+            } finally {
+                this.setState({isLoadingProject: false});
+            }
+        }
+    }
+    getExampleIdFromUrl () {
+        const queryParams = queryString.parse(location.search);
+        return queryParams.exampleId || null;
+    }
+    getProjectIdFromUrl () {
+        const queryParams = queryString.parse(location.search);
+        return queryParams.projectId || null;
+    }
+    async loadExampleById (exampleId) {
+        const examples = this.state.exampleList.length ? this.state.exampleList : exampleList;
+        const normalizedExampleId = String(exampleId).toLowerCase();
+        const example = examples.find(ex => {
+            const aliases = Array.isArray(ex.aliases) ? ex.aliases : [];
+            return ex.id === normalizedExampleId || aliases.includes(normalizedExampleId);
+        });
+        if (example) {
+            this.setState({
+                isProjectOwner: true,
+                currentProjectId: null
+            });
+            await this.handleClickLoadProject(example.url);
+        }
+    }
+    async loadProjectById (projectId) {
+        const accessToken = localStorage.getItem('codeventure_access_token');
+        const apiBaseUrl = getCodeVentureApiBaseUrl();
+        const queryParams = queryString.parse(location.search);
+        let url = '';
+        let headers = {};
+        try {
+            if (queryParams.is_community === 'true') {
+                url = `${apiBaseUrl}/api/1.0/projects/${projectId}/public`;
+            } else {
+                url = `${apiBaseUrl}/api/1.0/projects/${projectId}`;
+                headers = {
+                    Authorization: `Bearer ${accessToken}`
+                };
+            }
+            const response = await fetch(url, {headers});
+
+            if (response.status === 403) {
+                this.props.onShowAlert('projectPermissionDenied');
+                const newUrl = new URL(window.location);
+                newUrl.searchParams.delete('projectId');
+                window.history.replaceState({}, '', newUrl.toString());
+                return;
+            }
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            const projectUrl = data.project.projectUrl;
+            const projectTitle = data.project.title;
+            const resolvedIsOwner = data.project.isOwner === true || data.project.isOwner === false ?
+                data.project.isOwner :
+                (data.project.authorId && this.props.codeventureUser &&
+                    data.project.authorId._id.toString() === this.props.codeventureUser._id.toString());
+
+            this.setState({
+                isProjectOwner: resolvedIsOwner !== false,
+                currentProjectId: projectId
+            });
+            await this.handleClickLoadProject(projectUrl);
+            this.props.onSetProjectTitle(projectTitle);
+        } catch (error) {
+            console.error('Error loading project from Firebase:', error);
+        }
     }
     handleClickNew () {
         // if the project is dirty, and user owns the project, we will autosave.
@@ -256,11 +390,20 @@ class MenuBar extends React.Component {
         // downloading or logging in first.
         // Note that if user is logged in and editing someone else's project,
         // they'll lose their work.
+        const newUrl = new URL(window.location);
+        newUrl.searchParams.delete('projectId');
+        newUrl.searchParams.delete('exampleId');
+        window.history.replaceState({}, '', newUrl.toString());
+
         const readyToReplaceProject = this.props.confirmReadyToReplaceProject(
             this.props.intl.formatMessage(sharedMessages.replaceProjectWarning)
         );
         this.props.onRequestCloseFile();
         if (readyToReplaceProject) {
+            this.setState({
+                isProjectOwner: true,
+                currentProjectId: null
+            });
             this.props.onClickNew(this.props.canSave && this.props.canCreateNew);
         }
         this.props.onRequestCloseFile();
@@ -273,24 +416,47 @@ class MenuBar extends React.Component {
         this.setState({showExample: false});
     };
     handleClickRemix () {
+        if (this.state.currentProjectId && !this.state.isProjectOwner) {
+            this.handleClickRemixProject();
+            return;
+        }
         this.props.onClickRemix();
         this.props.onRequestCloseFile();
     }
-    handleClickSave () {
-        // this save project function is not working, so we are using this to get the project data
-        const tmpProjectJson = this.props.vm.toJSON();
-        console.log(tmpProjectJson);
+    async handleClickRemixProject () {
+        if (!this.state.currentProjectId) return;
 
-        // get thumbnail project data
-        this.props.vm.postIOData('video', {forceTransparentPreview: true});
-        this.props.vm.renderer.requestSnapshot(dataURI => {
-            this.props.vm.postIOData('video', {forceTransparentPreview: false});
-            const blob = dataURItoBlob(dataURI);
-            console.log(blob);
-            return blob;
-        });
-        
-            
+        try {
+            this.props.onShowAlert('creatingRemix');
+            const accessToken = localStorage.getItem('codeventure_access_token');
+            const apiBaseUrl = getCodeVentureApiBaseUrl();
+            const response = await fetch(`${apiBaseUrl}/api/1.0/projects/${this.state.currentProjectId}/remix`, {
+                method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            const newProjectId = data.data._id;
+            if (newProjectId) {
+                this.props.onShowAlert('remixSuccess');
+                setTimeout(() => {
+                    const newUrl = new URL(window.location);
+                    newUrl.searchParams.delete('projectId');
+                    newUrl.searchParams.set('projectId', newProjectId);
+                    window.location.href = newUrl.toString();
+                }, 1000);
+            }
+        } catch (error) {
+            console.error('Error remixing project:', error);
+            this.props.onShowAlert('creatingError');
+        }
+    }
+    handleClickSave () {
         this.props.onClickSave();
         this.props.onRequestCloseFile();
     }
@@ -298,16 +464,44 @@ class MenuBar extends React.Component {
         this.props.onClickSaveAsCopy();
         this.props.onRequestCloseFile();
     }
+    async handleBackToCurriculum () {
+        if (this.props.codeventureUser) {
+            try {
+                const accessToken = localStorage.getItem('codeventure_access_token');
+                const apiBaseUrl = getCodeVentureApiBaseUrl();
+                const response = await fetch(`${apiBaseUrl}/api/1.0/sso/generate`, {
+                    method: 'POST',
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`
+                    }
+                });
+
+                if (response.ok) {
+                    const res = await response.json();
+                    window.location.href =
+                        `${getCodeVentureAppBaseUrl()}/auth?code=${res.data}&redirectUrl=/dashboard/projects`;
+                }
+            } catch (error) {
+                console.error('Error generating CodeVenture redirect:', error);
+            }
+        } else {
+            window.location.href = `${getCodeVentureAppBaseUrl()}/login`;
+        }
+    }
     async handleClickLoadProject (projectUrl) {
         // load project demo
         // this.props.onLoadingStarted();
         // const tmpProjectJson = squidGame;
         // '../../examples/Squid-Game.sb3';
         // const response = await fetch('/static/Squid-Game.sb3');
-        const response = await fetch(projectUrl);
-        const arrayBuffer = await response.arrayBuffer();
-        await this.props.vm.loadProject(arrayBuffer);
-        this.setState({showExample: false});
+        try {
+            const response = await fetch(projectUrl);
+            const arrayBuffer = await response.arrayBuffer();
+            await this.props.vm.loadProject(arrayBuffer);
+            this.setState({showExample: false});
+        } catch (error) {
+            console.error('Error loading project:', error);
+        }
     }
     handleClickSeeCommunity (waitForUpdate) {
         if (this.props.shouldSaveBeforeTransition()) {
@@ -466,6 +660,7 @@ class MenuBar extends React.Component {
         };
     }
     render () {
+        const examples = this.state.exampleList.length ? this.state.exampleList : exampleList;
         const saveNowMessage = (
             <FormattedMessage
                 defaultMessage="Save now"
@@ -509,7 +704,6 @@ class MenuBar extends React.Component {
         );
         // Show the About button only if we have a handler for it (like in the desktop app)
         const aboutButton = this.buildAboutMenu(this.props.onClickAbout);
-
         const menuOpts = this.props.accountMenuOptions;
 
         return (
@@ -524,35 +718,28 @@ class MenuBar extends React.Component {
             >
                 <div className={styles.mainMenu}>
                     <div className={styles.fileGroup}>
-                        <div className={classNames(styles.menuBarItem)}>
-                            <img
-                                id="logo_img"
-                                alt="Scratch"
-                                className={classNames(styles.scratchLogo, {
-                                    [styles.clickable]: typeof this.props.onClickLogo !== 'undefined'
-                                })}
-                                draggable={false}
-                                src="https://codeventure.app/logo.svg"
-                                style={{backgroundColor: 'white', padding: '4px 8px'}}
-                            />
+                        <div
+                            className={classNames(styles.menuBarItem, styles.hoverable, {
+                                [styles.active]: this.props.fileMenuOpen
+                            })}
+                        >
+                            <Button
+                                className={styles.backButton}
+                                onClick={this.handleBackToCurriculum}
+                            >
+                                <FormattedMessage
+                                    defaultMessage="⬅ Back to Curriculum"
+                                    description="Back to curriculum button"
+                                    id="gui.menuBar.codeventureDashboard"
+                                />
+                            </Button>
                         </div>
-                        {(this.props.canChangeColorMode || this.props.canChangeLanguage || this.props.canChangeTheme) &&
-                        (<SettingsMenu
-                            canChangeLanguage={this.props.canChangeLanguage}
-                            canChangeColorMode={this.props.canChangeColorMode}
-                            canChangeTheme={this.props.canChangeTheme}
-                            hasActiveMembership={this.props.hasActiveMembership}
-                            isRtl={this.props.isRtl}
-                            onRequestClose={this.props.onRequestCloseSettings}
-                            onRequestOpen={this.props.onClickSettings}
-                            settingsMenuOpen={this.props.settingsMenuOpen}
-                        />)}
                         {(this.props.canManageFiles) && (
                             <div
                                 className={classNames(styles.menuBarItem, styles.hoverable, {
                                     [styles.active]: this.props.fileMenuOpen
                                 })}
-                                onClick={this.props.onClickFile}
+                                onMouseUp={this.props.onClickFile}
                             >
                                 <img src={fileIcon} />
                                 <span className={styles.collapsibleLabel}>
@@ -577,18 +764,29 @@ class MenuBar extends React.Component {
                                             {newProjectMessage}
                                         </MenuItem>
                                     </MenuSection>
-                                    <MenuSection>
-                                        
-                                        <MenuItem onClick={this.handleClickSave}>
-                                            {saveNowMessage}
-                                        </MenuItem>
-                                    </MenuSection>
+                                    {(this.props.codeventureUser) && (
+                                        <MenuSection>
+                                            <Sb3Save vm={this.props.vm}>{(className, downloadProjectCallback) => (
+                                                <MenuItem
+                                                    className={className}
+                                                    onClick={this.getSaveToComputerHandler(downloadProjectCallback)}
+                                                >
+                                                    {saveNowMessage}
+                                                </MenuItem>
+                                            )}</Sb3Save>
+                                        </MenuSection>
+                                    )}
                                     {(this.props.canSave || this.props.canCreateCopy || this.props.canRemix) && (
                                         <MenuSection>
                                             {this.props.canSave && (
-                                                <MenuItem onClick={this.handleClickSave}>
-                                                    {saveNowMessage}
-                                                </MenuItem>
+                                                <Sb3Save>{(className, downloadProjectCallback) => (
+                                                    <MenuItem
+                                                        className={className}
+                                                        onClick={this.getSaveToComputerHandler(downloadProjectCallback)}
+                                                    >
+                                                        {saveNowMessage}
+                                                    </MenuItem>
+                                                )}</Sb3Save>
                                             )}
                                             {this.props.canCreateCopy && (
                                                 <MenuItem onClick={this.handleClickSaveAsCopy}>
@@ -624,57 +822,6 @@ class MenuBar extends React.Component {
                                 </MenuBarMenu>
                             </div>
                         )}
-                        <div
-                            className={classNames(styles.menuBarItem, styles.hoverable, {
-                                [styles.active]: this.props.editMenuOpen
-                            })}
-                            onClick={this.props.onClickEdit}
-                        >
-                            <img src={editIcon} />
-                            <span className={styles.collapsibleLabel}>
-                                <FormattedMessage
-                                    defaultMessage="Edit"
-                                    description="Text for edit dropdown menu"
-                                    id="gui.menuBar.edit"
-                                />
-                            </span>
-                            <img src={dropdownCaret} />
-                            <MenuBarMenu
-                                className={classNames(styles.menuBarMenu)}
-                                open={this.props.editMenuOpen}
-                                place={this.props.isRtl ? 'left' : 'right'}
-                                onRequestClose={this.props.onRequestCloseEdit}
-                            >
-                                <DeletionRestorer>{(handleRestore, {restorable, deletedItem}) => (
-                                    <MenuItem
-                                        className={classNames({[styles.disabled]: !restorable})}
-                                        onClick={this.handleRestoreOption(handleRestore)}
-                                    >
-                                        {this.restoreOptionMessage(deletedItem)}
-                                    </MenuItem>
-                                )}</DeletionRestorer>
-                                <MenuSection>
-                                    <TurboMode>{(toggleTurboMode, {turboMode}) => (
-                                        <MenuItem onClick={toggleTurboMode}>
-                                            {turboMode ? (
-                                                <FormattedMessage
-                                                    defaultMessage="Turn off Turbo Mode"
-                                                    description="Menu bar item for turning off turbo mode"
-                                                    id="gui.menuBar.turboModeOff"
-                                                />
-                                            ) : (
-                                                <FormattedMessage
-                                                    defaultMessage="Turn on Turbo Mode"
-                                                    description="Menu bar item for turning on turbo mode"
-                                                    id="gui.menuBar.turboModeOn"
-                                                />
-                                            )}
-                                        </MenuItem>
-                                    )}</TurboMode>
-                                </MenuSection>
-                            </MenuBarMenu>
-
-                        </div>
                         {this.props.isTotallyNormal && (
                             <div
                                 className={classNames(styles.menuBarItem, styles.hoverable, {
@@ -745,62 +892,59 @@ class MenuBar extends React.Component {
                         />
                     ) : null)}
                     <div className={classNames(styles.menuBarItem)}>
-                        {this.props.canShare ? (
-                            (this.props.isShowingProject || this.props.isUpdating) && (
-                                <ProjectWatcher
-                                    onDoneUpdating={this.props.onSeeCommunity}
-                                    isShared={this.props.isShared}
-                                >
-                                    {
-                                        waitForUpdate => (
-                                            <ShareButton
-                                                className={styles.menuBarButton}
-                                                isShared={this.props.isShared}
-                                                /* eslint-disable react/jsx-no-bind */
-                                                onClick={() => {
-                                                    this.handleClickShare(waitForUpdate);
-                                                }}
-                                                /* eslint-enable react/jsx-no-bind */
-                                            />
-                                        )
-                                    }
-                                </ProjectWatcher>
-                            )
-                        ) : (
-                            this.props.showComingSoon ? (
-                                <MenuBarItemTooltip id="share-button">
-                                    <ShareButton className={styles.menuBarButton} />
-                                </MenuBarItemTooltip>
-                            ) : []
-                        )}
                         {this.props.canRemix ? remixButton : []}
-                    </div>
-                    <div className={classNames(styles.menuBarItem, styles.communityButtonWrapper)}>
-                        {this.props.enableCommunity ? (
-                            (this.props.isShowingProject || this.props.isUpdating) && (
-                                <ProjectWatcher onDoneUpdating={this.props.onSeeCommunity}>
-                                    {
-                                        waitForUpdate => (
-                                            <CommunityButton
-                                                className={styles.menuBarButton}
-                                                /* eslint-disable react/jsx-no-bind */
-                                                onClick={() => {
-                                                    this.handleClickSeeCommunity(waitForUpdate);
-                                                }}
-                                                /* eslint-enable react/jsx-no-bind */
-                                            />
-                                        )
-                                    }
-                                </ProjectWatcher>
-                            )
-                        ) : (this.props.showComingSoon ? (
-                            <MenuBarItemTooltip id="community-button">
-                                <CommunityButton className={styles.menuBarButton} />
-                            </MenuBarItemTooltip>
-                        ) : [])}
                     </div>
                     <Divider className={classNames(styles.divider)} />
                     <div className={styles.fileGroup}>
+                        {this.state.isProjectOwner && (
+                            this.props.codeventureUser ? (
+                                <Sb3Save vm={this.props.vm}>
+                                    {(className, downloadProjectCallback) => (
+                                        <div
+                                            className={classNames(styles.menuBarItem, styles.hoverable, 'save-button')}
+                                            onClick={this.getSaveToComputerHandler(downloadProjectCallback)}
+                                        >
+                                            <img
+                                                className={styles.helpIcon}
+                                                src={saveIcon}
+                                                style={{width: 20, height: 20}}
+                                            />
+                                            <span className={styles.tutorialsLabel}>{'Save'}</span>
+                                        </div>
+                                    )}
+                                </Sb3Save>
+                            ) : (
+                                <SB3Downloader>
+                                    {(className, downloadProjectCallback) => (
+                                        <div
+                                            className={classNames(styles.menuBarItem, styles.hoverable, 'save-button')}
+                                            onClick={this.getSaveToComputerHandler(downloadProjectCallback)}
+                                        >
+                                            <img
+                                                className={styles.helpIcon}
+                                                src={saveIcon}
+                                                style={{width: 20, height: 20}}
+                                            />
+                                            <span className={styles.tutorialsLabel}>{'Save'}</span>
+                                        </div>
+                                    )}
+                                </SB3Downloader>
+                            )
+                        )}
+                        {!this.state.isProjectOwner && this.state.currentProjectId && (
+                            <div
+                                aria-label="Remix"
+                                className={classNames(styles.menuBarItem, styles.hoverable, 'remix-button')}
+                                onClick={this.handleClickRemixProject}
+                            >
+                                <img
+                                    className={styles.helpIcon}
+                                    src={remixIcon}
+                                    style={{width: 20, height: 20}}
+                                />
+                                <span className={styles.tutorialsLabel}>{'Remix'}</span>
+                            </div>
+                        )}
                         <div
                             aria-label="Example"
                             className={
@@ -855,52 +999,73 @@ class MenuBar extends React.Component {
                     </div>
 
                     {menuOpts.canHaveSession ? (
-                        this.props.username ? (
+                        this.props.username || this.props.codeventureUser ? (
                             // ************ user is logged in ************
                             <React.Fragment>
                                 {menuOpts.myStuffUrl ? (
-                                    <a href={menuOpts.myStuffUrl}>
+                                    <div
+                                        onClick={this.handleBackToCurriculum}
+                                        className={classNames(
+                                            styles.menuBarItem,
+                                            styles.hoverable,
+                                            styles.mystuffButton
+                                        )}
+                                    >
+                                        <img
+                                            className={styles.mystuffIcon}
+                                            src={mystuffIcon}
+                                        />
+                                    </div>
+                                ) : null}
+
+                                {this.props.codeventureUser ? (
+                                    <div>
                                         <div
                                             className={classNames(
                                                 styles.menuBarItem,
                                                 styles.hoverable,
-                                                styles.mystuffButton
+                                                styles.accountNavMenu
                                             )}
+                                            title={`Logged in as ${this.props.codeventureUser.username} from CodeVenture`}
                                         >
                                             <img
-                                                className={styles.mystuffIcon}
-                                                src={mystuffIcon}
+                                                className={styles.profileIcon}
+                                                src={this.props.codeventureUser?.avatarImage ?
+                                                    (this.props.codeventureUser.avatarImage.startsWith('http') ?
+                                                        this.props.codeventureUser.avatarImage :
+                                                        `${getCodeVentureAppBaseUrl()}${this.props.codeventureUser.avatarImage}`) :
+                                                    `${getCodeVentureAppBaseUrl()}/student-avatar/art-toy/01-default.svg`}
                                             />
+                                            <span>
+                                                {this.props.codeventureUser?.displayName ||
+                                                    this.props.codeventureUser?.username ||
+                                                    'CodeVenture User'}
+                                            </span>
                                         </div>
-                                    </a>
-                                ) : null}
-
-                                <AccountNav
-                                    className={classNames(
-                                        styles.menuBarItem,
-                                        styles.hoverable,
-                                        {[styles.active]: this.props.accountMenuOpen}
-                                    )}
-
-                                    isOpen={this.props.accountMenuOpen}
-                                    isRtl={this.props.isRtl}
-
-                                    menuBarMenuClassName={classNames(styles.menuBarMenu)}
-
-                                    onClick={this.props.onClickAccount}
-                                    onClose={this.props.onRequestCloseAccount}
-                                    onLogOut={menuOpts.canLogout ? this.props.onLogOut : null}
-
-                                    username={this.props.username}
-                                    avatarBadge={this.props.avatarBadge}
-
-                                    avatarUrl={menuOpts.avatarUrl}
-                                    myStuffUrl={menuOpts.myStuffUrl}
-                                    profileUrl={menuOpts.profileUrl}
-                                    myClassesUrl={menuOpts.myClassesUrl}
-                                    myClassUrl={menuOpts.myClassUrl}
-                                    accountSettingsUrl={menuOpts.accountSettingsUrl}
-                                />
+                                    </div>
+                                ) : (
+                                    <AccountNav
+                                        className={classNames(
+                                            styles.menuBarItem,
+                                            styles.hoverable,
+                                            {[styles.active]: this.props.accountMenuOpen}
+                                        )}
+                                        isOpen={this.props.accountMenuOpen}
+                                        isRtl={this.props.isRtl}
+                                        menuBarMenuClassName={classNames(styles.menuBarMenu)}
+                                        onClick={this.props.onClickAccount}
+                                        onClose={this.props.onRequestCloseAccount}
+                                        onLogOut={menuOpts.canLogout ? this.props.onLogOut : null}
+                                        username={this.props.username}
+                                        avatarBadge={this.props.avatarBadge}
+                                        avatarUrl={menuOpts.avatarUrl}
+                                        myStuffUrl={menuOpts.myStuffUrl}
+                                        profileUrl={menuOpts.profileUrl}
+                                        myClassesUrl={menuOpts.myClassesUrl}
+                                        myClassUrl={menuOpts.myClassUrl}
+                                        accountSettingsUrl={menuOpts.accountSettingsUrl}
+                                    />
+                                )}
                             </React.Fragment>
                         ) : (
                             // ********* user not logged in, but a session exists
@@ -981,16 +1146,17 @@ class MenuBar extends React.Component {
                                         >
                                             <img
                                                 className={styles.profileIcon}
-                                                // src={profileIcon}
-                                                src="https://codeventure.app/student-avatar/art-toy/01-default.svg"
+                                                src={this.props.codeventureUser?.avatarImage ?
+                                                    (this.props.codeventureUser.avatarImage.startsWith('http') ?
+                                                        this.props.codeventureUser.avatarImage :
+                                                        `${getCodeVentureAppBaseUrl()}${this.props.codeventureUser.avatarImage}`) :
+                                                    `${getCodeVentureAppBaseUrl()}/student-avatar/art-toy/01-default.svg`}
                                             />
                                             <span>
-                                                {'CodeVenture-Beta'}
+                                                {this.props.codeventureUser?.displayName ||
+                                                    this.props.codeventureUser?.username ||
+                                                    'CodeVenture User'}
                                             </span>
-                                            {/* <img
-                                                className={styles.dropdownCaretIcon}
-                                                src={dropdownCaret}
-                                            /> */}
                                         </div>
                                     </MenuBarItemTooltip>
                                 </React.Fragment>
@@ -1065,7 +1231,7 @@ class MenuBar extends React.Component {
                                     gap: 16,
                                     padding: 32}}
                             >
-                                {exampleList.map(example => (
+                                {examples.map(example => (
                                     <div
                                         key={example.id}
                                         style={{
@@ -1219,6 +1385,20 @@ MenuBar.propTypes = {
     username: PropTypes.string,
     avatarBadge: PropTypes.number,
     userOwnsProject: PropTypes.bool,
+    codeventureUser: PropTypes.shape({
+        isAuthenticated: PropTypes.bool,
+        token: PropTypes.string,
+        username: PropTypes.string,
+        userId: PropTypes.string,
+        _id: PropTypes.string,
+        source: PropTypes.string,
+        displayName: PropTypes.string,
+        avatarImage: PropTypes.string,
+        email: PropTypes.string
+    }),
+    isValidatingCodeVentureAuth: PropTypes.bool,
+    onShowAlert: PropTypes.func,
+    onSetProjectTitle: PropTypes.func,
 
     accountMenuOptions: AccountMenuOptionsPropTypes,
 
@@ -1237,6 +1417,7 @@ const mapStateToProps = (state, ownProps) => {
     const user = state.session && state.session.session && state.session.session.user;
     const permissions = state.session && state.session.permissions;
     const sessionExists = state.session && typeof state.session.session !== 'undefined';
+    const hasSession = sessionExists || ownProps.codeventureUser;
 
     return {
         aboutMenuOpen: aboutMenuOpen(state),
@@ -1269,7 +1450,7 @@ const mapStateToProps = (state, ownProps) => {
         ),
 
         accountMenuOptions: ownProps.accountMenuOptions ?? {
-            canHaveSession: sessionExists ?? false,
+            canHaveSession: hasSession ?? false,
 
             canRegister: true,
             canLogin: true,
@@ -1308,7 +1489,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     onClickSave: () => dispatch(manualUpdateProject()),
     onClickSaveAsCopy: () => dispatch(saveProjectAsCopy()),
     onSeeCommunity: ownProps.onSeeCommunity ?? (() => dispatch(setPlayer(true))),
-    onSetTimeTravelMode: mode => dispatch(setTimeTravel(mode))
+    onSetTimeTravelMode: mode => dispatch(setTimeTravel(mode)),
+    onSetProjectTitle: title => dispatch(setProjectTitle(title)),
+    onShowAlert: alertId => showAlertWithTimeout(dispatch, alertId)
 });
 
 export default compose(

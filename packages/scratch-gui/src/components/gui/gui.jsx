@@ -204,6 +204,8 @@ const GUIComponent = props => {
         userOwnsProject,
         hideTutorialProjects,
         vm,
+        codeventureUser,
+        isValidatingCodeVentureAuth,
         ...componentProps
     } = omit(props, 'dispatch', 'setPlatform');
     if (children) {
@@ -370,6 +372,8 @@ const GUIComponent = props => {
                         userOwnsProject={userOwnsProject}
                         username={username}
                         accountMenuOptions={accountMenuOptions}
+                        codeventureUser={codeventureUser}
+                        isValidatingCodeVentureAuth={isValidatingCodeVentureAuth}
                     />}
                     <Box className={classNames(boxStyles, styles.flexWrapper)}>
                         <Box

@@ -41,6 +41,7 @@ import vmListenerHOC from '../lib/vm-listener-hoc.jsx';
 import vmManagerHOC from '../lib/vm-manager-hoc.jsx';
 import cloudManagerHOC from '../lib/cloud-manager-hoc.jsx';
 import systemPreferencesHOC from '../lib/system-preferences-hoc.jsx';
+import CodeVentureAuthHOC from '../lib/codeventure-auth-hoc.jsx';
 import {PLATFORM} from '../lib/platform.js';
 
 import GUIComponent from '../components/gui/gui.jsx';
@@ -242,7 +243,8 @@ const WrappedGui = compose(
     vmManagerHOC,
     SBFileUploaderHOC,
     cloudManagerHOC,
-    systemPreferencesHOC
+    systemPreferencesHOC,
+    CodeVentureAuthHOC
 )(ConnectedGUI);
 
 WrappedGui.setAppElement = ReactModal.setAppElement;
