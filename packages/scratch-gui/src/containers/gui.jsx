@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
+import {compose} from 'redux';
+import {connect} from 'react-redux';
 import ReactModal from 'react-modal';
 import VM from '@scratch/scratch-vm';
-import { injectIntl, intlShape } from 'react-intl';
+import {injectIntl} from 'react-intl';
+import intlShape from '../lib/intlShape.js';
 
 import ErrorBoundaryHOC from '../lib/error-boundary-hoc.jsx';
 import {
@@ -26,7 +27,8 @@ import {
     closeDebugModal
 } from '../reducers/modals';
 
-import { setPlatform } from '../reducers/platform';
+import {setPlatform} from '../reducers/platform';
+import {setDynamicAssets} from '../reducers/dynamic-assets';
 
 import FontLoaderHOC from '../lib/font-loader-hoc.jsx';
 import LocalizationHOC from '../lib/localization-hoc.jsx';
@@ -40,14 +42,19 @@ import vmManagerHOC from '../lib/vm-manager-hoc.jsx';
 import cloudManagerHOC from '../lib/cloud-manager-hoc.jsx';
 import systemPreferencesHOC from '../lib/system-preferences-hoc.jsx';
 import CodeVentureAuthHOC from '../lib/codeventure-auth-hoc.jsx';
-import { PLATFORM } from '../lib/platform.js';
+import {PLATFORM} from '../lib/platform.js';
 
 import GUIComponent from '../components/gui/gui.jsx';
-import { GUIStoragePropType } from '../gui-config';
-import { AccountMenuOptionsPropTypes } from '../lib/account-menu-options';
+import {GUIStoragePropType} from '../gui-config';
+import {AccountMenuOptionsPropTypes} from '../lib/account-menu-options';
+import {
+    costumeShape,
+    soundShape,
+    spriteShape
+} from '../lib/assets-prop-types.js';
 
 class GUI extends React.Component {
-    componentDidMount() {
+    componentDidMount () {
         console.log('GUI componentDidMount', this.props.projectId);
         this.props.onStorageInit(this.props.storage.scratchStorage);
         this.props.onVmInit(this.props.vm);
@@ -55,8 +62,14 @@ class GUI extends React.Component {
         if (this.props.platform) {
             this.props.setPlatform(this.props.platform);
         }
+        if (this.props.dynamicAssets) {
+            this.props.onUpdateDynamicAssets(this.props.dynamicAssets);
+        }
     }
-    componentDidUpdate(prevProps) {
+    componentDidUpdate (prevProps) {
+        if (this.props.dynamicAssets !== prevProps.dynamicAssets) {
+            this.props.onUpdateDynamicAssets(this.props.dynamicAssets);
+        }
         if (this.props.projectId !== prevProps.projectId) {
             if (this.props.projectId !== null) {
                 this.props.onUpdateProjectId(this.props.projectId);
@@ -73,13 +86,13 @@ class GUI extends React.Component {
             this.props.vm.stopAll();
         }
     }
-    render() {
+    render () {
         if (this.props.isError) {
             throw new Error(
                 `Error in Scratch GUI [location=${window.location}]: ${this.props.error}`);
         }
         const {
-            /* eslint-disable no-unused-vars */
+             
             assetHost,
             cloudHost,
             error,
@@ -91,7 +104,7 @@ class GUI extends React.Component {
             onVmInit,
             projectHost,
             projectId,
-            /* eslint-enable no-unused-vars */
+             
             children,
             fetchingProject,
             isLoading,
@@ -117,6 +130,12 @@ GUI.propTypes = {
     assetHost: PropTypes.string,
     children: PropTypes.node,
     cloudHost: PropTypes.string,
+    dynamicAssets: PropTypes.shape({
+        backdrops: PropTypes.arrayOf(costumeShape),
+        costumes: PropTypes.arrayOf(costumeShape),
+        sounds: PropTypes.arrayOf(soundShape),
+        sprites: PropTypes.arrayOf(spriteShape)
+    }),
     error: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
     fetchingProject: PropTypes.bool,
     intl: intlShape,
@@ -125,13 +144,20 @@ GUI.propTypes = {
     isShowingProject: PropTypes.bool,
     isTotallyNormal: PropTypes.bool,
     loadingStateVisible: PropTypes.bool,
+    manuallySaveThumbnails: PropTypes.bool,
     onProjectLoaded: PropTypes.func,
     onSeeCommunity: PropTypes.func,
     onStorageInit: PropTypes.func,
     onUpdateProjectId: PropTypes.func,
+    onUpdateDynamicAssets: PropTypes.func,
     onVmInit: PropTypes.func,
     platform: PropTypes.oneOf(Object.keys(PLATFORM)),
     setPlatform: PropTypes.func.isRequired,
+    /**
+     * Indicates whether we should highlight new editor features in the UI.
+     * Used only when there are new features to highlight.
+     */
+    showNewFeatureCallouts: PropTypes.bool,
     projectHost: PropTypes.string,
     projectId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     shouldStopProject: PropTypes.bool,
@@ -145,10 +171,10 @@ GUI.propTypes = {
 
 GUI.defaultProps = {
     isTotallyNormal: false,
-    onStorageInit: () => { },
-    onProjectLoaded: () => { },
-    onUpdateProjectId: () => { },
-    onVmInit: (/* vm */) => { }
+    onStorageInit: () => {},
+    onProjectLoaded: () => {},
+    onUpdateProjectId: () => {},
+    onVmInit: (/* vm */) => {}
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -187,6 +213,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = dispatch => ({
     onExtensionButtonClick: () => dispatch(openExtensionLibrary()),
     onActivateTab: tab => dispatch(activateTab(tab)),
+    onUpdateDynamicAssets: dynamicAssets => dispatch(setDynamicAssets(dynamicAssets)),
     onActivateCostumesTab: () => dispatch(activateTab(COSTUMES_TAB_INDEX)),
     onActivateSoundsTab: () => dispatch(activateTab(SOUNDS_TAB_INDEX)),
     setPlatform: platform => dispatch(setPlatform(platform)),

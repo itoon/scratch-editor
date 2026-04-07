@@ -6,6 +6,7 @@ import colorPickerReducer, {colorPickerInitialState} from './color-picker';
 import connectionModalReducer, {connectionModalInitialState} from './connection-modal';
 import customProceduresReducer, {customProceduresInitialState} from './custom-procedures';
 import blockDragReducer, {blockDragInitialState} from './block-drag';
+import dynamicAssetsReducer, {dynamicAssetsInitialState} from './dynamic-assets';
 import editorTabReducer, {editorTabInitialState} from './editor-tab';
 import hoveredTargetReducer, {hoveredTargetInitialState} from './hovered-target';
 import menuReducer, {menuInitialState} from './menus';
@@ -22,7 +23,7 @@ import fontsLoadedReducer, {fontsLoadedInitialState} from './fonts-loaded';
 import restoreDeletionReducer, {restoreDeletionInitialState} from './restore-deletion';
 import stageSizeReducer, {stageSizeInitialState} from './stage-size';
 import targetReducer, {targetsInitialState} from './targets';
-import themeReducer, {themeInitialState} from './theme';
+import settingsReducer, {settingsInitialState} from './settings';
 import timeoutReducer, {timeoutInitialState} from './timeout';
 import timeTravelReducer, {timeTravelInitialState} from './time-travel';
 import toolboxReducer, {toolboxInitialState} from './toolbox';
@@ -45,6 +46,7 @@ const buildInitialState = (config: GUIConfig) => ({
     config,
     connectionModal: connectionModalInitialState,
     customProcedures: customProceduresInitialState,
+    dynamicAssets: dynamicAssetsInitialState,
     editorTab: editorTabInitialState,
     mode: modeInitialState,
     hoveredTarget: hoveredTargetInitialState,
@@ -61,7 +63,7 @@ const buildInitialState = (config: GUIConfig) => ({
     fontsLoaded: fontsLoadedInitialState,
     restoreDeletion: restoreDeletionInitialState,
     targets: targetsInitialState,
-    theme: themeInitialState,
+    settings: settingsInitialState,
     timeout: timeoutInitialState,
     timeTravel: timeTravelInitialState,
     toolbox: toolboxInitialState,
@@ -139,7 +141,7 @@ const initTelemetryModal = function (currentState) {
     );
 };
 
-const configReducer = function (state: GUIConfig) {
+const configReducer = function (state?: GUIConfig | null) {
     if (typeof state === 'undefined') return null;
 
     return state;
@@ -153,6 +155,7 @@ const guiReducer = combineReducers({
     colorPicker: colorPickerReducer,
     connectionModal: connectionModalReducer,
     config: configReducer,
+    dynamicAssets: dynamicAssetsReducer,
     customProcedures: customProceduresReducer,
     editorTab: editorTabReducer,
     mode: modeReducer,
@@ -170,7 +173,7 @@ const guiReducer = combineReducers({
     fontsLoaded: fontsLoadedReducer,
     restoreDeletion: restoreDeletionReducer,
     targets: targetReducer,
-    theme: themeReducer,
+    settings: settingsReducer,
     timeout: timeoutReducer,
     timeTravel: timeTravelReducer,
     toolbox: toolboxReducer,

@@ -1,8 +1,9 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import {FormattedMessage} from 'react-intl';
 import keyMirror from 'keymirror';
 
 import successImage from '../assets/icon--success.svg';
+import failImage from '../assets/icon--error.svg';
 
 const AlertTypes = keyMirror({
     STANDARD: null,
@@ -12,6 +13,7 @@ const AlertTypes = keyMirror({
 
 const AlertLevels = {
     SUCCESS: 'success',
+    INFO_BLUE: 'info-blue',
     INFO: 'info',
     WARN: 'warn'
 };
@@ -175,21 +177,24 @@ const alerts = [
         clearList: ['cloudInfo'],
         content: (
             <FormattedMessage
-                defaultMessage="Please note, cloud variables only support numbers, not letters or symbols. {learnMoreLink}" // eslint-disable-line max-len
+                defaultMessage="Please note, cloud variables only support numbers, not letters or symbols. <a>{learnMoreLink}</a>" // eslint-disable-line @stylistic/max-len
                 description="Info about cloud variable limitations"
                 id="gui.alerts.cloudInfo"
                 values={{
                     learnMoreLink: (
+                        <FormattedMessage
+                            defaultMessage="Learn more."
+                            description="Link text to cloud var faq"
+                            id="gui.alerts.cloudInfoLearnMore"
+                        />
+                    ),
+                    a: learnMoreLink => (
                         <a
                             href="https://scratch.mit.edu/info/faq/#clouddata"
                             rel="noopener noreferrer"
                             target="_blank"
                         >
-                            <FormattedMessage
-                                defaultMessage="Learn more."
-                                description="Link text to cloud var faq"
-                                id="gui.alerts.cloudInfoLearnMore"
-                            />
+                            {learnMoreLink}
                         </a>
                     )
                 }}
@@ -214,33 +219,62 @@ const alerts = [
         level: AlertLevels.SUCCESS
     },
     {
-        alertId: 'projectPermissionDenied',
+        alertId: 'loadingExtensionData',
         alertType: AlertTypes.STANDARD,
-        clearList: [],
-        closeButton: true,
+        clearList: ['loadingExtensionData'],
         content: (
             <FormattedMessage
-                defaultMessage="You have no permission for this project."
-                description="Message indicating that user doesn't have permission to access the project"
-                id="gui.alerts.projectPermissionDenied"
+                defaultMessage="Loading extension..."
+                description="Message indicating that extension is in process of loading"
+                id="gui.alerts.loadingExtensionData"
             />
         ),
-        level: AlertLevels.WARN
+        iconSpinner: true,
+        level: AlertLevels.SUCCESS
     },
     {
-        alertId: 'remixSuccess',
+        alertId: 'settingThumbnail',
         alertType: AlertTypes.STANDARD,
-        clearList: [],
+        clearList: ['settingThumbnail', 'thumbnailSuccess', 'thumbnailError'],
         content: (
             <FormattedMessage
-                defaultMessage="Project remixed successfully!"
-                description="Message indicating that project was successfully remixed"
-                id="gui.alerts.remixSuccess"
+                defaultMessage="Setting thumbnail…"
+                description="Message indicating that the thumbnail is in the process of being set"
+                id="gui.alerts.settingThumbnail"
+            />
+        ),
+        iconSpinner: true,
+        level: AlertLevels.INFO_BLUE
+    },
+    {
+        alertId: 'thumbnailSuccess',
+        alertType: AlertTypes.STANDARD,
+        clearList: ['settingThumbnail', 'thumbnailSuccess', 'thumbnailError'],
+        content: (
+            <FormattedMessage
+                defaultMessage="Thumbnail set successfully."
+                description="Message indicating that the thumbnail was successfully set"
+                id="gui.alerts.thumbnailSuccess"
             />
         ),
         iconURL: successImage,
         level: AlertLevels.SUCCESS,
-        maxDisplaySecs: 3
+        maxDisplaySecs: 5
+    },
+    {
+        alertId: 'thumbnailError',
+        alertType: AlertTypes.STANDARD,
+        clearList: ['settingThumbnail', 'thumbnailError', 'thumbnailSuccess'],
+        content: (
+            <FormattedMessage
+                defaultMessage="Couldn’t set thumbnail. Please try again later."
+                description="Message indicating that setting the thumbnail failed"
+                id="gui.alerts.thumbnailError"
+            />
+        ),
+        iconURL: failImage,
+        level: AlertLevels.WARN,
+        maxDisplaySecs: 5
     }
 ];
 

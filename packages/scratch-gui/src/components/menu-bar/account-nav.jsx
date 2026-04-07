@@ -31,7 +31,8 @@ const AccountNavComponent = ({
     myClassesUrl,
     myClassUrl,
     accountSettingsUrl,
-    username
+    username,
+    avatarBadge
 }) => (
     <React.Fragment>
         <div
@@ -39,12 +40,14 @@ const AccountNavComponent = ({
                 styles.userInfo,
                 className
             )}
-            onMouseUp={onClick}
+            onClick={onClick}
         >
             {avatarUrl ? (
                 <UserAvatar
                     className={styles.avatar}
+                    wrapperClassName={styles.avatarWrapper}
                     imageUrl={avatarUrl}
+                    showAvatarBadge={!!avatarBadge}
                 />
             ) : null}
             <span className={styles.profileName}>
@@ -143,6 +146,7 @@ AccountNavComponent.propTypes = {
     onLogOut: PropTypes.func,
 
     username: PropTypes.string,
+    avatarBadge: PropTypes.number,
 
     avatarUrl: PropTypes.string,
     myStuffUrl: PropTypes.string,

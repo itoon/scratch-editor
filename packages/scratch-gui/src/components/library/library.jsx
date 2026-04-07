@@ -2,7 +2,8 @@ import classNames from 'classnames';
 import bindAll from 'lodash.bindall';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {defineMessages, injectIntl, intlShape} from 'react-intl';
+import {defineMessages, injectIntl} from 'react-intl';
+import intlShape from '../../lib/intlShape.js';
 
 import LibraryItem from '../../containers/library-item.jsx';
 import Modal from '../../containers/modal.jsx';
@@ -14,6 +15,7 @@ import Spinner from '../spinner/spinner.jsx';
 import {CATEGORIES} from '../../../src/lib/libraries/decks/index.jsx';
 
 import styles from './library.css';
+import {ModalFocusContext} from '../../contexts/modal-focus-context.jsx';
 
 const messages = defineMessages({
     filterPlaceholder: {
@@ -47,11 +49,20 @@ const messages = defineMessages({
         id: `gui.library.prompts`,
         defaultMessage: 'Prompts',
         description: 'Label for prompts category'
+    },
+    membershipTag: {
+        defaultMessage: 'Membership',
+        description: 'Tag for filtering a library for member only assets',
+        id: 'gui.library.membershipTag'
     }
 });
 
 const ALL_TAG = {tag: 'all', intlLabel: messages.allTag};
 const tagListPrefix = [ALL_TAG];
+
+// Membership tag manually added to the tag list if any member-only assets are present.
+// Member-only assets are displayed as a separate tag to allow users to filter by them.
+const MEMBERSHIP_TAG = {tag: 'membership', intlLabel: messages.membershipTag};
 
 /**
  * Find the AssetType which corresponds to a particular file extension. For example, 'png' => AssetType.ImageBitmap.
@@ -111,6 +122,8 @@ const getItemIcons = function (item) {
     }
 };
 
+const getMemberOnlyTags = data => (data && data.some(item => item.isMemberOnly) ? [MEMBERSHIP_TAG] : []);
+
 class LibraryComponent extends React.Component {
     constructor (props) {
         super(props);
@@ -129,7 +142,8 @@ class LibraryComponent extends React.Component {
             playingItem: null,
             filterQuery: '',
             selectedTag: ALL_TAG.tag,
-            loaded: false
+            loaded: false,
+            memberTags: getMemberOnlyTags(props.data)
         };
     }
     componentDidMount () {
@@ -140,18 +154,29 @@ class LibraryComponent extends React.Component {
         if (this.props.setStopHandler) this.props.setStopHandler(this.handlePlayingEnd);
     }
     componentDidUpdate (prevProps, prevState) {
+        if (prevProps.data !== this.props.data) {
+            this.setState({
+                memberTags: getMemberOnlyTags(this.props.data)
+            });
+        }
+
         if (prevState.filterQuery !== this.state.filterQuery ||
             prevState.selectedTag !== this.state.selectedTag) {
             this.scrollToTop();
         }
     }
+
+    static contextType = ModalFocusContext;
+
     handleSelect (id) {
+        const selectedItem = this.getFilteredData().find(item => this.constructKey(item) === id);
+
         this.handleClose();
-        this.props.onItemSelected(this.getFilteredData()
-            .find(item => this.constructKey(item) === id));
+        this.props.onItemSelected(selectedItem);
     }
     handleClose () {
         this.props.onRequestClose();
+        this.context.restoreFocus();
     }
     handleTagClick (tag) {
         if (this.state.playingItem === null) {
@@ -269,6 +294,7 @@ class LibraryComponent extends React.Component {
             onMouseEnter={this.handleMouseEnter}
             onMouseLeave={this.handleMouseLeave}
             onSelect={this.handleSelect}
+            isMemberOnly={data.isMemberOnly}
         />);
     }
     renderData (data) {
@@ -332,13 +358,14 @@ class LibraryComponent extends React.Component {
                         )}
                         {this.props.tags &&
                             <div className={styles.tagWrapper}>
-                                {tagListPrefix.concat(this.props.tags).map((tagProps, id) => (
+                                {tagListPrefix.concat(this.props.tags, this.state.memberTags).map((tagProps, id) => (
                                     <TagButton
                                         active={this.state.selectedTag === tagProps.tag.toLowerCase()}
                                         className={classNames(
                                             styles.filterBarItem,
                                             styles.tagButton,
-                                            tagProps.className
+                                            tagProps.className,
+                                            {[styles.membershipTag]: tagProps.tag.toLowerCase() === MEMBERSHIP_TAG.tag}
                                         )}
                                         key={`tag-button-${id}`}
                                         onClick={this.handleTagClick}
@@ -371,7 +398,7 @@ class LibraryComponent extends React.Component {
 
 LibraryComponent.propTypes = {
     data: PropTypes.arrayOf(
-        /* eslint-disable react/no-unused-prop-types, lines-around-comment */
+         
         // An item in the library
         PropTypes.shape({
             // @todo remove md5/rawURL prop from library, refactor to use storage
@@ -382,7 +409,7 @@ LibraryComponent.propTypes = {
             ]),
             rawURL: PropTypes.string
         })
-        /* eslint-enable react/no-unused-prop-types, lines-around-comment */
+         
     ),
     filterable: PropTypes.bool,
     withCategories: PropTypes.bool,

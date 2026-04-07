@@ -3,14 +3,11 @@ import {Provider} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {EditorState} from './editor-state';
-import {setPlayer, setFullScreen} from '../reducers/mode.js';
-import ConnectedIntlProvider from './connected-intl-provider.jsx';
+import {setPlayer, setFullScreen, setEmbedded} from '../reducers/mode.js';
 
 /**
  * Wraps the editor into the redux state contained within an EditorState instance.
- *
  * @param {React.Component} WrappedComponent - component to provide state for
- *
  * @returns {React.Component} component with redux and intl state provided
  */
 export const AppStateProviderHOC = function (WrappedComponent) {
@@ -23,23 +20,25 @@ export const AppStateProviderHOC = function (WrappedComponent) {
             if (prevProps.isFullScreen !== this.props.isFullScreen) {
                 this.props.appState.store.dispatch(setFullScreen(this.props.isFullScreen));
             }
+            if (prevProps.isEmbedded !== this.props.isEmbedded) {
+                this.props.appState.store.dispatch(setEmbedded(this.props.isEmbedded));
+            }
         }
 
         render () {
             const {
                 appState,
-                isFullScreen, // eslint-disable-line no-unused-vars
-                isPlayerOnly, // eslint-disable-line no-unused-vars
-                showTelemetryModal, // eslint-disable-line no-unused-vars
+                isFullScreen,
+                isPlayerOnly,
+                showTelemetryModal,
+                isEmbedded,
                 ...componentProps
             } = this.props;
             return (
                 <Provider store={appState.store}>
-                    <ConnectedIntlProvider>
-                        <WrappedComponent
-                            {...componentProps}
-                        />
-                    </ConnectedIntlProvider>
+                    <WrappedComponent
+                        {...componentProps}
+                    />
                 </Provider>
             );
         }
@@ -50,7 +49,8 @@ export const AppStateProviderHOC = function (WrappedComponent) {
         isFullScreen: PropTypes.bool,
         isPlayerOnly: PropTypes.bool,
         isTelemetryEnabled: PropTypes.bool,
-        showTelemetryModal: PropTypes.bool
+        showTelemetryModal: PropTypes.bool,
+        isEmbedded: PropTypes.bool
     };
     return AppStateWrapper;
 };

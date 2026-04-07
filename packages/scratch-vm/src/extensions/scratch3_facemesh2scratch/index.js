@@ -301,6 +301,7 @@ class Scratch3Facemesh2ScratchBlocks {
         this.video = null;
         this.faces = [];
         this.faceMesh = null;
+        this._faceMeshPredictHandler = null;
         this.ratio = 1;
         this.p5Loaded = false;
         this.p5Instance = null;
@@ -330,15 +331,84 @@ class Scratch3Facemesh2ScratchBlocks {
         const options = {
             maxFaces: 5
         };
-        this.faceMesh = await ml5.faceMesh(options);
-        this.faceMesh.detectStart(this.video, results => {
+        const createFaceMesh = ml5.faceMesh || ml5.facemesh;
+        if (!createFaceMesh) {
+            throw new Error('ml5 faceMesh/facemesh API is not available');
+        }
+
+        const handleResults = results => {
             const now = Date.now();
             if (now - this._lastFacesUpdate >= this._facesUpdateIntervalMs) {
                 this._lastFacesUpdate = now;
                 this.faces = results;
             }
-        });
+        };
+
+        if (typeof ml5.faceMesh === 'function') {
+            this.faceMesh = await ml5.faceMesh(options);
+        } else {
+            this.faceMesh = await new Promise((resolve, reject) => {
+                let resolved = false;
+                let facemeshInstance = null;
+
+                const finish = instance => {
+                    if (!resolved && instance) {
+                        resolved = true;
+                        resolve(instance);
+                    }
+                };
+
+                try {
+                    facemeshInstance = ml5.facemesh(this.video, options, () => {
+                        finish(facemeshInstance);
+                    });
+
+                    if (facemeshInstance && typeof facemeshInstance.then === 'function') {
+                        facemeshInstance.then(instance => {
+                            facemeshInstance = instance;
+                            finish(instance);
+                        }).catch(reject);
+                    } else if (facemeshInstance) {
+                        setTimeout(() => finish(facemeshInstance), 0);
+                    }
+                } catch (error) {
+                    reject(error);
+                }
+            });
+        }
+
+        if (this.faceMesh && typeof this.faceMesh.detectStart === 'function') {
+            this.faceMesh.detectStart(this.video, handleResults);
+        } else if (this.faceMesh && typeof this.faceMesh.on === 'function') {
+            this._faceMeshPredictHandler = handleResults;
+            this.faceMesh.on('predict', this._faceMeshPredictHandler);
+        } else {
+            throw new Error('ml5 FaceMesh instance does not support detectStart or predict events');
+        }
+
         this.hideLoadingPopup();
+    }
+
+    stopFaceDetection () {
+        if (!this.faceMesh) {
+            this.faces = [];
+            return;
+        }
+
+        if (typeof this.faceMesh.detectStop === 'function') {
+            this.faceMesh.detectStop();
+        }
+
+        if (this._faceMeshPredictHandler) {
+            if (typeof this.faceMesh.off === 'function') {
+                this.faceMesh.off('predict', this._faceMeshPredictHandler);
+            } else if (typeof this.faceMesh.removeListener === 'function') {
+                this.faceMesh.removeListener('predict', this._faceMeshPredictHandler);
+            }
+            this._faceMeshPredictHandler = null;
+        }
+
+        this.faces = [];
     }
 
     getInfo () {
@@ -611,16 +681,10 @@ class Scratch3Facemesh2ScratchBlocks {
         const state = args.VIDEO_STATE;
         if (state === 'off') {
             this.runtime.ioDevices.video.disableVideo();
-            if (this.faceMesh) {
-                this.faceMesh.detectStop();
-                this.faces = [];
-            }
+            this.stopFaceDetection();
         } else {
             this.runtime.ioDevices.video.disableVideo();
-            if (this.faceMesh) {
-                this.faceMesh.detectStop();
-                this.faces = [];
-            }
+            this.stopFaceDetection();
             this.runtime.ioDevices.video.enableVideo().then(() => {
                 this.showLoadingPopup();
                 const startLoad = () => this.detectFace();

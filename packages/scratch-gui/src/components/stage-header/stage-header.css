@@ -34,6 +34,7 @@
 
 .stage-size-row {
     display: flex;
+    gap: 0.25rem;
 }
 
 .stage-size-toggle-group {
@@ -44,14 +45,6 @@
     /* Use a white background so semi-transparent selection states look correct */
     background-color: $ui-white;
     border-radius: $form-radius;
-}
-
-[dir="ltr"] .stage-size-toggle-group {
-    margin-right: .2rem;
-}
-
-[dir="rtl"] .stage-size-toggle-group {
-    margin-left: .2rem;
 }
 
 .stage-button {
@@ -75,6 +68,19 @@
     height: 100%;
 }
 
+.stage-button-highlighted {
+    border-radius: 4px;
+    box-shadow: 0 0 0 2px $motion-primary;
+}
+
 [dir="rtl"] .stage-button-icon {
     transform: scaleX(-1);
+}
+
+.right-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: transparent;
 }

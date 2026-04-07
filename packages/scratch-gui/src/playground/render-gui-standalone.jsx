@@ -1,7 +1,7 @@
-import { EditorState, createStandaloneRoot, setAppElement } from '../index-standalone';
+import {EditorState, createStandaloneRoot, setAppElement} from '../index-standalone';
 import HashParserHOC from '../lib/hash-parser-hoc.jsx';
 import CodeVentureAuthHOC from '../lib/codeventure-auth-hoc.jsx';
-import { PLATFORM } from '../lib/platform.js';
+import {PLATFORM} from '../lib/platform.js';
 
 import log from '../lib/log.js';
 
@@ -73,7 +73,7 @@ export default appTarget => {
         gui.render({
             canEditTitle: true,
             backpackVisible: true,
-            showComingSoon: false,
+            showComingSoon: true,
             backpackHost,
             canSave: false,
             onClickLogo
