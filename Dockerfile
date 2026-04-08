@@ -33,8 +33,11 @@ RUN npm run build
 WORKDIR /app/packages/scratch-gui
 
 # Environment variables from Cloud Run will be available during build
-ENV CODEVENTURE_API_URL=https://codeventure-mvp-api-89482725665.asia-southeast1.run.app
-ENV CODEVENTURE_APP_URL=https://uat-codeventure-frontend-89482725665.asia-southeast1.run.app
+ARG _API_URL
+ARG _APP_URL
+
+ENV CODEVENTURE_API_URL=${_API_URL}
+ENV CODEVENTURE_APP_URL=${_APP_URL}
 
 # Do NOT set ENV variables here - they will override Cloud Run variables
 RUN npm run build
