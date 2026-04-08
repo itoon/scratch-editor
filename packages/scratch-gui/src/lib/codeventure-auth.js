@@ -4,32 +4,48 @@
  */
 
 export const getCodeVentureApiBaseUrl = () => {
-    if (typeof process !== 'undefined' && process.env && process.env.CODEVENTURE_API_URL) {
+    console.log(
+        "process.env.CODEVENTURE_API_URL",
+        process.env.CODEVENTURE_API_URL,
+    );
+    if (
+        typeof process !== "undefined" &&
+        process.env &&
+        process.env.CODEVENTURE_API_URL
+    ) {
         return process.env.CODEVENTURE_API_URL;
     }
-    return 'http://localhost:4000';
+    return "http://localhost:4000";
 };
 
 export const getCodeVentureAppBaseUrl = () => {
-    if (typeof process !== 'undefined' && process.env && process.env.CODEVENTURE_APP_URL) {
+    console.log(
+        "process.env.getCodeVentureAppBaseUrl",
+        process.env.CODEVENTURE_APP_URL,
+    );
+    if (
+        typeof process !== "undefined" &&
+        process.env &&
+        process.env.CODEVENTURE_APP_URL
+    ) {
         return process.env.CODEVENTURE_APP_URL;
     }
-    return 'http://localhost:3000';
+    return "http://localhost:3000";
 };
 
-export const isValidJWTFormat = token => {
-    if (!token || typeof token !== 'string') {
+export const isValidJWTFormat = (token) => {
+    if (!token || typeof token !== "string") {
         return false;
     }
 
-    const parts = token.split('.');
+    const parts = token.split(".");
     if (parts.length !== 3) {
         return false;
     }
 
     try {
-        parts.forEach(part => {
-            const padded = part + '='.repeat((4 - part.length % 4) % 4);
+        parts.forEach((part) => {
+            const padded = part + "=".repeat((4 - (part.length % 4)) % 4);
             atob(padded);
         });
         return true;
@@ -38,25 +54,25 @@ export const isValidJWTFormat = token => {
     }
 };
 
-export const decodeJWTPayload = token => {
+export const decodeJWTPayload = (token) => {
     try {
         if (!isValidJWTFormat(token)) {
             return null;
         }
 
-        const parts = token.split('.');
+        const parts = token.split(".");
         const payload = parts[1];
-        const padded = payload + '='.repeat((4 - payload.length % 4) % 4);
+        const padded = payload + "=".repeat((4 - (payload.length % 4)) % 4);
         const decoded = atob(padded);
 
         return JSON.parse(decoded);
     } catch (e) {
-        console.error('Error decoding JWT payload:', e);
+        console.error("Error decoding JWT payload:", e);
         return null;
     }
 };
 
-export const isTokenExpired = token => {
+export const isTokenExpired = (token) => {
     const payload = decodeJWTPayload(token);
     if (!payload || !payload.exp) {
         return true;
@@ -66,28 +82,28 @@ export const isTokenExpired = token => {
     return currentTime >= payload.exp;
 };
 
-export const validateAuthParams = ({token, username, userId, source}) => {
+export const validateAuthParams = ({ token, username, userId, source }) => {
     const errors = [];
 
     if (!token) {
-        errors.push('Token is required');
+        errors.push("Token is required");
     }
 
-    if (!username || typeof username !== 'string') {
-        errors.push('Valid username is required');
+    if (!username || typeof username !== "string") {
+        errors.push("Valid username is required");
     }
 
     if (!userId) {
-        errors.push('User ID is required');
+        errors.push("User ID is required");
     }
 
-    if (source !== 'codeventure') {
+    if (source !== "codeventure") {
         errors.push('Invalid source - must be "codeventure"');
     }
 
     return {
         isValid: errors.length === 0,
-        errors
+        errors,
     };
 };
 
@@ -97,12 +113,12 @@ export const validateTokenWithAPI = async (token, username, userId, apiUrl) => {
     }
     try {
         const response = await fetch(apiUrl, {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
             },
-            body: JSON.stringify({token, username, userId})
+            body: JSON.stringify({ token, username, userId }),
         });
 
         if (!response.ok) {
@@ -114,15 +130,15 @@ export const validateTokenWithAPI = async (token, username, userId, apiUrl) => {
             isValid: data.status === 200,
             userData: data.data?.user || data.user,
             accessToken: data.data?.accessToken,
-            error: null
+            error: null,
         };
     } catch (error) {
-        console.error('Token validation API error:', error);
+        console.error("Token validation API error:", error);
         return {
             isValid: false,
             userData: null,
             accessToken: null,
-            error: error.message
+            error: error.message,
         };
     }
 };
@@ -133,11 +149,11 @@ export const getUserFromAccessToken = async (accessToken, apiUrl) => {
     }
     try {
         const response = await fetch(apiUrl, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Authorization': `Bearer ${accessToken}`,
-                'Content-Type': 'application/json'
-            }
+                Authorization: `Bearer ${accessToken}`,
+                "Content-Type": "application/json",
+            },
         });
 
         if (!response.ok) {
@@ -148,14 +164,14 @@ export const getUserFromAccessToken = async (accessToken, apiUrl) => {
         return {
             isValid: data.status === 200 || response.status === 200,
             userData: data.data?.user || data.user || data.data,
-            error: null
+            error: null,
         };
     } catch (error) {
-        console.error('Get user from access token error:', error);
+        console.error("Get user from access token error:", error);
         return {
             isValid: false,
             userData: null,
-            error: error.message
+            error: error.message,
         };
     }
 };
@@ -166,22 +182,30 @@ export const createUserData = (params, additionalData = {}) => ({
     accessToken: params.accessToken || params.token,
     username: params.username,
     userId: params.userId,
-    source: 'codeventure',
+    source: "codeventure",
     displayName: additionalData.displayName || params.username,
     avatarImage: additionalData.avatarImage || null,
     email: additionalData.email || null,
     profile: additionalData.profile || {},
     validatedAt: new Date().toISOString(),
-    ...additionalData
+    ...additionalData,
 });
 
 export const cleanAuthFromURL = (additionalParams = []) => {
     const url = new URL(window.location);
-    const defaultParams = ['token', 'auth_token', 'username', 'user', 'user_id', 'userId', 'source'];
+    const defaultParams = [
+        "token",
+        "auth_token",
+        "username",
+        "user",
+        "user_id",
+        "userId",
+        "source",
+    ];
     const allParams = [...defaultParams, ...additionalParams];
 
     let hasChanges = false;
-    allParams.forEach(param => {
+    allParams.forEach((param) => {
         if (url.searchParams.has(param)) {
             url.searchParams.delete(param);
             hasChanges = true;
@@ -193,15 +217,15 @@ export const cleanAuthFromURL = (additionalParams = []) => {
     }
 };
 
-const STORAGE_KEY = 'codeventure_access_token';
+const STORAGE_KEY = "codeventure_access_token";
 
-export const saveAccessToken = accessToken => {
+export const saveAccessToken = (accessToken) => {
     try {
         if (accessToken) {
             localStorage.setItem(STORAGE_KEY, accessToken);
         }
     } catch (error) {
-        console.error('Error saving access token:', error);
+        console.error("Error saving access token:", error);
     }
 };
 
@@ -209,7 +233,7 @@ export const getStoredAccessToken = () => {
     try {
         return localStorage.getItem(STORAGE_KEY);
     } catch (error) {
-        console.error('Error reading access token:', error);
+        console.error("Error reading access token:", error);
         return null;
     }
 };
@@ -218,7 +242,7 @@ export const clearAccessToken = () => {
     try {
         localStorage.removeItem(STORAGE_KEY);
     } catch (error) {
-        console.error('Error clearing access token:', error);
+        console.error("Error clearing access token:", error);
     }
 };
 
@@ -227,8 +251,8 @@ export const logout = () => {
 };
 
 export const DEFAULT_CONFIG = {
-    apiUrl: 'https://codeventure.app/api/auth/validate',
+    apiUrl: "https://codeventure.app/api/auth/validate",
     tokenExpiration: 24 * 60 * 60 * 1000,
     requireAPIValidation: true,
-    cleanUrlAfterAuth: true
+    cleanUrlAfterAuth: true,
 };

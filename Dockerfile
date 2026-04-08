@@ -1,7 +1,5 @@
 # Use official Node.js image to build the app
-# Keep Node version aligned with local/dev to reduce build/runtime drift.
-ARG NODE_VERSION=20
-FROM node:${NODE_VERSION} AS build
+FROM node:20 AS build
 
 # Set working directory
 WORKDIR /app
@@ -34,22 +32,21 @@ RUN npm run build
 # Build the GUI with environment variables available
 WORKDIR /app/packages/scratch-gui
 
-# IMPORTANT:
-# - This container serves static files, so runtime Cloud Run env vars won't reach browser JS.
-# - Values must be baked into the bundle at build time via build args.
-ARG CODEVENTURE_API_URL=https://codeventure-mvp-api-89482725665.asia-southeast1.run.app
-ARG CODEVENTURE_APP_URL=https://uat-codeventure-frontend-89482725665.asia-southeast1.run.app/
-ENV CODEVENTURE_API_URL=${CODEVENTURE_API_URL}
-ENV CODEVENTURE_APP_URL=${CODEVENTURE_APP_URL}
-ENV NODE_ENV=production
+# Environment variables from Cloud Run will be available during build
+ARG _CODEVENTURE_API_URL
+ARG _CODEVENTURE_APP_URL
 
+# Environment variables from Cloud Run will be available during build
+ENV CODEVENTURE_API_URL=${_CODEVENTURE_API_URL}
+ENV CODEVENTURE_APP_URL=${_CODEVENTURE_APP_URL}
+
+# Do NOT set ENV variables here - they will override Cloud Run variables
 RUN npm run build
 RUN npm link
 RUN npm link scratch-gui
 
 # --- Production image ---
-ARG NODE_VERSION=20
-FROM node:${NODE_VERSION}-slim
+FROM node:20-slim
 
 # Install serve to serve the build directory
 RUN npm install -g serve
