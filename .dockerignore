@@ -1,0 +1,21 @@
+# Environment files (use build args instead)
+.env
+.env.*
+packages/*/.env
+packages/*/.env.*
+
+# Dependencies (will be installed in Docker)
+node_modules
+packages/*/node_modules
+
+# Git
+.git
+.gitignore
+
+# Build artifacts
+packages/*/build
+packages/*/dist
+
+# IDE
+.vscode
+.idea
