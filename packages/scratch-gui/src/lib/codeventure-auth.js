@@ -3,35 +3,11 @@
  * Handles token validation and user authentication for CodeVenture integration
  */
 
-export const getCodeVentureApiBaseUrl = () => {
-    console.log(
-        "process.env.CODEVENTURE_API_URL",
-        process.env.CODEVENTURE_API_URL,
-    );
-    if (
-        typeof process !== "undefined" &&
-        process.env &&
-        process.env.CODEVENTURE_API_URL
-    ) {
-        return process.env.CODEVENTURE_API_URL;
-    }
-    return "http://localhost:4000";
-};
+export const getCodeVentureApiBaseUrl = () =>
+    process.env.CODEVENTURE_API_URL || "http://localhost:4000";
 
-export const getCodeVentureAppBaseUrl = () => {
-    console.log(
-        "process.env.getCodeVentureAppBaseUrl",
-        process.env.CODEVENTURE_APP_URL,
-    );
-    if (
-        typeof process !== "undefined" &&
-        process.env &&
-        process.env.CODEVENTURE_APP_URL
-    ) {
-        return process.env.CODEVENTURE_APP_URL;
-    }
-    return "http://localhost:3000";
-};
+export const getCodeVentureAppBaseUrl = () =>
+    process.env.CODEVENTURE_APP_URL || "http://localhost:3000";
 
 export const isValidJWTFormat = (token) => {
     if (!token || typeof token !== "string") {
