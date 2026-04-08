@@ -40,6 +40,9 @@ ARG _CODEVENTURE_APP_URL
 ENV CODEVENTURE_API_URL=${_CODEVENTURE_API_URL}
 ENV CODEVENTURE_APP_URL=${_CODEVENTURE_APP_URL}
 
+# ENV CODEVENTURE_API_URL=https://codeventure-mvp-api-89482725665.asia-southeast1.run.app
+# ENV CODEVENTURE_APP_URL=https://uat-codeventure-frontend-89482725665.asia-southeast1.run.app
+
 # Do NOT set ENV variables here - they will override Cloud Run variables
 RUN npm run build
 RUN npm link
